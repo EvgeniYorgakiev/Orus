@@ -1,7 +1,7 @@
 ﻿using Orus.Animations;
 namespace Orus.Interfaces
 {
-    interface IIddleAnimation
+    interface IIddle
     {
         FrameAnimation IddleAnimation { get; set; }
         string IddleAnimationPath { get; set; }

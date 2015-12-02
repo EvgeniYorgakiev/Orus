@@ -1,19 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
-using Orus.Constants;
 using Orus.Interfaces;
 
-namespace Orus.Player.Characters
+namespace Orus.GameObjects.Enemies
 {
-    public abstract class Character : AnimatedGameObjects, IAttack, IDeath
+    class Enemy : AnimatedGameObjects, IAttack, IDeath
     {
         private FrameAnimation attackAnimation;
         private FrameAnimation deathAnimation;
         private string attackAnimationPath;
         private string deathAnimationPath;
 
-        protected Character(Vector2 position) : base(position)
+        protected Enemy(Vector2 position) : base(position)
         {
 
         }
@@ -30,7 +29,7 @@ namespace Orus.Player.Characters
             base.FlipImages(isFlipped);
             if (this.AttackAnimation != null)
             {
-                if(isFlipped)
+                if (isFlipped)
                 {
                     this.AttackAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
                 }

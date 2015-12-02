@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.Player.Characters;
+using Orus.GameObjects;
+using Orus.GameObjects.Player.Characters;
 
 namespace Orus.Animations
 {
@@ -11,8 +12,8 @@ namespace Orus.Animations
 
         public float Time { get { return time; } set { time = value; } }
 
-        public FrameAnimation(Texture2D Texture, int frames, Character character)
-            : base(Texture, frames, character)
+        public FrameAnimation(Texture2D Texture, int frames, AnimatedGameObjects animatedGameObject)
+            : base(Texture, frames, animatedGameObject)
         {
         }
 
@@ -35,7 +36,7 @@ namespace Orus.Animations
             }
         }
 
-        public void Animate(GameTime gameTime, Character character)
+        public void Animate(GameTime gameTime, AnimatedGameObjects animateObject)
         {
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
             if (this.Time > Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length)
@@ -48,7 +49,7 @@ namespace Orus.Animations
                     if(!this.IsLoop)
                     {
                         this.IsActive = false;
-                        character.IddleAnimation.IsActive = true;
+                        animateObject.IddleAnimation.IsActive = true;
                     }
                 }
             }

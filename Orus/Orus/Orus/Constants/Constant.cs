@@ -17,9 +17,15 @@ namespace Orus.Constants
         public const int CrusaderIddleFramesNumber = 11;
         public const int CrusaderMoveFramesNumber = 8;
         public const int CrusaderAttackFramesNumber = 8;
+        public const int CrusaderDeathFramesNumber = 8;
         public const int StartingPlayerXPosition = 300;
         public const int StartingPlayerYPosition = 300;
         public const int DirectionIndicatingRight = 1;
         public const int DirectionIndicatingLeft = -1;
+
+        public const int ZombieIddleFramesNumber = 13;
+        public const int ZombieMoveFramesNumber = 8;
+        public const int ZombieAttackFramesNumber = 8;
+        public const int ZombieDeathFramesNumber = 8;
     }
 }

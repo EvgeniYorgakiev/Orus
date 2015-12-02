@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.Player.Characters;
+using Orus.GameObjects;
+using Orus.GameObjects.Player.Characters;
 
 namespace Orus.Animations
 {
@@ -32,9 +33,9 @@ namespace Orus.Animations
         public bool IsActive { get { return this.isActive; } set { this.isActive = value; } }
         public bool IsLoop { get { return this.isLoop; } set { this.isLoop = value; } }
 
-        public SpriteManager(Texture2D Texture, int frames, Character character) : this(Texture, frames)
+        public SpriteManager(Texture2D Texture, int frames, AnimatedGameObjects animatedGameObject) : this(Texture, frames)
         {
-            this.Position = character.Position;
+            this.Position = animatedGameObject.Position;
         }
 
         public SpriteManager(Texture2D Texture, int frames)

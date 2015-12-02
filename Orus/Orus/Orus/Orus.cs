@@ -3,7 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Animations;
 using Orus.Constants;
-using Orus.Player.Characters;
+using Orus.GameObjects.Enemies;
+using Orus.GameObjects.Enemies.NormalEnemies;
+using Orus.GameObjects.Player.Characters;
+using System.Collections.Generic;
 
 namespace Orus
 {
@@ -12,10 +15,12 @@ namespace Orus
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Character character;
+        private List<Enemy> enemies;
 
         private GraphicsDeviceManager Graphics { get { return this.graphics; } set { this.graphics = value; } }
         private SpriteBatch SpriteBatch { get { return this.spriteBatch; } set { this.spriteBatch = value; } }
         private Character Character { get { return this.character; } set { this.character = value; } }
+        private List<Enemy> Enemies { get { return this.enemies; } set { this.enemies = value; } }
 
         public Orus()
         {
@@ -30,22 +35,10 @@ namespace Orus
 
         protected override void LoadContent()
         {
-           spriteBatch = new SpriteBatch(GraphicsDevice);
-           Character = new Crusader(new Vector2(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition));
-           Character.IddleAnimation = new FrameAnimation(
-                Content.Load<Texture2D>(Character.IddleAnimationPath), 
-                Constant.CrusaderIddleFramesNumber,
-                character);
-            Character.IddleAnimation.IsActive = true;
-            Character.MoveAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(Character.MoveAnimationPath),
-                 Constant.CrusaderMoveFramesNumber,
-                 character);
-            Character.AttackAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(Character.AttackAnimationPath),
-                 Constant.CrusaderAttackFramesNumber,
-                 character);
-            Character.AttackAnimation.IsLoop = false;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Enemies = new List<Enemy>();
+            Enemies.Add(new Zombie(new Vector2(400, 300), Content));
+            Character = new Crusader(new Vector2(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
         }
 
         protected override void UnloadContent()
@@ -57,6 +50,10 @@ namespace Orus
         {
             UpdateInput(gameTime);
             Character.Animate(gameTime);
+            foreach (var enemy in Enemies)
+            {
+                enemy.Animate(gameTime);
+            }
             base.Update(gameTime);
         }
 
@@ -84,7 +81,7 @@ namespace Orus
             {
                 Character.StopMovement();
             }
-            if (mouseState.LeftButton == ButtonState.Pressed && Character.MoveAnimation.IsActive)
+            if (mouseState.LeftButton == ButtonState.Pressed && !Character.MoveAnimation.IsActive)
             {
                 Character.Attack();
             }
@@ -95,7 +92,13 @@ namespace Orus
             base.Draw(gameTime);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
             Character.DrawAnimations(SpriteBatch);
+            foreach (var enemy in Enemies)
+            {
+                enemy.DrawAnimations(SpriteBatch);
+            }
+
             spriteBatch.End();
         }
     }

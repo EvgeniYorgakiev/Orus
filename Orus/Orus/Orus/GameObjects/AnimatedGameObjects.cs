@@ -3,14 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Constants;
 using Orus.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Orus.Player.Characters
+namespace Orus.GameObjects
 {
-    public abstract class AnimatedGameObjects : GameObject, IIddleAnimation, IMove
+    public abstract class AnimatedGameObjects : GameObject, IIddle, IMove
     {
         private FrameAnimation iddleAnimation;
         private FrameAnimation moveAnimation;
@@ -42,7 +38,10 @@ namespace Orus.Player.Characters
 
         public void StopMovement()
         {
-            this.MoveAnimation.IsActive = false;
+            if (this.MoveAnimation != null)
+            {
+                this.MoveAnimation.IsActive = false;
+            }
             this.IddleAnimation.IsActive = true;
         }
 
@@ -50,12 +49,18 @@ namespace Orus.Player.Characters
         {
             if (isFlipped)
             {
-                this.MoveAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
+                if (this.MoveAnimation != null)
+                {
+                    this.MoveAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
+                }
                 this.IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
             }
             else
             {
-                this.MoveAnimation.SpriteEffect = SpriteEffects.None;
+                if (this.MoveAnimation != null)
+                {
+                    this.MoveAnimation.SpriteEffect = SpriteEffects.None;
+                }
                 this.IddleAnimation.SpriteEffect = SpriteEffects.None;
             }
         }
@@ -63,13 +68,19 @@ namespace Orus.Player.Characters
         public virtual void Animate(GameTime gameTime)
         {
             this.IddleAnimation.Animate(gameTime);
-            this.MoveAnimation.Animate(gameTime);
+            if(this.MoveAnimation != null)
+            {
+                this.MoveAnimation.Animate(gameTime);
+            }
         }
 
         public virtual void DrawAnimations(SpriteBatch spriteBatch)
         {
             this.IddleAnimation.Draw(spriteBatch);
-            this.MoveAnimation.Draw(spriteBatch);
+            if (this.MoveAnimation != null)
+            {
+                this.MoveAnimation.Draw(spriteBatch);
+            }
         }
 
         public FrameAnimation IddleAnimation

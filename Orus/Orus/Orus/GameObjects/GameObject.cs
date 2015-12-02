@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Orus.Player.Characters
+namespace Orus.GameObjects
 {
     public abstract class GameObject
     {

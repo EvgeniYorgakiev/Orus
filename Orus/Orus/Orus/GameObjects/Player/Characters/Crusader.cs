@@ -1,0 +1,37 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Orus.Animations;
+using Microsoft.Xna.Framework.Graphics;
+using Orus.Constants;
+
+namespace Orus.GameObjects.Player.Characters
+{
+    public class Crusader : Character
+    {
+        public Crusader(Vector2 position, ContentManager Content) : base(position)
+        {
+            this.IddleAnimationPath = "Sprites\\Crusader\\Crusader iddle";
+            this.MoveAnimationPath = "Sprites\\Crusader\\Crusader move";
+            this.AttackAnimationPath = "Sprites\\Crusader\\Crusader attack";
+            this.DeathAnimationPath = "Sprites\\Crusader\\Crusader death";
+            this.IddleAnimation = new FrameAnimation(
+                 Content.Load<Texture2D>(this.IddleAnimationPath),
+                 Constant.CrusaderIddleFramesNumber,
+                 this);
+            this.IddleAnimation.IsActive = true;
+            this.MoveAnimation = new FrameAnimation(
+                 Content.Load<Texture2D>(this.MoveAnimationPath),
+                 Constant.CrusaderMoveFramesNumber,
+                 this);
+            this.AttackAnimation = new FrameAnimation(
+                 Content.Load<Texture2D>(this.AttackAnimationPath),
+                 Constant.CrusaderAttackFramesNumber,
+                 this);
+            this.AttackAnimation.IsLoop = false;
+            this.DeathAnimation = new FrameAnimation(
+                 Content.Load<Texture2D>(this.DeathAnimationPath),
+                 Constant.CrusaderDeathFramesNumber,
+                 this);
+        }
+    }
+}
