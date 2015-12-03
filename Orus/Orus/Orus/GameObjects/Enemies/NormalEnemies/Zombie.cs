@@ -11,7 +11,10 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
         public Zombie(Vector2 position, ContentManager Content)
             : base(position,
                   new Rectangle((int)position.X - Constant.ZombieWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
-                      Constant.ZombieWidth, Constant.DefaultHeighForEverything))
+                      Constant.ZombieWidth, Constant.DefaultHeighForEverything),
+                  Constant.ZombieDefaultHealth, Constant.ZombieDefaultArmor, Constant.ZombieDefaultFireResistance,
+                  Constant.ZombieDefaultLightingResistance, Constant.ZombieDefaultArcaneResistance, Constant.ZombieDefaultIceResistance,
+                  Constant.ZombieDefaultAttackDamage)
         {
             this.IddleAnimationPath = "Sprites\\Zombie\\Zombie iddle";
             this.IddleAnimation = new FrameAnimation(

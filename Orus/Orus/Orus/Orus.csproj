@@ -80,10 +80,11 @@
     <Compile Include="Interfaces\ICollide.cs" />
     <Compile Include="Interfaces\IDeath.cs" />
     <Compile Include="Interfaces\IAttack.cs" />
+    <Compile Include="Interfaces\ILife.cs" />
     <Compile Include="Interfaces\IMove.cs" />
     <Compile Include="Interfaces\IIddle.cs" />
     <Compile Include="GameObjects\AnimatedGameObjects.cs" />
-    <Compile Include="GameObjects\Player\Characters\Character.cs" />
+    <Compile Include="GameObjects\Player\Character.cs" />
     <Compile Include="GameObjects\Player\Characters\Crusader.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Menu\GameMenu.cs" />

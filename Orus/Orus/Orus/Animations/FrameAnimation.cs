@@ -38,6 +38,10 @@ namespace Orus.Animations
 
         public void Animate(GameTime gameTime, AnimatedGameObject animateObject)
         {
+            if(!this.IsActive)
+            {
+                return;
+            }
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
             if (this.Time > Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length)
             {

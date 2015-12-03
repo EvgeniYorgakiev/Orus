@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Animations;
 using Orus.Constants;
+using Orus.GameObjects;
 using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Player.Characters;
+using Orus.Interfaces;
 using Orus.Menu;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Orus
 {
@@ -56,6 +59,7 @@ namespace Orus
 
         protected override void Update(GameTime gameTime)
         {
+
             UpdateInput(gameTime);
             if (GameMenu.IsMenuActive)
             {
@@ -74,7 +78,7 @@ namespace Orus
 
         private void UpdateInput(GameTime gameTime)
         {
-            if (Character.AttackAnimation.IsActive)
+            if (Character.AttackAnimation.IsActive || Character.Health == 0)
             {
                 return;
             }
@@ -98,23 +102,21 @@ namespace Orus
             }
             if (mouseState.LeftButton == ButtonState.Pressed && !Character.MoveAnimation.IsActive)
             {
-                Character.Attack();
+                Character.Attack(this.Enemies.ConvertAll<AnimatedGameObject>(delegate (Enemy enemy) { return enemy; }));
             }
         }
 
         private void MoveCharacter(GameTime gameTime, bool moveRight)
         {
-            bool collides = false;
-            foreach (var collider in this.Enemies)
+            bool collides = Character.CollidesWith(this.Enemies.ConvertAll<ICollide>(delegate (Enemy enemy) { return enemy; }), moveRight);
+            if ((this.Character.Position.X < 0 && !moveRight) ||
+               (this.Character.Position.X + Constant.CrusaderWidth > Constant.WindowWidth && moveRight))
             {
-                if (collider.Collides(Character, moveRight))
-                {
-                    collides = true;
-                }
+                collides = true;
             }
             if (!collides)
             {
-                Character.Move(gameTime, moveRight, collides);
+                this.Character.Move(gameTime, moveRight, collides);
             }
         }
 

@@ -4,26 +4,37 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Interfaces;
+using Orus.Constants;
 
 namespace Orus.GameObjects.Enemies
 {
-    class Enemy : AnimatedGameObject, IAttack, IDeath
+    public class Enemy : AnimatedGameObject, IAttack, IDeath
     {
         private FrameAnimation attackAnimation;
         private FrameAnimation deathAnimation;
         private string attackAnimationPath;
         private string deathAnimationPath;
+        private int attackDamage;
 
-        protected Enemy(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
+        protected Enemy(Vector2 position, Rectangle boundingBox,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage)
+            : base(position, boundingBox, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
         {
-
+            this.AttackDamage = attackDamage;
         }
 
-        public void Attack()
+        public void Attack(List<AnimatedGameObject> gameObjects)
         {
             this.AttackAnimation.IsActive = true;
             this.MoveAnimation.IsActive = false;
             this.IddleAnimation.IsActive = false;
+            foreach (var gameObject in gameObjects)
+            {
+                if (gameObject.Collides(this, this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
+                {
+                    gameObject.Health -= this.AttackDamage;
+                }
+            }
         }
 
         public override void FlipImages(bool isFlipped)
@@ -101,6 +112,12 @@ namespace Orus.GameObjects.Enemies
         {
             get { return this.deathAnimationPath; }
             set { this.deathAnimationPath = value; }
+        }
+
+        public int AttackDamage
+        {
+            get { return this.attackDamage; }
+            set { this.attackDamage = value; }
         }
 
         public override Vector2 Position

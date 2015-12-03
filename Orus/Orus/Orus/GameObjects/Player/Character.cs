@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Interfaces;
+using Orus.Constants;
+using Orus.GameObjects.Enemies;
 
 namespace Orus.GameObjects.Player.Characters
 {
@@ -13,17 +15,27 @@ namespace Orus.GameObjects.Player.Characters
         private FrameAnimation deathAnimation;
         private string attackAnimationPath;
         private string deathAnimationPath;
+        private int attackDamage;
 
-        protected Character(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
+        protected Character(Vector2 position, Rectangle boundingBox,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage)
+            : base(position, boundingBox, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
         {
-
+            this.AttackDamage = attackDamage;
         }
 
-        public void Attack()
+        public void Attack(List<AnimatedGameObject> gameObjects)
         {
             this.AttackAnimation.IsActive = true;
             this.MoveAnimation.IsActive = false;
             this.IddleAnimation.IsActive = false;
+            foreach (var gameObject in gameObjects)
+            {
+                if (gameObject.Collides(this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
+                {
+                    gameObject.Health -= this.AttackDamage;
+                }
+            }
         }
 
         public override void FlipImages(bool isFlipped)
@@ -103,6 +115,12 @@ namespace Orus.GameObjects.Player.Characters
             set { this.deathAnimationPath = value; }
         }
 
+        public int AttackDamage
+        {
+            get { return this.attackDamage; }
+            set { this.attackDamage = value; }
+        }
+
         public override Vector2 Position
         {
             get
@@ -122,6 +140,13 @@ namespace Orus.GameObjects.Player.Characters
                 }
                 base.Position = value;
             }
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            this.AttackAnimation.IsActive = false;
+            this.DeathAnimation.IsActive = true;
         }
     }
 }

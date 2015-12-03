@@ -10,7 +10,7 @@ namespace Orus.Menu
     public static class GameMenu
     {
         private static Sprite background;
-        private static bool isMenuActive = true;
+        private static bool isMenuActive = false;
         private static Rectangle newGameButton;
 
         private static Sprite Background { get { return background; } set { background = value; } }
