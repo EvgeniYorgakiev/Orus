@@ -6,6 +6,6 @@ namespace Orus.Interfaces
     {
         FrameAnimation MoveAnimation { get; set; }
         string MoveAnimationPath { get; set; }
-        void Move(GameTime gameTime, bool directionIsRight);
+        void Move(GameTime gameTime, bool directionIsRight, bool collides);
     }
 }

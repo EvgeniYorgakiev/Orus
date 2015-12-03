@@ -7,7 +7,7 @@ using Orus.GameObjects.Player.Characters;
 
 namespace Orus.Animations
 {
-    public class SpriteManager
+    public class Sprite
     {
         private Texture2D texture;
         private Vector2 position = Vector2.Zero;
@@ -33,12 +33,18 @@ namespace Orus.Animations
         public bool IsActive { get { return this.isActive; } set { this.isActive = value; } }
         public bool IsLoop { get { return this.isLoop; } set { this.isLoop = value; } }
 
-        public SpriteManager(Texture2D Texture, int frames, AnimatedGameObjects animatedGameObject) : this(Texture, frames)
+        public Sprite(Texture2D Texture, Vector2 position)
+        {
+            this.Texture = Texture;
+            this.Position = position;
+        }
+
+        public Sprite(Texture2D Texture, int frames, AnimatedGameObject animatedGameObject) : this(Texture, frames)
         {
             this.Position = animatedGameObject.Position;
         }
 
-        public SpriteManager(Texture2D Texture, int frames)
+        public Sprite(Texture2D Texture, int frames)
         {
             this.Texture = Texture;
             int width = Texture.Width / frames;
@@ -53,8 +59,15 @@ namespace Orus.Animations
         {
             if(this.IsActive)
             {
-                spriteBatch.Draw(this.Texture, this.Position, this.Rectangles[FrameIndex],
-                     this.Color, this.Rotation, this.Origin, this.Scale, this.SpriteEffect, Constant.DefaultLayerDepth);
+                if(rectangles != null)
+                {
+                    spriteBatch.Draw(this.Texture, this.Position, this.Rectangles[FrameIndex],
+                         this.Color, this.Rotation, this.Origin, this.Scale, this.SpriteEffect, Constant.DefaultLayerDepth);
+                }
+                else
+                {
+                    spriteBatch.Draw(this.Texture, this.Position, this.Color);
+                }
             }
         }
     }

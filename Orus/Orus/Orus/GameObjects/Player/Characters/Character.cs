@@ -1,18 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Interfaces;
 
 namespace Orus.GameObjects.Player.Characters
 {
-    public abstract class Character : AnimatedGameObjects, IAttack, IDeath
+    public abstract class Character : AnimatedGameObject, IAttack, IDeath
     {
         private FrameAnimation attackAnimation;
         private FrameAnimation deathAnimation;
         private string attackAnimationPath;
         private string deathAnimationPath;
 
-        protected Character(Vector2 position) : base(position)
+        protected Character(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
         {
 
         }

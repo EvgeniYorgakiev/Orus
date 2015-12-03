@@ -1,18 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Interfaces;
 
 namespace Orus.GameObjects.Enemies
 {
-    class Enemy : AnimatedGameObjects, IAttack, IDeath
+    class Enemy : AnimatedGameObject, IAttack, IDeath
     {
         private FrameAnimation attackAnimation;
         private FrameAnimation deathAnimation;
         private string attackAnimationPath;
         private string deathAnimationPath;
 
-        protected Enemy(Vector2 position) : base(position)
+        protected Enemy(Vector2 position, Rectangle boundingBox) : base(position, boundingBox)
         {
 
         }

@@ -8,7 +8,10 @@ namespace Orus.GameObjects.Player.Characters
 {
     public class Crusader : Character
     {
-        public Crusader(Vector2 position, ContentManager Content) : base(position)
+        public Crusader(Vector2 position, ContentManager Content) 
+            : base(position, 
+                  new Rectangle((int)position.X - Constant.CrusaderWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
+                      Constant.CrusaderWidth , Constant.DefaultHeighForEverything))
         {
             this.IddleAnimationPath = "Sprites\\Crusader\\Crusader iddle";
             this.MoveAnimationPath = "Sprites\\Crusader\\Crusader move";

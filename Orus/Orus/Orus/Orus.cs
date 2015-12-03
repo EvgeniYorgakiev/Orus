@@ -6,11 +6,12 @@ using Orus.Constants;
 using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Player.Characters;
+using Orus.Menu;
 using System.Collections.Generic;
 
 namespace Orus
 {
-    public class Orus : Game
+    public class Orus : Game 
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -31,11 +32,18 @@ namespace Orus
         protected override void Initialize()
         {
             base.Initialize();
+            this.IsMouseVisible = true;
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            graphics.PreferredBackBufferWidth = Constant.WindowWidth;
+            graphics.PreferredBackBufferHeight = Constant.WindowHeight;
+            graphics.ApplyChanges();
+            GameMenu.Load(this.Content);
+
             Enemies = new List<Enemy>();
             Enemies.Add(new Zombie(new Vector2(400, 300), Content));
             Character = new Crusader(new Vector2(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
@@ -49,10 +57,17 @@ namespace Orus
         protected override void Update(GameTime gameTime)
         {
             UpdateInput(gameTime);
-            Character.Animate(gameTime);
-            foreach (var enemy in Enemies)
+            if (GameMenu.IsMenuActive)
             {
-                enemy.Animate(gameTime);
+                GameMenu.Update();
+            }
+            else
+            {
+                Character.Animate(gameTime);
+                foreach (var enemy in Enemies)
+                {
+                    enemy.Animate(gameTime);
+                }
             }
             base.Update(gameTime);
         }
@@ -71,11 +86,11 @@ namespace Orus
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
-                Character.Move(gameTime, true);
+                MoveCharacter(gameTime, true);
             }
             else if (keyState.IsKeyDown(Keys.Left))
             {
-                Character.Move(gameTime, false);
+                MoveCharacter(gameTime, false);
             }
             else
             {
@@ -87,18 +102,40 @@ namespace Orus
             }
         }
 
+        private void MoveCharacter(GameTime gameTime, bool moveRight)
+        {
+            bool collides = false;
+            foreach (var collider in this.Enemies)
+            {
+                if (collider.Collides(Character, moveRight))
+                {
+                    collides = true;
+                }
+            }
+            if (!collides)
+            {
+                Character.Move(gameTime, moveRight, collides);
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
 
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            Character.DrawAnimations(SpriteBatch);
-            foreach (var enemy in Enemies)
+            if(GameMenu.IsMenuActive)
             {
-                enemy.DrawAnimations(SpriteBatch);
+                GameMenu.Draw(spriteBatch);
             }
-
+            else
+            {
+                Character.DrawAnimations(SpriteBatch);
+                foreach (var enemy in Enemies)
+                {
+                    enemy.DrawAnimations(SpriteBatch);
+                }
+            }
             spriteBatch.End();
         }
     }

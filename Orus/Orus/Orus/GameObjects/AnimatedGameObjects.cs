@@ -3,45 +3,50 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
 using Orus.Constants;
 using Orus.Interfaces;
+using System.Collections.Generic;
 
 namespace Orus.GameObjects
 {
-    public abstract class AnimatedGameObjects : GameObject, IIddle, IMove
+    public abstract class AnimatedGameObject : GameObject, IIddle, IMove, ICollide
     {
         private FrameAnimation iddleAnimation;
         private FrameAnimation moveAnimation;
         private string iddleAnimationPath;
         private string moveAnimationPath;
+        private Rectangle boundingBox;
 
-        protected AnimatedGameObjects(Vector2 position) : base(position)
+        protected AnimatedGameObject(Vector2 position, Rectangle boundingBox) : base(position)
         {
-
+            this.BoundingBox = boundingBox;
         }
 
-        public void Move(GameTime gameTime, bool directionIsRight)
+        public void Move(GameTime gameTime, bool directionIsRight, bool collides)
         {
             this.MoveAnimation.IsActive = true;
             this.IddleAnimation.IsActive = false;
             if (directionIsRight)
             {
                 FlipImages(false);
-                this.Position = new Vector2(this.Position.X + (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
-                                            this.Position.Y);
+                if(!collides)
+                {
+                    this.Position = new Vector2(this.Position.X + (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
+                                                this.Position.Y);
+                }
             }
             else
             {
                 FlipImages(true);
-                this.Position = new Vector2(this.Position.X - (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
+                if (!collides)
+                {
+                    this.Position = new Vector2(this.Position.X - (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
                                             this.Position.Y);
+                }
             }
         }
 
         public void StopMovement()
         {
-            if (this.MoveAnimation != null)
-            {
-                this.MoveAnimation.IsActive = false;
-            }
+            this.MoveAnimation.IsActive = false;
             this.IddleAnimation.IsActive = true;
         }
 
@@ -81,6 +86,19 @@ namespace Orus.GameObjects
             {
                 this.MoveAnimation.Draw(spriteBatch);
             }
+        }
+
+        public bool Collides(AnimatedGameObject collider, bool isMovingRight)
+        {
+            if(collider.Position.X + collider.BoundingBox.Width / 2 > this.Position.X - collider.BoundingBox.Width / 2 && isMovingRight)
+            {
+                return true;
+            }
+            if (collider.Position.X - collider.BoundingBox.Width / 2 > this.Position.X + collider.BoundingBox.Width / 2 && !isMovingRight)
+            {
+                return true;
+            }
+            return false;
         }
 
         public FrameAnimation IddleAnimation
@@ -125,6 +143,19 @@ namespace Orus.GameObjects
                     this.MoveAnimation.Position = value;
                 }
                 base.Position = value;
+            }
+        }
+
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                return this.boundingBox;
+            }
+
+            set
+            {
+                this.boundingBox = value;
             }
         }
     }
