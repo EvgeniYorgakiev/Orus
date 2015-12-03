@@ -63,13 +63,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Background\Button.png">
-      <Name>Button</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Background\Main Menu.png">
       <Name>Main Menu</Name>
       <Importer>TextureImporter</Importer>

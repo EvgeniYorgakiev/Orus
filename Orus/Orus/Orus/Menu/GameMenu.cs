@@ -11,9 +11,11 @@ namespace Orus.Menu
     {
         private static Sprite background;
         private static bool isMenuActive = true;
+        private static Rectangle newGameButton;
 
         private static Sprite Background { get { return background; } set { background = value; } }
         public static bool IsMenuActive { get { return isMenuActive; } set { isMenuActive = value; } }
+        public static Rectangle NewGameButton { get { return newGameButton; } set { newGameButton = value; } }
 
         public static void Load(ContentManager Content)
         {
@@ -21,11 +23,18 @@ namespace Orus.Menu
                 Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), 
                 new Vector2(0, 0));
             Background.IsActive = true;
+            newGameButton = new Rectangle(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
+                                          Constant.NewGameButtonWidth, Constant.NewGameButtonHeight);
+
         }
 
         public static void Update()
         {
             var mouse = Mouse.GetState();
+            if(NewGameButton.Contains(mouse.X, mouse.Y))
+            {
+                
+            }
         }
 
         public static void Draw(SpriteBatch spriteBatch)

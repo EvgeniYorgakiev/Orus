@@ -9,6 +9,12 @@ namespace Orus.Constants
     {
         public const int WindowWidth = 1024;
         public const int WindowHeight = 512;
+
+        public const int NewGameButtonPositionX = 730;
+        public const int NewGameButtonPositionY = 215;
+        public const int NewGameButtonWidth = 90;
+        public const int NewGameButtonHeight = 70;
+
         public const float TimeForFrameInMilliSeconds = 1000f / 60f;
         public const float DefaultRotation = 0f;
         public const float DefaultScale = 1f;
