@@ -9,7 +9,8 @@ namespace Orus
         {
             using (Orus game = new Orus())
             {
-                game.Run();
+                game.Run();     
+                
             }
         }
     }

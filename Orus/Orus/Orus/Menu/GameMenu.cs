@@ -11,11 +11,22 @@ namespace Orus.Menu
     {
         private static Sprite background;
         private static bool isMenuActive = true;
+        private static bool isCreditsActive = false;
+        private static bool isGameOn = true;
         private static Rectangle newGameButton;
+        private static Rectangle creditsButton;
+        private static Rectangle quitButton;
 
         private static Sprite Background { get { return background; } set { background = value; } }
         public static bool IsMenuActive { get { return isMenuActive; } set { isMenuActive = value; } }
+        public static bool IsCreditsActive { get { return isCreditsActive; } set { isCreditsActive = value; } }
+        public static bool IsGameOn { get { return isGameOn; } set { isGameOn = value; } }
+
+        //Buttons
         public static Rectangle NewGameButton { get { return newGameButton; } set { newGameButton = value; } }
+        public static Rectangle CreditsButton { get { return creditsButton; } set { creditsButton = value; } }
+        public static Rectangle QuitButton { get { return quitButton; } set { quitButton = value; } }
+
 
         public static void Load(ContentManager Content)
         {
@@ -25,6 +36,10 @@ namespace Orus.Menu
 
             newGameButton = new Rectangle(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
                                           Constant.NewGameButtonWidth, Constant.NewGameButtonHeight);
+            creditsButton = new Rectangle(Constant.CreditsButtonPositionX, Constant.CreditsButtonPositionY,
+                                          Constant.CreditsButtonWidth, Constant.CreditsButtonHeight);
+            quitButton = new Rectangle(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
+                                          Constant.QuitButtonWidth, Constant.WindowHeight);
         }
 
         public static void Update()
@@ -34,6 +49,28 @@ namespace Orus.Menu
             {
                 isMenuActive = false;
             }
+            if (CreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
+            {
+                isCreditsActive = true;
+                
+            }
+            if (QuitButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
+            {
+                
+            }
+            
+        }
+
+
+         
+
+        private static void Exit()
+        {
+            
+            
+                Exit();
+
+            
         }
 
         public static void Draw(SpriteBatch spriteBatch)

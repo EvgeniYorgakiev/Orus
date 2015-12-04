@@ -10,10 +10,23 @@ namespace Orus.Constants
         public const int WindowWidth = 1024;
         public const int WindowHeight = 512;
 
+        //NEW GAME BTN
         public const int NewGameButtonPositionX = 730;
         public const int NewGameButtonPositionY = 215;
         public const int NewGameButtonWidth = 90;
         public const int NewGameButtonHeight = 70;
+
+        //CREDITS BTN
+        public const int CreditsButtonPositionX = 486;
+        public const int CreditsButtonPositionY = 145;
+        public const int CreditsButtonWidth = 101;
+        public const int CreditsButtonHeight = 49;
+
+        //QUIT BTN
+        public const int QuitButtonPositionX = 100;
+        public const int QuitButtonPositionY = 424;
+        public const int QuitButtonWidth = 100;
+        public const int QuitButtonHeight = 100;
 
         public const float TimeForFrameInMilliSeconds = 1000f / 60f;
         public const float DefaultRotation = 0f;
