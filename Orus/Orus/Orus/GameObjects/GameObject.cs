@@ -13,8 +13,14 @@ namespace Orus.GameObjects
 
         public virtual Vector2 Position
         {
-            get { return position; }
-            set { position = value; }
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+            }
         }
     }
 }

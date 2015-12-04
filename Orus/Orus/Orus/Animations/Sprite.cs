@@ -21,18 +21,6 @@ namespace Orus.Animations
         private bool isActive = false;
         private bool isLoop = true;
 
-        protected Texture2D Texture { get { return this.texture; } set { this.texture = value; } }
-        public Vector2 Position { get { return this.position; } set { this.position = value; } }
-        protected Color Color { get { return this.color; } set { this.color = value; } }
-        protected Vector2 Origin { get { return this.origin; } set { this.origin = value; } }
-        public float Rotation { get { return this.rotation; } set { this.rotation = value; } }
-        protected float Scale { get { return this.scale; } set { this.scale = value; } }
-        public SpriteEffects SpriteEffect { get { return this.spriteEffect; } set { this.spriteEffect = value; } }
-        protected Rectangle[] Rectangles { get { return this.rectangles; } set { this.rectangles = value; } }
-        protected int FrameIndex { get { return this.frameIndex; } set { this.frameIndex = value; } }
-        public bool IsActive { get { return this.isActive; } set { this.isActive = value; } }
-        public bool IsLoop { get { return this.isLoop; } set { this.isLoop = value; } }
-
         public Sprite(Texture2D Texture, Vector2 position)
         {
             this.Texture = Texture;
@@ -52,6 +40,128 @@ namespace Orus.Animations
             for (int i = 0; i < frames; i++)
             {
                 this.Rectangles[i] = new Rectangle(i * width, Constant.DefaultYForImage, width, Texture.Height);
+            }
+        }
+
+        protected Texture2D Texture
+        {
+            get
+            {
+                return this.texture;
+            }
+            set
+            {
+                this.texture = value;
+            }
+        }
+        public Vector2 Position
+        {
+            get
+            {
+                return this.position;
+            }
+            set
+            {
+                this.position = value;
+            }
+        }
+        protected Color Color
+        {
+            get
+            {
+                return this.color;
+            }
+            set
+            {
+                this.color = value;
+            }
+        }
+        protected Vector2 Origin
+        {
+            get
+            {
+                return this.origin;
+            }
+            set
+            {
+                this.origin = value;
+            }
+        }
+        public float Rotation
+        {
+            get
+            {
+                return this.rotation;
+            }
+            set
+            {
+                this.rotation = value;
+            }
+        }
+        protected float Scale
+        {
+            get
+            {
+                return this.scale;
+            }
+            set
+            {
+                this.scale = value;
+            }
+        }
+        public SpriteEffects SpriteEffect
+        {
+            get
+            {
+                return this.spriteEffect;
+            }
+            set
+            {
+                this.spriteEffect = value;
+            }
+        }
+        protected Rectangle[] Rectangles
+        {
+            get
+            {
+                return this.rectangles;
+            }
+            set
+            {
+                this.rectangles = value;
+            }
+        }
+        protected int FrameIndex
+        {
+            get
+            {
+                return this.frameIndex;
+            }
+            set
+            {
+                this.frameIndex = value;
+            }
+        }
+        public bool IsActive
+        {
+            get
+            {
+                return this.isActive;
+            }
+            set
+            {
+                this.isActive = value;
+            }
+        }
+        public bool IsLoop
+        {
+            get
+            {
+                return this.isLoop;
+            }
+            set
+            {
+                this.isLoop = value;
             }
         }
 

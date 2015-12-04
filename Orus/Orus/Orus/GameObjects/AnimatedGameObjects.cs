@@ -21,16 +21,128 @@ namespace Orus.GameObjects
         private int arcaneResistance;
         private int iceResistance;
 
-        public FrameAnimation IddleAnimation { get { return this.iddleAnimation; } set { this.iddleAnimation = value; } }
-        public FrameAnimation MoveAnimation { get { return this.moveAnimation; } set { this.moveAnimation = value; } }
-        public string IddleAnimationPath { get { return this.iddleAnimationPath; } set { this.iddleAnimationPath = value; } }
-        public string MoveAnimationPath { get { return this.moveAnimationPath; } set { this.moveAnimationPath = value; } }
-        public Rectangle BoundingBox { get { return this.boundingBox; } set { this.boundingBox = value; } }
-        public int Armor { get { return this.armor; } set { this.armor = value; } }
-        public int FireResistance { get { return this.fireResistance; } set { this.fireResistance = value; } }
-        public int LightingResistance { get { return this.lightingResistance; } set { this.lightingResistance = value; } }
-        public int ArcaneResistance { get { return this.arcaneResistance; } set { this.arcaneResistance = value; } }
-        public int IceResistance { get { return this.iceResistance; } set { this.iceResistance = value; } }
+        protected AnimatedGameObject(Vector2 position, Rectangle boundingBox,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(position)
+        {
+            this.BoundingBox = boundingBox;
+            this.Health = health;
+            this.Armor = armor;
+            this.FireResistance = fireResistance;
+            this.LightingResistance = lightingResistance;
+            this.ArcaneResistance = arcaneResistance;
+            this.IceResistance = iceResistance;
+        }
+
+        public FrameAnimation IddleAnimation
+        {
+            get
+            {
+                return this.iddleAnimation;
+            }
+            set
+            {
+                this.iddleAnimation = value;
+            }
+        }
+        public FrameAnimation MoveAnimation
+        {
+            get
+            {
+                return this.moveAnimation;
+            }
+            set
+            {
+                this.moveAnimation = value;
+            }
+        }
+        public string IddleAnimationPath
+        {
+            get
+            {
+                return this.iddleAnimationPath;
+            }
+            set
+            {
+                this.iddleAnimationPath = value;
+            }
+        }
+        public string MoveAnimationPath
+        {
+            get
+            {
+                return this.moveAnimationPath;
+            }
+            set
+            {
+                this.moveAnimationPath = value;
+            }
+        }
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                return this.boundingBox;
+            }
+            set
+            {
+                this.boundingBox = value;
+            }
+        }
+        public int Armor
+        {
+            get
+            {
+                return this.armor;
+            }
+            set
+            {
+                this.armor = value;
+            }
+        }
+        public int FireResistance
+        {
+            get
+            {
+                return this.fireResistance;
+            }
+            set
+            {
+                this.fireResistance = value;
+            }
+        }
+        public int LightingResistance
+        {
+            get
+            {
+                return this.lightingResistance;
+            }
+            set
+            {
+                this.lightingResistance = value;
+            }
+        }
+        public int ArcaneResistance
+        {
+            get
+            {
+                return this.arcaneResistance;
+            }
+            set
+            {
+                this.arcaneResistance = value;
+            }
+        }
+        public int IceResistance
+        {
+            get
+            {
+                return this.iceResistance;
+            }
+            set
+            {
+                this.iceResistance = value;
+            }
+        }
 
         public int Health
         {
@@ -71,18 +183,6 @@ namespace Orus.GameObjects
                 }
                 base.Position = value;
             }
-        }
-
-        protected AnimatedGameObject(Vector2 position, Rectangle boundingBox,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(position)
-        {
-            this.BoundingBox = boundingBox;
-            this.Health = health;
-            this.Armor = armor;
-            this.FireResistance = fireResistance;
-            this.LightingResistance = lightingResistance;
-            this.ArcaneResistance = arcaneResistance;
-            this.IceResistance = iceResistance;
         }
 
         public void Move(GameTime gameTime, bool directionIsRight, bool collides)

@@ -23,6 +23,87 @@ namespace Orus.GameObjects.Enemies
             this.AttackDamage = attackDamage;
         }
 
+        public FrameAnimation AttackAnimation
+        {
+            get
+            {
+                return this.attackAnimation;
+            }
+            set
+            {
+                this.attackAnimation = value;
+            }
+        }
+
+        public FrameAnimation DeathAnimation
+        {
+            get
+            {
+                return this.deathAnimation;
+            }
+            set
+            {
+                this.deathAnimation = value;
+            }
+        }
+
+        public string AttackAnimationPath
+        {
+            get
+            {
+                return this.attackAnimationPath;
+            }
+            set
+            {
+                this.attackAnimationPath = value;
+            }
+        }
+
+        public string DeathAnimationPath
+        {
+            get
+            {
+                return this.deathAnimationPath;
+            }
+            set
+            {
+                this.deathAnimationPath = value;
+            }
+        }
+
+        public int AttackDamage
+        {
+            get
+            {
+                return this.attackDamage;
+            }
+            set
+            {
+                this.attackDamage = value;
+            }
+        }
+
+        public override Vector2 Position
+        {
+            get
+            {
+                return base.Position;
+            }
+
+            set
+            {
+                if (this.AttackAnimation != null)
+                {
+                    this.AttackAnimation.Position = value;
+                }
+                if (this.DeathAnimation != null)
+                {
+                    this.DeathAnimation.Position = value;
+                }
+                base.Position = value;
+            }
+        }
+
         public void Attack(List<AnimatedGameObject> gameObjects)
         {
             this.AttackAnimation.IsActive = true;
@@ -87,57 +168,6 @@ namespace Orus.GameObjects.Enemies
             if (this.DeathAnimation != null)
             {
                 this.DeathAnimation.Draw(spriteBatch);
-            }
-        }
-
-        public FrameAnimation AttackAnimation
-        {
-            get { return this.attackAnimation; }
-            set { this.attackAnimation = value; }
-        }
-
-        public FrameAnimation DeathAnimation
-        {
-            get { return this.deathAnimation; }
-            set { this.deathAnimation = value; }
-        }
-
-        public string AttackAnimationPath
-        {
-            get { return this.attackAnimationPath; }
-            set { this.attackAnimationPath = value; }
-        }
-
-        public string DeathAnimationPath
-        {
-            get { return this.deathAnimationPath; }
-            set { this.deathAnimationPath = value; }
-        }
-
-        public int AttackDamage
-        {
-            get { return this.attackDamage; }
-            set { this.attackDamage = value; }
-        }
-
-        public override Vector2 Position
-        {
-            get
-            {
-                return base.Position;
-            }
-
-            set
-            {
-                if (this.AttackAnimation != null)
-                {
-                    this.AttackAnimation.Position = value;
-                }
-                if (this.DeathAnimation != null)
-                {
-                    this.DeathAnimation.Position = value;
-                }
-                base.Position = value;
             }
         }
     }

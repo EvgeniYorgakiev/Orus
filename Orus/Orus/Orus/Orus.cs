@@ -14,22 +14,77 @@ using System.Diagnostics;
 
 namespace Orus
 {
-    public class Orus : Game 
+    public sealed class Orus : Game 
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Character character;
         private List<Enemy> enemies;
-
-        private GraphicsDeviceManager Graphics { get { return this.graphics; } set { this.graphics = value; } }
-        private SpriteBatch SpriteBatch { get { return this.spriteBatch; } set { this.spriteBatch = value; } }
-        private Character Character { get { return this.character; } set { this.character = value; } }
-        private List<Enemy> Enemies { get { return this.enemies; } set { this.enemies = value; } }
+        private static Orus instance = null;
+        private static readonly object padlock = new object();
 
         public Orus()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+        }
+
+        public static Orus Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Orus();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+        private GraphicsDeviceManager Graphics
+        {
+            get
+            {
+                return this.graphics;
+            }
+            set
+            {
+                this.graphics = value;
+            }
+        }
+
+        private SpriteBatch SpriteBatch
+        {
+            get
+            {
+                return this.spriteBatch;
+            }
+            set { this.spriteBatch = value;
+            }
+        }
+        private Character Character
+        {
+            get
+            {
+                return this.character;
+            }
+            set
+            { this.character = value;
+            }
+        }
+        private List<Enemy> Enemies
+        {
+            get
+            {
+                return this.enemies;
+            }
+            set
+            {
+                this.enemies = value;
+            }
         }
 
         protected override void Initialize()
@@ -60,13 +115,13 @@ namespace Orus
         protected override void Update(GameTime gameTime)
         {
 
-            UpdateInput(gameTime);
             if (GameMenu.IsMenuActive)
             {
                 GameMenu.Update();
             }
             else
             {
+                UpdateInput(gameTime);
                 Character.Animate(gameTime);
                 foreach (var enemy in Enemies)
                 {

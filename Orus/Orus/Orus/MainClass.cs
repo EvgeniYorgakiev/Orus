@@ -7,11 +7,7 @@ namespace Orus
     {
         static void Main(string[] args)
         {
-            using (Orus game = new Orus())
-            {
-                game.Run();     
-                
-            }
+            Orus.Instance.Run();
         }
     }
 #endif
