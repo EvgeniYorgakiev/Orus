@@ -9,7 +9,8 @@ namespace Orus.Menu
 {
     public static class GameMenu
     {
-        private static Sprite background;
+        private static Sprite mainMenuBackground;
+        private static Sprite creditsBackground;
         private static bool isMenuActive = true;
         private static bool isCreditsActive = false;
         private static bool isGameOn = true;
@@ -18,15 +19,26 @@ namespace Orus.Menu
         private static Rectangle quitButton;
         private static bool isNewGamePrssed = false;
 
-        private static Sprite Background
+        private static Sprite MainMenuBackground
         {
             get
             {
-                return background;
+                return mainMenuBackground;
             }
             set
             {
-                background = value;
+                mainMenuBackground = value;
+            }
+        }
+        private static Sprite CreditsBackground
+        {
+            get
+            {
+                return creditsBackground;
+            }
+            set
+            {
+                creditsBackground = value;
             }
         }
         public static bool IsMenuActive
@@ -113,9 +125,9 @@ namespace Orus.Menu
 
         public static void Load(ContentManager Content)
         {
-            Background = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), new Vector2(0, 0));
-            Background.IsActive = true;
-
+            MainMenuBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), new Vector2(0, 0));
+            CreditsBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsBackground"), new Vector2(0, 0));
+            CreditsBackground.Scale = 100f;
 
             newGameButton = new Rectangle(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
                                           Constant.NewGameButtonWidth, Constant.NewGameButtonHeight);
@@ -123,12 +135,17 @@ namespace Orus.Menu
                                           Constant.CreditsButtonWidth, Constant.CreditsButtonHeight);
             quitButton = new Rectangle(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
                                           Constant.QuitButtonWidth, Constant.WindowHeight);
+
+            MainMenuBackground.IsActive = true;
+            CreditsBackground.IsActive = false;
+
         }
 
         public static void Update()
         {
             var mouseState = Mouse.GetState();
-            if (NewGameButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
+
+            if (NewGameButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (CreditsBackground.IsActive == false))
             {
                 IsNewGamePressed = true;
             }
@@ -144,12 +161,16 @@ namespace Orus.Menu
                     IsNewGamePressed = false;
                 }
             }
-            if (CreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
+
+
+            if (CreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
             {
-                isCreditsActive = true;
+                MainMenuBackground.IsActive = false;
+                CreditsBackground.IsActive = true;
                 
             }
-            if (QuitButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
+
+            if (QuitButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
             {
                 
             }
@@ -162,7 +183,8 @@ namespace Orus.Menu
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            Background.Draw(spriteBatch);
+            MainMenuBackground.Draw(spriteBatch);
+            CreditsBackground.Draw(spriteBatch);
         }
     }
 }

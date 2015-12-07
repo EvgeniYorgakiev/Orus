@@ -98,7 +98,7 @@ namespace Orus.Animations
                 this.rotation = value;
             }
         }
-        protected float Scale
+        public float Scale
         {
             get
             {
