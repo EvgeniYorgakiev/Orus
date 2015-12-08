@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Animations;
 using Orus.Constants;
+using Orus.GameObjects;
 
 namespace Orus.Menu
 {
@@ -125,8 +126,8 @@ namespace Orus.Menu
 
         public static void Load(ContentManager Content)
         {
-            MainMenuBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), new Vector2(0, 0));
-            CreditsBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsBackground"), new Vector2(0, 0));
+            MainMenuBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), new Point2D(0, 0));
+            CreditsBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsBackground"), new Point2D(0, 0));
             CreditsBackground.Scale = 100f;
 
             newGameButton = new Rectangle(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,

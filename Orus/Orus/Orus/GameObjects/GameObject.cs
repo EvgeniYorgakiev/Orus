@@ -4,14 +4,14 @@ namespace Orus.GameObjects
 {
     public abstract class GameObject
     {
-        private Vector2 position;
+        private Point2D position;
 
-        protected GameObject(Vector2 position)
+        protected GameObject(Point2D position)
         {
             this.Position = position;
         }
 
-        public virtual Vector2 Position
+        public virtual Point2D Position
         {
             get
             {

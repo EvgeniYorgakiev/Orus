@@ -16,12 +16,15 @@ namespace Orus.GameObjects.Player.Characters
         private string attackAnimationPath;
         private string deathAnimationPath;
         private int attackDamage;
+        private int attackRange;
 
-        protected Character(Vector2 position, Rectangle boundingBox,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage)
-            : base(position, boundingBox, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
+        protected Character(Point2D position, Rectangle boundingBox, float moveSpeed,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
+            int attackDamage, int attackRange)
+            : base(position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
         {
             this.AttackDamage = attackDamage;
+            this.AttackRange = attackRange;
         }
 
         public FrameAnimation AttackAnimation
@@ -84,7 +87,19 @@ namespace Orus.GameObjects.Player.Characters
             }
         }
 
-        public override Vector2 Position
+        public int AttackRange
+        {
+            get
+            {
+                return this.attackRange;
+            }
+            set
+            {
+                this.attackRange = value;
+            }
+        }
+
+        public override Point2D Position
         {
             get
             {
@@ -112,9 +127,9 @@ namespace Orus.GameObjects.Player.Characters
             this.IddleAnimation.IsActive = false;
             foreach (var gameObject in gameObjects)
             {
-                if (gameObject.Collides(this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
+                if (gameObject.Collides(this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange))
                 {
-                    gameObject.Health -= this.AttackDamage;
+                    gameObject.Health -= (int)(this.AttackDamage - (this.AttackDamage * ( (float) gameObject.Armor / 100 )));
                 }
             }
         }
@@ -155,7 +170,7 @@ namespace Orus.GameObjects.Player.Characters
             }
             if (this.DeathAnimation != null)
             {
-                this.DeathAnimation.Animate(gameTime);
+                this.DeathAnimation.Animate(gameTime, this);
             }
         }
 

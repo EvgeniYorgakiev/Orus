@@ -4,6 +4,7 @@ using Orus.Animations;
 using Orus.Constants;
 using Orus.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace Orus.GameObjects
 {
@@ -20,11 +21,13 @@ namespace Orus.GameObjects
         private int lightingResistance;
         private int arcaneResistance;
         private int iceResistance;
+        private float moveSpeed;
 
-        protected AnimatedGameObject(Vector2 position, Rectangle boundingBox,
+        protected AnimatedGameObject(Point2D position, Rectangle boundingBox, float moveSpeed,
             int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(position)
         {
             this.BoundingBox = boundingBox;
+            this.MoveSpeed = moveSpeed;
             this.Health = health;
             this.Armor = armor;
             this.FireResistance = fireResistance;
@@ -164,7 +167,20 @@ namespace Orus.GameObjects
             }
         }
 
-        public override Vector2 Position
+        public float MoveSpeed
+        {
+            get
+            {
+                return this.moveSpeed;
+            }
+
+            set
+            {
+                this.moveSpeed = value;
+            }
+        }
+
+        public override Point2D Position
         {
             get
             {
@@ -194,7 +210,7 @@ namespace Orus.GameObjects
                 FlipImages(false);
                 if(!collides)
                 {
-                    this.Position = new Vector2(this.Position.X + (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
+                    this.Position = new Point2D(this.Position.X + ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed,
                                                 this.Position.Y);
                 }
             }
@@ -203,17 +219,17 @@ namespace Orus.GameObjects
                 FlipImages(true);
                 if (!collides)
                 {
-                    this.Position = new Vector2(this.Position.X - (gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity,
+                    this.Position = new Point2D(this.Position.X - ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed,
                                             this.Position.Y);
                 }
             }
         }
 
-        public bool CollidesWith(List<ICollide> colliders, bool moveRight)
+        public bool CollidesWithObjects(List<ICollide> colliders, bool moveRight, int additionalXOffset = 0)
         {
             foreach (var collider in colliders)
             {
-                if (collider.Collides(this, moveRight))
+                if (collider.Collides(this, moveRight, additionalXOffset))
                 {
                     return true;
                 }
@@ -266,15 +282,41 @@ namespace Orus.GameObjects
             }
         }
 
-        public bool Collides(AnimatedGameObject collider, bool isMovingRight)
+        public bool Collides(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0)
         {
-            if(collider.Position.X + collider.BoundingBox.Width / 2 > this.Position.X - collider.BoundingBox.Width / 2 && isMovingRight)
+            if(this.Health == 0 || this == collider)
             {
-                return true;
+                return false;
             }
-            if (collider.Position.X - collider.BoundingBox.Width / 2 > this.Position.X + collider.BoundingBox.Width / 2 && !isMovingRight)
+            if(isMovingRight)
             {
-                return true;
+                if(collider.Position.X + collider.BoundingBox.Width / 2 >
+                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset && 
+                    collider.Position.X < this.Position.X)
+                {
+                    return true;
+                }
+                if (collider.Position.X + collider.BoundingBox.Width / 2 <
+                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset &&
+                    collider.Position.X > this.Position.X)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (collider.Position.X - collider.BoundingBox.Width / 2 >
+                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
+                    collider.Position.X < this.Position.X)
+                {
+                    return true;
+                }
+                if (collider.Position.X - collider.BoundingBox.Width / 2 <
+                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
+                    collider.Position.X > this.Position.X)
+                {
+                    return true;
+                }
             }
             return false;
         }

@@ -15,12 +15,14 @@ namespace Orus.GameObjects.Enemies
         private string attackAnimationPath;
         private string deathAnimationPath;
         private int attackDamage;
+        private int attackRange;
 
-        protected Enemy(Vector2 position, Rectangle boundingBox,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage)
-            : base(position, boundingBox, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
+        protected Enemy(Point2D position, Rectangle boundingBox, float moveSpeed,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange)
+            : base(position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
         {
             this.AttackDamage = attackDamage;
+            this.AttackRange = attackRange;
         }
 
         public FrameAnimation AttackAnimation
@@ -82,8 +84,19 @@ namespace Orus.GameObjects.Enemies
                 this.attackDamage = value;
             }
         }
+        public int AttackRange
+        {
+            get
+            {
+                return this.attackRange;
+            }
+            set
+            {
+                this.attackRange = value;
+            }
+        }
 
-        public override Vector2 Position
+        public override Point2D Position
         {
             get
             {
@@ -145,6 +158,28 @@ namespace Orus.GameObjects.Enemies
             }
         }
 
+        public void Update(GameTime gameTime)
+        {
+            if (!this.AttackAnimation.IsActive && this.Health > 0)
+            {
+                bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
+                if (this.CollidesWithObjects(new List<ICollide>() { Orus.Instance.Character }, movesRight, this.AttackRange))
+                {
+                    this.AttackAnimation.IsActive = true;
+                    this.MoveAnimation.IsActive = false;
+                    this.IddleAnimation.IsActive = false;
+                    Orus.Instance.Character.Health -= (int)(this.AttackDamage - (this.AttackDamage * ((float)Orus.Instance.Character.Armor / 100)));
+                }
+                else
+                {
+                    bool collides = this.CollidesWithObjects(
+                        Orus.Instance.Enemies.ConvertAll<ICollide>(enemy => enemy), movesRight, this.AttackRange);
+                    this.Move(gameTime, movesRight, collides);
+                }
+            }
+            this.Animate(gameTime);
+        }
+
         public override void Animate(GameTime gameTime)
         {
             base.Animate(gameTime);
@@ -154,7 +189,7 @@ namespace Orus.GameObjects.Enemies
             }
             if (this.DeathAnimation != null)
             {
-                this.DeathAnimation.Animate(gameTime);
+                this.DeathAnimation.Animate(gameTime, this);
             }
         }
 
@@ -169,6 +204,13 @@ namespace Orus.GameObjects.Enemies
             {
                 this.DeathAnimation.Draw(spriteBatch);
             }
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            this.AttackAnimation.IsActive = false;
+            this.DeathAnimation.IsActive = true;
         }
     }
 }

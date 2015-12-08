@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.GameObjects;
+using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Player.Characters;
 
 namespace Orus.Animations
@@ -36,7 +37,7 @@ namespace Orus.Animations
             }
         }
 
-        public void Animate(GameTime gameTime, AnimatedGameObject animateObject)
+        public void Animate(GameTime gameTime, AnimatedGameObject animatedObject)
         {
             if(!this.IsActive)
             {
@@ -53,7 +54,10 @@ namespace Orus.Animations
                     if(!this.IsLoop)
                     {
                         this.IsActive = false;
-                        animateObject.IddleAnimation.IsActive = true;
+                        if(animatedObject.Health > 0)
+                        {
+                            animatedObject.IddleAnimation.IsActive = true;
+                        }
                     }
                 }
             }

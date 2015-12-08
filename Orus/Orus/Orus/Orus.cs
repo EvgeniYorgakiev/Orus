@@ -65,7 +65,7 @@ namespace Orus
             set { this.spriteBatch = value;
             }
         }
-        private Character Character
+        public Character Character
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Orus
             { this.character = value;
             }
         }
-        private List<Enemy> Enemies
+        public List<Enemy> Enemies
         {
             get
             {
@@ -103,8 +103,8 @@ namespace Orus
             GameMenu.Load(this.Content);
 
             Enemies = new List<Enemy>();
-            Enemies.Add(new Zombie(new Vector2(400, 300), Content));
-            Character = new Crusader(new Vector2(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
+            Enemies.Add(new Zombie(new Point2D(100, 300), Content));
+            Character = new Crusader(new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
         }
 
         protected override void UnloadContent()
@@ -125,7 +125,7 @@ namespace Orus
                 Character.Animate(gameTime);
                 foreach (var enemy in Enemies)
                 {
-                    enemy.Animate(gameTime);
+                    enemy.Update(gameTime);
                 }
             }
             base.Update(gameTime);
@@ -155,15 +155,15 @@ namespace Orus
             {
                 Character.StopMovement();
             }
-            if (mouseState.LeftButton == ButtonState.Pressed && !Character.MoveAnimation.IsActive)
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                Character.Attack(this.Enemies.ConvertAll<AnimatedGameObject>(delegate (Enemy enemy) { return enemy; }));
+                Character.Attack(this.Enemies.ConvertAll<AnimatedGameObject>(enemy => enemy));
             }
         }
 
         private void MoveCharacter(GameTime gameTime, bool moveRight)
         {
-            bool collides = Character.CollidesWith(this.Enemies.ConvertAll<ICollide>(delegate (Enemy enemy) { return enemy; }), moveRight);
+            bool collides = Character.CollidesWithObjects(this.Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
             if ((this.Character.Position.X < 0 && !moveRight) ||
                (this.Character.Position.X + Constant.CrusaderWidth > Constant.WindowWidth && moveRight))
             {

@@ -45,7 +45,8 @@ namespace Orus.Constants
         public const int CrusaderMoveFramesNumber = 8;
         public const int CrusaderAttackFramesNumber = 8;
         public const int CrusaderDeathFramesNumber = 8;
-        public const int CrusaderWidth = 70;
+        public const int CrusaderWidth = 50;
+        public const float CrusaderDefaultMoveSpeed = 1f;
         public const int CrusaderDefaultHealth = 200;
         public const int CrusaderDefaultArmor = 20;
         public const int CrusaderDefaultFireResistance = 10;
@@ -53,12 +54,14 @@ namespace Orus.Constants
         public const int CrusaderDefaultArcaneResistance = 10;
         public const int CrusaderDefaultIceResistance = 10;
         public const int CrusaderDefaultAttackDamage = 30;
+        public const int CrusaderAttackRange = 20;
 
         public const int ZombieIddleFramesNumber = 13;
-        public const int ZombieMoveFramesNumber = 8;
-        public const int ZombieAttackFramesNumber = 8;
-        public const int ZombieDeathFramesNumber = 8;
-        public const int ZombieWidth = 70;
+        public const int ZombieMoveFramesNumber = 11;
+        public const int ZombieAttackFramesNumber = 14;
+        public const int ZombieDeathFramesNumber = 14;
+        public const int ZombieWidth = 50;
+        public const float ZombieDefaultMoveSpeed = 0.3f;
         public const int ZombieDefaultHealth = 90;
         public const int ZombieDefaultArmor = 5;
         public const int ZombieDefaultFireResistance = 0;
@@ -66,5 +69,6 @@ namespace Orus.Constants
         public const int ZombieDefaultArcaneResistance = 0;
         public const int ZombieDefaultIceResistance = 0;
         public const int ZombieDefaultAttackDamage = 10;
+        public const int ZombieAttackRange = 10;
     }
 }

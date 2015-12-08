@@ -10,9 +10,9 @@ namespace Orus.Animations
     public class Sprite
     {
         private Texture2D texture;
-        private Vector2 position = Vector2.Zero;
+        private Point2D position = Point2D.Zero();
         private Color color = Color.White;
-        private Vector2 origin;
+        private Point2D origin;
         private float rotation = Constant.DefaultRotation;
         private float scale = Constant.DefaultScale;
         private SpriteEffects spriteEffect;
@@ -21,7 +21,7 @@ namespace Orus.Animations
         private bool isActive = false;
         private bool isLoop = true;
 
-        public Sprite(Texture2D Texture, Vector2 position)
+        public Sprite(Texture2D Texture, Point2D position)
         {
             this.Texture = Texture;
             this.Position = position;
@@ -54,7 +54,7 @@ namespace Orus.Animations
                 this.texture = value;
             }
         }
-        public Vector2 Position
+        public Point2D Position
         {
             get
             {
@@ -76,7 +76,7 @@ namespace Orus.Animations
                 this.color = value;
             }
         }
-        protected Vector2 Origin
+        protected Point2D Origin
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Orus.Animations
                 this.rectangles = value;
             }
         }
-        protected int FrameIndex
+        public int FrameIndex
         {
             get
             {
@@ -171,12 +171,12 @@ namespace Orus.Animations
             {
                 if(rectangles != null)
                 {
-                    spriteBatch.Draw(this.Texture, this.Position, this.Rectangles[FrameIndex],
-                         this.Color, this.Rotation, this.Origin, this.Scale, this.SpriteEffect, Constant.DefaultLayerDepth);
+                    spriteBatch.Draw(this.Texture, new Vector2(this.Position.X, this.Position.Y), this.Rectangles[FrameIndex],
+                         this.Color, this.Rotation, new Vector2(this.Origin.X, this.Origin.Y), this.Scale, this.SpriteEffect, Constant.DefaultLayerDepth);
                 }
                 else
                 {
-                    spriteBatch.Draw(this.Texture, this.Position, this.Color);
+                    spriteBatch.Draw(this.Texture, new Vector2(this.Position.X, this.Position.Y), this.Color);
                 }
             }
         }
