@@ -70,13 +70,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Background\CreditsBackground.png">
-      <Name>CreditsBackground</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Zombie\Zombie attack.png">
       <Name>Zombie attack</Name>
       <Importer>TextureImporter</Importer>
@@ -89,6 +82,20 @@
     </Compile>
     <Compile Include="Sprites\Zombie\Zombie move.png">
       <Name>Zombie move</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Background\CreditsBackground.png">
+      <Name>CreditsBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Background\CreditsInfo.png">
+      <Name>CreditsInfo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
