@@ -7,6 +7,7 @@ using Orus.GameObjects;
 using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Player.Characters;
+using Orus.InputHandler;
 using Orus.Interfaces;
 using Orus.Menu;
 using System.Collections.Generic;
@@ -114,14 +115,13 @@ namespace Orus
 
         protected override void Update(GameTime gameTime)
         {
-
             if (GameMenu.IsMenuActive)
             {
                 GameMenu.Update();
             }
             else
             {
-                UpdateInput(gameTime);
+                Input.UpdateInput(gameTime);
                 Character.Animate(gameTime);
                 foreach (var enemy in Enemies)
                 {
@@ -130,38 +130,8 @@ namespace Orus
             }
             base.Update(gameTime);
         }
-
-        private void UpdateInput(GameTime gameTime)
-        {
-            if (Character.AttackAnimation.IsActive || Character.Health == 0)
-            {
-                return;
-            }
-            var keyState = Keyboard.GetState();
-            var mouseState = Mouse.GetState();
-            if (keyState.IsKeyDown(Keys.Escape))
-            {
-                this.Exit();
-            }
-            else if (keyState.IsKeyDown(Keys.Right))
-            {
-                MoveCharacter(gameTime, true);
-            }
-            else if (keyState.IsKeyDown(Keys.Left))
-            {
-                MoveCharacter(gameTime, false);
-            }
-            else
-            {
-                Character.StopMovement();
-            }
-            if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                Character.Attack(this.Enemies.ConvertAll<AnimatedGameObject>(enemy => enemy));
-            }
-        }
-
-        private void MoveCharacter(GameTime gameTime, bool moveRight)
+        
+        public void MoveCharacter(GameTime gameTime, bool moveRight)
         {
             bool collides = Character.CollidesWithObjects(this.Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
             if ((this.Character.Position.X < 0 && !moveRight) ||

@@ -75,9 +75,11 @@
     <Compile Include="Animations\FrameAnimation.cs" />
     <Compile Include="Animations\Sprite.cs" />
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="GameObjects\AttackableGameObject.cs" />
     <Compile Include="GameObjects\Enemies\Enemy.cs" />
     <Compile Include="GameObjects\Enemies\NormalEnemies\Zombie.cs" />
     <Compile Include="GameObjects\Point2D.cs" />
+    <Compile Include="InputHandler\Input.cs" />
     <Compile Include="Interfaces\ICollide.cs" />
     <Compile Include="Interfaces\IDeath.cs" />
     <Compile Include="Interfaces\IAttack.cs" />
