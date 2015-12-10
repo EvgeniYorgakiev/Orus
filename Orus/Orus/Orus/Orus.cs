@@ -112,7 +112,7 @@ namespace Orus
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.HealthFont = Content.Load<SpriteFont>("Fonts\\HealthFont");
+            this.HealthFont = Content.Load<SpriteFont>("Texts\\Fonts\\HealthFont");
 
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;

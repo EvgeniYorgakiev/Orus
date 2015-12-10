@@ -87,12 +87,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Fonts\HealthFont.spritefont">
-      <Name>HealthFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-=======
     <Compile Include="Sprites\Background\CreditsBackground.png">
       <Name>CreditsBackground</Name>
       <Importer>TextureImporter</Importer>
@@ -104,7 +98,13 @@
       <Name>CreditsInfo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
->>>>>>> 0086b92a17ee681ac957c21488fddd9c531f99f3
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texts\Fonts\HealthFont.spritefont">
+      <Name>HealthFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
