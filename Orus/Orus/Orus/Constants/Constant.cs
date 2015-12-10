@@ -41,6 +41,7 @@ namespace Orus.Constants
         public const int StartingPlayerYPosition = 300;
         public const int DefaultHeighForEverything = 100;
 
+        public const string CrusaderDefaultName = "Crusader";
         public const int CrusaderIddleFramesNumber = 11;
         public const int CrusaderMoveFramesNumber = 8;
         public const int CrusaderAttackFramesNumber = 8;
@@ -55,7 +56,9 @@ namespace Orus.Constants
         public const int CrusaderDefaultIceResistance = 10;
         public const int CrusaderDefaultAttackDamage = 30;
         public const int CrusaderAttackRange = 20;
+        public const int CrusaderAttackFrame = 8;
 
+        public const string ZombieDefaultName = "Zombie";
         public const int ZombieIddleFramesNumber = 13;
         public const int ZombieMoveFramesNumber = 11;
         public const int ZombieAttackFramesNumber = 14;
@@ -70,5 +73,6 @@ namespace Orus.Constants
         public const int ZombieDefaultIceResistance = 0;
         public const int ZombieDefaultAttackDamage = 10;
         public const int ZombieAttackRange = 10;
+        public const int ZombieAttackFrame = 7;
     }
 }

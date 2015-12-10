@@ -23,6 +23,7 @@ namespace Orus
         private List<Enemy> enemies;
         private static Orus instance = null;
         private static readonly object padlock = new object();
+        private SpriteFont healthFont;
 
         public Orus()
         {
@@ -66,6 +67,7 @@ namespace Orus
             set { this.spriteBatch = value;
             }
         }
+
         public Character Character
         {
             get
@@ -76,6 +78,7 @@ namespace Orus
             { this.character = value;
             }
         }
+
         public List<Enemy> Enemies
         {
             get
@@ -88,6 +91,18 @@ namespace Orus
             }
         }
 
+        public SpriteFont HealthFont
+        {
+            get
+            {
+                return this.healthFont;
+            }
+            set
+            {
+                this.healthFont = value;
+            }
+        }
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -97,6 +112,7 @@ namespace Orus
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.HealthFont = Content.Load<SpriteFont>("Fonts\\HealthFont");
 
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;

@@ -10,10 +10,10 @@ namespace Orus.GameObjects.Enemies
 {
     public class Enemy : AttackableGameObject
     {
-        protected Enemy(Point2D position, Rectangle boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange)
-            : base(position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
-                  attackDamage, attackRange)
+        protected Enemy(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
+            : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
+                  attackDamage, attackRange, timeUntilDamageSinceAttack)
         {
 
         }
@@ -28,7 +28,8 @@ namespace Orus.GameObjects.Enemies
                     this.AttackAnimation.IsActive = true;
                     this.MoveAnimation.IsActive = false;
                     this.IddleAnimation.IsActive = false;
-                    Orus.Instance.Character.Health -= (int)(this.AttackDamage - (this.AttackDamage * ((float)Orus.Instance.Character.Armor / 100)));
+                    this.ObjectAttacked = Orus.Instance.Character;
+                    this.IsAttacking = true;
                 }
                 else
                 {

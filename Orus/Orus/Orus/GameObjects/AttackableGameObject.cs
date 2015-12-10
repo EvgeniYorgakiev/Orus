@@ -13,14 +13,19 @@ namespace Orus.GameObjects
         private string deathAnimationPath;
         private int attackDamage;
         private int attackRange;
+        private float timeUntilDamageSinceAttack;
+        private bool isAttacking = false;
+        private float timeAttacking = 0.0f;
+        private AnimatedGameObject objectAttacked;
 
-        protected AttackableGameObject(Point2D position, Rectangle boundingBox, float moveSpeed,
+        protected AttackableGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
             int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
-            int attackDamage, int attackRange)
-            : base(position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
+            int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
+            : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance)
         {
             this.AttackDamage = attackDamage;
             this.AttackRange = attackRange;
+            this.TimeUntilDamageSinceAttack = timeUntilDamageSinceAttack;
         }
 
         public FrameAnimation AttackAnimation
@@ -95,6 +100,54 @@ namespace Orus.GameObjects
             }
         }
 
+        public float TimeUntilDamageSinceAttack
+        {
+            get
+            {
+                return this.timeUntilDamageSinceAttack;
+            }
+            set
+            {
+                this.timeUntilDamageSinceAttack = value;
+            }
+        }
+        
+        public bool IsAttacking
+        {
+            get
+            {
+                return this.isAttacking;
+            }
+            set
+            {
+                this.isAttacking = value;
+            }
+        }
+
+        public float TimeAttacking
+        {
+            get
+            {
+                return this.timeAttacking;
+            }
+            set
+            {
+                this.timeAttacking = value;
+            }
+        }
+
+        public AnimatedGameObject ObjectAttacked
+        {
+            get
+            {
+                return this.objectAttacked;
+            }
+            set
+            {
+                this.objectAttacked = value;
+            }
+        }
+
         public override Point2D Position
         {
             get
@@ -125,7 +178,9 @@ namespace Orus.GameObjects
             {
                 if (gameObject.Collides(this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange))
                 {
-                    gameObject.Health -= (int)(this.AttackDamage - (this.AttackDamage * ((float)gameObject.Armor / 100)));
+                    this.ObjectAttacked = gameObject;
+                    this.IsAttacking = true;
+                    return;
                 }
             }
         }
@@ -160,6 +215,20 @@ namespace Orus.GameObjects
         public override void Animate(GameTime gameTime)
         {
             base.Animate(gameTime);
+            if (this.IsAttacking)
+            {
+                this.TimeAttacking += gameTime.ElapsedGameTime.Milliseconds;
+                if(this.TimeAttacking > this.TimeUntilDamageSinceAttack)
+                {
+                    this.IsAttacking = false;
+                    this.TimeAttacking = 0.0f;
+                    if(this.ObjectAttacked.Collides(
+                        this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange) && this.Health > 0)
+                    {
+                        this.ObjectAttacked.Health -= (int)(this.AttackDamage - (this.AttackDamage * ((float)this.ObjectAttacked.Armor / 100)));
+                    }
+                }
+            }
             if (this.AttackAnimation != null)
             {
                 this.AttackAnimation.Animate(gameTime, this);
@@ -179,7 +248,12 @@ namespace Orus.GameObjects
             }
             if (this.DeathAnimation != null)
             {
-                this.DeathAnimation.Draw(spriteBatch);
+                if (this.Health > 0)
+                {
+                    spriteBatch.DrawString(Orus.Instance.HealthFont, this.Health.ToString(),
+                   new Vector2(this.Position.X + this.BoundingBox.Width / 1.5f, this.Position.Y), Color.White);
+                }
+                    this.DeathAnimation.Draw(spriteBatch);
             }
         }
 

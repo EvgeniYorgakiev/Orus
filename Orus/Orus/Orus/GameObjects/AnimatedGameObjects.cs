@@ -23,8 +23,8 @@ namespace Orus.GameObjects
         private int iceResistance;
         private float moveSpeed;
 
-        protected AnimatedGameObject(Point2D position, Rectangle boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(position)
+        protected AnimatedGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(name, position)
         {
             this.BoundingBox = boundingBox;
             this.MoveSpeed = moveSpeed;

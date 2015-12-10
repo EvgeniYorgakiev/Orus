@@ -9,12 +9,19 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
     class Zombie : Enemy
     {
         public Zombie(Point2D position, ContentManager Content)
-            : base(position,
+            : this(Constant.ZombieDefaultName, position, Content)
+        {
+
+        }
+
+        public Zombie(string name, Point2D position, ContentManager Content)
+            : base(name, position,
                   new Rectangle((int)position.X - Constant.ZombieWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
                       Constant.ZombieWidth, Constant.DefaultHeighForEverything), Constant.ZombieDefaultMoveSpeed, 
                   Constant.ZombieDefaultHealth, Constant.ZombieDefaultArmor, Constant.ZombieDefaultFireResistance,
                   Constant.ZombieDefaultLightingResistance, Constant.ZombieDefaultArcaneResistance, Constant.ZombieDefaultIceResistance,
-                  Constant.ZombieDefaultAttackDamage, Constant.ZombieAttackRange)
+                  Constant.ZombieDefaultAttackDamage, Constant.ZombieAttackRange,
+                  Constant.ZombieAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.ZombieDeathFramesNumber)
         {
             this.IddleAnimationPath = "Sprites\\Zombie\\Zombie iddle";
             this.MoveAnimationPath = "Sprites\\Zombie\\Zombie move";
