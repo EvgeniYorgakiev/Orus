@@ -198,6 +198,8 @@ namespace Orus.Menu
                 CreditsBackground.IsActive = true;
                 CreditsInfo.IsActive = true;
 
+                
+
             }
             //Back From Credits BTN
             if (BackFromCreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == false))
@@ -211,7 +213,7 @@ namespace Orus.Menu
             {
                 Orus.Instance.Exit();
             }
-
+            
         }
 
 

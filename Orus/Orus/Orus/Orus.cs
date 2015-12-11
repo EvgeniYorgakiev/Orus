@@ -24,13 +24,24 @@ namespace Orus
         private static Orus instance = null;
         private static readonly object padlock = new object();
         private SpriteFont healthFont;
+        private Sprite level1Background;
 
         public Orus()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-
+        public Sprite Level1Background 
+        {
+            get
+            {
+                return this.level1Background;
+            }
+            set
+            {
+                this.level1Background = value;
+            }
+        }
         public static Orus Instance
         {
             get
@@ -64,7 +75,9 @@ namespace Orus
             {
                 return this.spriteBatch;
             }
-            set { this.spriteBatch = value;
+            set 
+            { 
+                this.spriteBatch = value;
             }
         }
 
@@ -111,6 +124,8 @@ namespace Orus
 
         protected override void LoadContent()
         {
+            Level1Background = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Level1Background"), new Point2D(0, 0));
+            Level1Background.IsActive = true;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.HealthFont = Content.Load<SpriteFont>("Texts\\Fonts\\HealthFont");
 
@@ -122,6 +137,9 @@ namespace Orus
             Enemies = new List<Enemy>();
             Enemies.Add(new Zombie(new Point2D(100, 300), Content));
             Character = new Crusader(new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
+
+            
+            
         }
 
         protected override void UnloadContent()
@@ -137,6 +155,7 @@ namespace Orus
             }
             else
             {
+                
                 Input.UpdateInput(gameTime);
                 Character.Animate(gameTime);
                 foreach (var enemy in Enemies)
@@ -163,23 +182,34 @@ namespace Orus
 
         protected override void Draw(GameTime gameTime)
         {
+            
             base.Draw(gameTime);
-
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
+            
+            SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            
             if(GameMenu.IsMenuActive)
             {
-                GameMenu.Draw(spriteBatch);
+                
+                GameMenu.Draw(SpriteBatch);
+                
             }
             else
             {
+                
                 Character.DrawAnimations(SpriteBatch);
+                Level1Background.Draw(SpriteBatch);
                 foreach (var enemy in Enemies)
                 {
+                    
                     enemy.DrawAnimations(SpriteBatch);
+                    
                 }
+                
             }
+            
+            
             spriteBatch.End();
+            
         }
     }
 }

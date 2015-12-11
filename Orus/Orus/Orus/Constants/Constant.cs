@@ -29,8 +29,8 @@ namespace Orus.Constants
         public const int QuitButtonHeight = 100;
 
         //CREDITS BACK BTN
-        public const int BackFromCreditsPositionX = 834;
-        public const int BackFromCreditsPositionY = 324;
+        public const int BackFromCreditsPositionX = 900;
+        public const int BackFromCreditsPositionY = 380;
         public const int BackFromCreditsWidth = 100;
         public const int BackFromCreditsHeight = 124;
 
