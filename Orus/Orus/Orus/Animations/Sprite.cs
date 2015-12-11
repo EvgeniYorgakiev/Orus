@@ -15,6 +15,7 @@ namespace Orus.Animations
         private Point2D origin;
         private float rotation = Constant.DefaultRotation;
         private float scale = Constant.DefaultScale;
+        private float layerDepth = Constant.DefaultLayerDepth;
         private SpriteEffects spriteEffect;
         private Rectangle[] rectangles;
         private int frameIndex = Constant.DefaultFrameIndex;
@@ -43,7 +44,7 @@ namespace Orus.Animations
             }
         }
 
-        protected Texture2D Texture
+        public Texture2D Texture
         {
             get
             {
@@ -109,6 +110,17 @@ namespace Orus.Animations
                 this.scale = value;
             }
         }
+        public float LayerDepth
+        {
+            get
+            {
+                return this.layerDepth;
+            }
+            set
+            {
+                this.layerDepth = value;
+            }
+        }
         public SpriteEffects SpriteEffect
         {
             get
@@ -172,7 +184,8 @@ namespace Orus.Animations
                 if(rectangles != null)
                 {
                     spriteBatch.Draw(this.Texture, new Vector2(this.Position.X, this.Position.Y), this.Rectangles[FrameIndex],
-                         this.Color, this.Rotation, new Vector2(this.Origin.X, this.Origin.Y), this.Scale, this.SpriteEffect, Constant.DefaultLayerDepth);
+                         this.Color, this.Rotation, new Vector2(this.Origin.X, this.Origin.Y), this.Scale, this.SpriteEffect, this.LayerDepth);
+                    
                 }
                 else
                 {

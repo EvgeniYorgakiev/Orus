@@ -15,7 +15,9 @@ namespace Orus.GameObjects
         private string iddleAnimationPath;
         private string moveAnimationPath;
         private Rectangle boundingBox;
+        private int maxHealth;
         private int health;
+        private Sprite healthBar;
         private int armor;
         private int fireResistance;
         private int lightingResistance;
@@ -28,12 +30,15 @@ namespace Orus.GameObjects
         {
             this.BoundingBox = boundingBox;
             this.MoveSpeed = moveSpeed;
+            this.MaxHealth = health;
             this.Health = health;
             this.Armor = armor;
             this.FireResistance = fireResistance;
             this.LightingResistance = lightingResistance;
             this.ArcaneResistance = arcaneResistance;
             this.IceResistance = iceResistance;
+            this.HealthBar = new Sprite(Orus.Instance.Content.Load<Texture2D>("Sprites\\Health\\HealthBarBorder"), this.Position);
+            this.HealthBar.IsActive = true;
         }
 
         public FrameAnimation IddleAnimation
@@ -147,6 +152,18 @@ namespace Orus.GameObjects
             }
         }
 
+        public int MaxHealth
+        {
+            get
+            {
+                return this.maxHealth;
+            }
+            set
+            {
+                this.maxHealth = value;
+            }
+        }
+
         public int Health
         {
             get
@@ -164,6 +181,18 @@ namespace Orus.GameObjects
                 {
                     this.health = value;
                 }
+            }
+        }
+
+        public Sprite HealthBar
+        {
+            get
+            {
+                return this.healthBar;
+            }
+            set
+            {
+                this.healthBar = value;
             }
         }
 
@@ -196,6 +225,10 @@ namespace Orus.GameObjects
                 if (this.MoveAnimation != null)
                 {
                     this.MoveAnimation.Position = value;
+                }
+                if(this.HealthBar != null)
+                {
+                    this.HealthBar.Position = value;
                 }
                 base.Position = value;
             }
@@ -276,10 +309,36 @@ namespace Orus.GameObjects
         public virtual void DrawAnimations(SpriteBatch spriteBatch)
         {
             this.IddleAnimation.Draw(spriteBatch);
+            if(this.Health > 0)
+            {
+                this.DrawHealthBar(spriteBatch);
+            }
             if (this.MoveAnimation != null)
             {
                 this.MoveAnimation.Draw(spriteBatch);
             }
+        }
+
+        private void DrawHealthBar(SpriteBatch spriteBatch)
+        {
+            //The gray part 
+
+            spriteBatch.Draw(this.HealthBar.Texture,
+                new Vector2(this.HealthBar.Position.X + Constant.HealthBarOffsetX, this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
+                new Rectangle(0, 12, this.HealthBar.Texture.Width, 8), Color.Gray);
+            //The red health
+
+            double healthInPercentage = ((double)this.Health / this.MaxHealth) * 100;
+            spriteBatch.Draw(this.HealthBar.Texture,
+                new Rectangle((int)(this.HealthBar.Position.X + Constant.HealthBarOffsetX), 
+                (int)(this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
+                (int)(this.HealthBar.Texture.Width * (healthInPercentage / 100)), 8),
+                 new Rectangle(0, 12, this.HealthBar.Texture.Width, 44), Color.Red);
+
+            //The border
+            spriteBatch.Draw(this.HealthBar.Texture,
+               new Vector2(this.HealthBar.Position.X + Constant.HealthBarOffsetX, this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
+               new Rectangle(0, 0, this.HealthBar.Texture.Width, 11), Color.White);
         }
 
         public bool Collides(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0)

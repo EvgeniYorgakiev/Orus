@@ -32,7 +32,7 @@ namespace Orus.InputHandler
             }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                Orus.Instance.Character.Attack(Orus.Instance.Enemies.ConvertAll<AnimatedGameObject>(enemy => enemy));
+                Orus.Instance.Character.Attack(Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies.ConvertAll<AnimatedGameObject>(enemy => enemy));
             }
         }
     }

@@ -248,12 +248,7 @@ namespace Orus.GameObjects
             }
             if (this.DeathAnimation != null)
             {
-                if (this.Health > 0)
-                {
-                    spriteBatch.DrawString(Orus.Instance.HealthFont, this.Health.ToString(),
-                   new Vector2(this.Position.X + this.BoundingBox.Width / 1.5f, this.Position.Y), Color.White);
-                }
-                    this.DeathAnimation.Draw(spriteBatch);
+                this.DeathAnimation.Draw(spriteBatch);
             }
         }
 

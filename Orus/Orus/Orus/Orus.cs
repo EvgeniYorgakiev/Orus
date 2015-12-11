@@ -9,6 +9,7 @@ using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Player.Characters;
 using Orus.InputHandler;
 using Orus.Interfaces;
+using Orus.Levels;
 using Orus.Menu;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,27 +21,15 @@ namespace Orus
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Character character;
-        private List<Enemy> enemies;
+        private List<Level> levels;
+        private int currentLevelIndex;
         private static Orus instance = null;
         private static readonly object padlock = new object();
-        private SpriteFont healthFont;
-        private Sprite level1Background;
 
         public Orus()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-        }
-        public Sprite Level1Background 
-        {
-            get
-            {
-                return this.level1Background;
-            }
-            set
-            {
-                this.level1Background = value;
-            }
         }
         public static Orus Instance
         {
@@ -92,27 +81,27 @@ namespace Orus
             }
         }
 
-        public List<Enemy> Enemies
+        public List<Level> Levels
         {
             get
             {
-                return this.enemies;
+                return this.levels;
             }
             set
             {
-                this.enemies = value;
+                this.levels = value;
             }
         }
 
-        public SpriteFont HealthFont
+        public int CurrentLevelIndex
         {
             get
             {
-                return this.healthFont;
+                return this.currentLevelIndex;
             }
             set
             {
-                this.healthFont = value;
+                this.currentLevelIndex = value;
             }
         }
 
@@ -124,22 +113,18 @@ namespace Orus
 
         protected override void LoadContent()
         {
-            Level1Background = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Level1Background"), new Point2D(0, 0));
-            Level1Background.IsActive = true;
+            this.Levels = new List<Level>();
+            this.Levels.Add(new Level(1, this.Content));
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.HealthFont = Content.Load<SpriteFont>("Texts\\Fonts\\HealthFont");
 
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;
             graphics.ApplyChanges();
             GameMenu.Load(this.Content);
 
-            Enemies = new List<Enemy>();
-            Enemies.Add(new Zombie(new Point2D(100, 300), Content));
+            this.Levels[this.CurrentLevelIndex].Enemies = new List<Enemy>();
+            this.Levels[this.CurrentLevelIndex].Enemies.Add(new Zombie(new Point2D(100, 300), Content));
             Character = new Crusader(new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
-
-            
-            
         }
 
         protected override void UnloadContent()
@@ -158,7 +143,7 @@ namespace Orus
                 
                 Input.UpdateInput(gameTime);
                 Character.Animate(gameTime);
-                foreach (var enemy in Enemies)
+                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {
                     enemy.Update(gameTime);
                 }
@@ -168,7 +153,7 @@ namespace Orus
         
         public void MoveCharacter(GameTime gameTime, bool moveRight)
         {
-            bool collides = Character.CollidesWithObjects(this.Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
+            bool collides = Character.CollidesWithObjects(this.Levels[this.CurrentLevelIndex].Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
             if ((this.Character.Position.X < 0 && !moveRight) ||
                (this.Character.Position.X + Constant.CrusaderWidth > Constant.WindowWidth && moveRight))
             {
@@ -185,29 +170,21 @@ namespace Orus
             
             base.Draw(gameTime);
             
-            SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             
             if(GameMenu.IsMenuActive)
             {
-                
                 GameMenu.Draw(SpriteBatch);
-                
             }
             else
             {
-                
+                //this.Levels[this.CurrentLevelIndex].LevelBackground.Draw(SpriteBatch);
                 Character.DrawAnimations(SpriteBatch);
-                Level1Background.Draw(SpriteBatch);
-                foreach (var enemy in Enemies)
+                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {
-                    
                     enemy.DrawAnimations(SpriteBatch);
-                    
                 }
-                
             }
-            
-            
             spriteBatch.End();
             
         }

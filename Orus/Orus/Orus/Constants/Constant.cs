@@ -10,6 +10,10 @@ namespace Orus.Constants
         public const int WindowWidth = 1024;
         public const int WindowHeight = 512;
 
+        //Health bar
+        public const int HealthBarOffsetX = 25;
+        public const int HealthBarOffsetY = 15;
+
         //NEW GAME BTN
         public const int NewGameButtonPositionX = 730;
         public const int NewGameButtonPositionY = 215;
@@ -38,7 +42,7 @@ namespace Orus.Constants
         public const float DefaultRotation = 0f;
         public const float DefaultScale = 1f;
         public const int DefaultFrameIndex = 0;
-        public const float DefaultLayerDepth = 0f;
+        public const float DefaultLayerDepth = 0.0f;
         public const float Velocity = 10f;
         public const int DefaultYForImage = 0;
         public const int DirectionIndicatingRight = 1;

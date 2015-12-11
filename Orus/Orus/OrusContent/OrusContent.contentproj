@@ -94,13 +94,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Texts\Fonts\HealthFont.spritefont">
-      <Name>HealthFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Background\CreditsBackground.png">
       <Name>CreditsBackground</Name>
       <Importer>TextureImporter</Importer>
@@ -110,6 +103,13 @@
   <ItemGroup>
     <Compile Include="Sprites\Background\Level1Background.png">
       <Name>Level1Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Health\HealthBarBorder.png">
+      <Name>HealthBarBorder</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

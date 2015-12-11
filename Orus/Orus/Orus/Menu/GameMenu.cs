@@ -197,9 +197,6 @@ namespace Orus.Menu
                 MainMenuBackground.IsActive = false;
                 CreditsBackground.IsActive = true;
                 CreditsInfo.IsActive = true;
-
-                
-
             }
             //Back From Credits BTN
             if (BackFromCreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == false))
@@ -219,9 +216,9 @@ namespace Orus.Menu
 
         public static void Draw(SpriteBatch spriteBatch)
         {
+            CreditsBackground.Draw(spriteBatch);
             MainMenuBackground.Draw(spriteBatch);
             CreditsInfo.Draw(spriteBatch);
-            CreditsBackground.Draw(spriteBatch);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Orus.GameObjects.Enemies
                 else
                 {
                     bool collides = this.CollidesWithObjects(
-                        Orus.Instance.Enemies.ConvertAll<ICollide>(enemy => enemy), movesRight, this.AttackRange);
+                        Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies.ConvertAll<ICollide>(enemy => enemy), movesRight, this.AttackRange);
                     this.Move(gameTime, movesRight, collides);
                 }
             }

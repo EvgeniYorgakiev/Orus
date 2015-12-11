@@ -90,6 +90,7 @@
     <Compile Include="GameObjects\Player\Character.cs" />
     <Compile Include="GameObjects\Player\Characters\Crusader.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="Levels\Level.cs" />
     <Compile Include="Menu\GameMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainClass.cs" />
