@@ -5,6 +5,7 @@ using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.GameObjects;
+using Orus.GameObjects.Enemies.NormalEnemies;
 
 namespace Orus.Levels
 {
@@ -15,6 +16,7 @@ namespace Orus.Levels
 
         public Level(int level, ContentManager content)
         {
+            this.Enemies = new List<Enemy>();
             CreateLevel(level, content);
         }
 
@@ -25,6 +27,7 @@ namespace Orus.Levels
                 case 1:
                     {
                         this.LevelBackground = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Level1Background"), new Point2D(0, 0));
+                        this.Enemies.Add(new Zombie(new Point2D(300, 300), Orus.Instance.Content));
                         break;
                     }
             }

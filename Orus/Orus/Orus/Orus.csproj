@@ -78,6 +78,7 @@
     <Compile Include="GameObjects\AttackableGameObject.cs" />
     <Compile Include="GameObjects\Enemies\Enemy.cs" />
     <Compile Include="GameObjects\Enemies\NormalEnemies\Zombie.cs" />
+    <Compile Include="GameObjects\Player\Camera.cs" />
     <Compile Include="GameObjects\Point2D.cs" />
     <Compile Include="InputHandler\Input.cs" />
     <Compile Include="Interfaces\ICollide.cs" />

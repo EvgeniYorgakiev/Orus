@@ -107,6 +107,14 @@ namespace Orus.GameObjects
                 this.armor = value;
             }
         }
+        public double ArmorAsPercentage
+        {
+            get
+            {
+                return (float)((this.Armor) * Constant.ConstantForArmorFormula) /
+                            (1 + Constant.ConstantForArmorFormula * (this.Armor));
+            }
+        }
         public int FireResistance
         {
             get

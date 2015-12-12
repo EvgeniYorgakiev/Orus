@@ -1,25 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Orus.Animations;
 using Orus.Constants;
 using Orus.GameObjects;
-using Orus.GameObjects.Enemies;
-using Orus.GameObjects.Enemies.NormalEnemies;
+using Orus.GameObjects.Player;
 using Orus.GameObjects.Player.Characters;
 using Orus.InputHandler;
 using Orus.Interfaces;
 using Orus.Levels;
 using Orus.Menu;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Orus
 {
-    public sealed class Orus : Game 
+    public sealed class Orus : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        private Camera camera;
         private Character character;
         private List<Level> levels;
         private int currentLevelIndex;
@@ -70,6 +67,18 @@ namespace Orus
             }
         }
 
+        private Camera Camera
+        {
+            get
+            {
+                return this.camera;
+            }
+            set
+            {
+                this.camera = value;
+            }
+        }
+
         public Character Character
         {
             get
@@ -109,6 +118,8 @@ namespace Orus
         {
             base.Initialize();
             this.IsMouseVisible = true;
+            this.Camera = new Camera(GraphicsDevice.Viewport);
+            //this.Camera = new Camera(this);
         }
 
         protected override void LoadContent()
@@ -116,14 +127,10 @@ namespace Orus
             this.Levels = new List<Level>();
             this.Levels.Add(new Level(1, this.Content));
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;
             graphics.ApplyChanges();
             GameMenu.Load(this.Content);
-
-            this.Levels[this.CurrentLevelIndex].Enemies = new List<Enemy>();
-            this.Levels[this.CurrentLevelIndex].Enemies.Add(new Zombie(new Point2D(100, 300), Content));
             Character = new Crusader(new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
         }
 
@@ -140,13 +147,16 @@ namespace Orus
             }
             else
             {
-                
                 Input.UpdateInput(gameTime);
                 Character.Animate(gameTime);
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {
-                    enemy.Update(gameTime);
+                    if(enemy.Position.X - this.Character.Position.X < Constant.WindowWidth)
+                    {
+                        enemy.Update(gameTime);
+                    }
                 }
+                this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
         }
@@ -155,7 +165,8 @@ namespace Orus
         {
             bool collides = Character.CollidesWithObjects(this.Levels[this.CurrentLevelIndex].Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
             if ((this.Character.Position.X < 0 && !moveRight) ||
-               (this.Character.Position.X + Constant.CrusaderWidth > Constant.WindowWidth && moveRight))
+               (this.Character.Position.X + Constant.SpriteWidth > 
+               this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Width && moveRight))
             {
                 collides = true;
             }
@@ -169,16 +180,15 @@ namespace Orus
         {
             
             base.Draw(gameTime);
-            
-            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            
             if(GameMenu.IsMenuActive)
             {
+                SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 GameMenu.Draw(SpriteBatch);
             }
             else
             {
-                //this.Levels[this.CurrentLevelIndex].LevelBackground.Draw(SpriteBatch);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
+                this.Levels[this.CurrentLevelIndex].LevelBackground.Draw(SpriteBatch);
                 Character.DrawAnimations(SpriteBatch);
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Animations;
+using Orus.Constants;
 using System.Collections.Generic;
 
 namespace Orus.GameObjects
@@ -225,7 +226,7 @@ namespace Orus.GameObjects
                     if(this.ObjectAttacked.Collides(
                         this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange) && this.Health > 0)
                     {
-                        this.ObjectAttacked.Health -= (int)(this.AttackDamage - (this.AttackDamage * ((float)this.ObjectAttacked.Armor / 100)));
+                        this.ObjectAttacked.Health -= (int)(this.AttackDamage - (this.AttackDamage * (this.ArmorAsPercentage / 100)));
                     }
                 }
             }

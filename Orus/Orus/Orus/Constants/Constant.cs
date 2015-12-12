@@ -47,9 +47,11 @@ namespace Orus.Constants
         public const int DefaultYForImage = 0;
         public const int DirectionIndicatingRight = 1;
         public const int DirectionIndicatingLeft = -1;
-        public const int StartingPlayerXPosition = 300;
+        public const int StartingPlayerXPosition = 0;
         public const int StartingPlayerYPosition = 300;
         public const int DefaultHeighForEverything = 100;
+        public const double ConstantForArmorFormula = 0.06;
+        public const int SpriteWidth = 120;
 
         public const string CrusaderDefaultName = "Crusader";
         public const int CrusaderIddleFramesNumber = 11;

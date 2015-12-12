@@ -11,6 +11,7 @@ namespace Orus.Interfaces
         int Health { get; set; }
         Sprite HealthBar { get; set; }
         int Armor { get; set; }
+        double ArmorAsPercentage { get;}
         int FireResistance { get; set; }
         int LightingResistance { get; set; }
         int ArcaneResistance { get; set; }
