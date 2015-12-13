@@ -189,6 +189,17 @@ namespace Orus
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
                 this.Levels[this.CurrentLevelIndex].LevelBackground.Draw(SpriteBatch);
+
+                foreach (var item in this.Levels[this.CurrentLevelIndex].BigTree)
+                {
+                    item.Draw(spriteBatch);
+                }
+                foreach (var item in this.Levels[this.CurrentLevelIndex].SmallTree)
+                {
+                    item.Draw(spriteBatch);
+                }
+
+                
                 Character.DrawAnimations(SpriteBatch);
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {
