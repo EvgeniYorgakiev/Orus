@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Orus.Animations;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
+using Orus.Sprites.Animations;
 
 namespace Orus.GameObjects.Player.Characters
 {

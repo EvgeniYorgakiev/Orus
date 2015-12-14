@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Orus.Animations;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
+using Orus.Sprites.Animations;
 
 namespace Orus.GameObjects.Enemies.NormalEnemies
 {
@@ -23,10 +23,10 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
                   Constant.ZombieDefaultAttackDamage, Constant.ZombieAttackRange,
                   Constant.ZombieAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.ZombieDeathFramesNumber)
         {
-            this.IddleAnimationPath = "Sprites\\Zombie\\Zombie iddle";
-            this.MoveAnimationPath = "Sprites\\Zombie\\Zombie move";
-            this.AttackAnimationPath = "Sprites\\Zombie\\Zombie attack";
-            this.DeathAnimationPath = "Sprites\\Zombie\\Zombie death";
+            this.IddleAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie iddle";
+            this.MoveAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie move";
+            this.AttackAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie attack";
+            this.DeathAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie death";
             this.IddleAnimation = new FrameAnimation(
                 Content.Load<Texture2D>(this.IddleAnimationPath),
                 Constant.ZombieIddleFramesNumber,

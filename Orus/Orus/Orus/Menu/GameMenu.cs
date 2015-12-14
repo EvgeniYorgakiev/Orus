@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Orus.Animations;
 using Orus.Constants;
 using Orus.GameObjects;
+using Orus.Sprites;
 
 namespace Orus.Menu
 {

@@ -28,6 +28,7 @@ namespace Orus
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+
         public static Orus Instance
         {
             get
@@ -67,7 +68,7 @@ namespace Orus
             }
         }
 
-        private Camera Camera
+        public Camera Camera
         {
             get
             {
@@ -126,6 +127,7 @@ namespace Orus
         {
             this.Levels = new List<Level>();
             this.Levels.Add(new Level(1, this.Content));
+            this.CurrentLevelIndex = 0;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;
@@ -148,13 +150,11 @@ namespace Orus
             else
             {
                 Input.UpdateInput(gameTime);
+                this.Levels[this.CurrentLevelIndex].SpawnNewEnemies(600);
                 Character.Animate(gameTime);
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
-                {
-                    if(enemy.Position.X - this.Character.Position.X < Constant.WindowWidth)
-                    {
-                        enemy.Update(gameTime);
-                    }
+               {
+                    enemy.Update(gameTime);
                 }
                 this.Camera.Update(gameTime, this.Character.Position);
             }
@@ -188,16 +188,7 @@ namespace Orus
             else
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
-                this.Levels[this.CurrentLevelIndex].LevelBackground.Draw(SpriteBatch);
-                this.Levels[this.CurrentLevelIndex].Crypt.Draw(SpriteBatch);
-                foreach (var item in this.Levels[this.CurrentLevelIndex].BigTree)
-                {
-                    item.Draw(spriteBatch);
-                }
-                foreach (var item in this.Levels[this.CurrentLevelIndex].SmallTree)
-                {
-                    item.Draw(spriteBatch);
-                }                
+                this.Levels[this.CurrentLevelIndex].Draw(this.SpriteBatch);
                 Character.DrawAnimations(SpriteBatch);
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
                 {

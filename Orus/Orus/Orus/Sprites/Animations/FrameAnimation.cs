@@ -5,7 +5,7 @@ using Orus.GameObjects;
 using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Player.Characters;
 
-namespace Orus.Animations
+namespace Orus.Sprites.Animations
 {
     public class FrameAnimation : Sprite
     {
@@ -44,7 +44,7 @@ namespace Orus.Animations
                 return;
             }
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
-            if (this.Time > Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length)
+            if (this.Time > (Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length) / animatedObject.AnimationSpeed)
             {
                 this.Time = 0f;
                 this.FrameIndex++;

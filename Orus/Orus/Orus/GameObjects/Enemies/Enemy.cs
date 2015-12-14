@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Orus.Animations;
 using Orus.Interfaces;
 using Orus.Constants;
 
@@ -20,7 +19,8 @@ namespace Orus.GameObjects.Enemies
 
         public void Update(GameTime gameTime)
         {
-            if (!this.AttackAnimation.IsActive && this.Health > 0)
+            if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0 &&
+                this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth)
             {
                 bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
                 if (this.CollidesWithObjects(new List<ICollide>() { Orus.Instance.Character }, movesRight, this.AttackRange))

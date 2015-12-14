@@ -1,4 +1,5 @@
-﻿using Orus.Animations;
+﻿using Orus.Sprites.Animations;
+
 namespace Orus.Interfaces
 {
     interface IIddle

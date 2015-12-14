@@ -5,7 +5,7 @@ using Orus.Constants;
 using Orus.GameObjects;
 using Orus.GameObjects.Player.Characters;
 
-namespace Orus.Animations
+namespace Orus.Sprites
 {
     public class Sprite
     {

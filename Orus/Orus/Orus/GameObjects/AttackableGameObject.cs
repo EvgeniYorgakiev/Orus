@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Orus.Animations;
 using Orus.Constants;
+using Orus.Sprites.Animations;
 using System.Collections.Generic;
 
 namespace Orus.GameObjects

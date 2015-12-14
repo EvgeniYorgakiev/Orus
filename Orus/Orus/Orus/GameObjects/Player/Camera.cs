@@ -42,7 +42,7 @@ namespace Orus.GameObjects.Player
             }
         }
 
-        private Point2D Center
+        public Point2D Center
         {
             get
             {

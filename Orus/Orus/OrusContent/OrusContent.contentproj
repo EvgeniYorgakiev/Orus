@@ -56,7 +56,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Zombie\Zombie iddle.png">
+    <Compile Include="Sprites\Enemies\Zombie\Zombie iddle.png">
       <Name>Zombie iddle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -70,17 +70,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Zombie\Zombie attack.png">
+    <Compile Include="Sprites\Enemies\Zombie\Zombie attack.png">
       <Name>Zombie attack</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Sprites\Zombie\Zombie death.png">
+    <Compile Include="Sprites\Enemies\Zombie\Zombie death.png">
       <Name>Zombie death</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Sprites\Zombie\Zombie move.png">
+    <Compile Include="Sprites\Enemies\Zombie\Zombie move.png">
       <Name>Zombie move</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -131,6 +131,28 @@
   <ItemGroup>
     <Compile Include="Sprites\Background\Crypt.png">
       <Name>Crypt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Enemies\Skeleton\Skeleton attack.png">
+      <Name>Skeleton attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprites\Enemies\Skeleton\Skeleton death.png">
+      <Name>Skeleton death</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprites\Enemies\Skeleton\Skeleton iddle.png">
+      <Name>Skeleton iddle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Sprites\Enemies\Skeleton\Skeleton move.png">
+      <Name>Skeleton move</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

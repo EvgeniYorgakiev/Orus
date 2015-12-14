@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Orus.Animations;
 using Orus.Constants;
 using Orus.Interfaces;
 using System.Collections.Generic;
 using System;
+using Orus.Sprites.Animations;
+using Orus.Sprites;
 
 namespace Orus.GameObjects
 {
@@ -24,6 +25,7 @@ namespace Orus.GameObjects
         private int arcaneResistance;
         private int iceResistance;
         private float moveSpeed;
+        private float animationSpeed;
 
         protected AnimatedGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
             int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance) : base(name, position)
@@ -39,6 +41,7 @@ namespace Orus.GameObjects
             this.IceResistance = iceResistance;
             this.HealthBar = new Sprite(Orus.Instance.Content.Load<Texture2D>("Sprites\\Health\\HealthBarBorder"), this.Position);
             this.HealthBar.IsActive = true;
+            this.AnimationSpeed = Constant.DefaultAnimationSpeed;
         }
 
         public FrameAnimation IddleAnimation
@@ -214,6 +217,19 @@ namespace Orus.GameObjects
             set
             {
                 this.moveSpeed = value;
+            }
+        }
+
+        public float AnimationSpeed
+        {
+            get
+            {
+                return this.animationSpeed;
+            }
+
+            set
+            {
+                this.animationSpeed = value;
             }
         }
 

@@ -52,6 +52,7 @@ namespace Orus.Constants
         public const int DefaultHeighForEverything = 100;
         public const double ConstantForArmorFormula = 0.06;
         public const int SpriteWidth = 120;
+        public const float DefaultAnimationSpeed = 1f;
 
         public const string CrusaderDefaultName = "Crusader";
         public const int CrusaderIddleFramesNumber = 11;
@@ -86,5 +87,22 @@ namespace Orus.Constants
         public const int ZombieDefaultAttackDamage = 10;
         public const int ZombieAttackRange = 10;
         public const int ZombieAttackFrame = 7;
+
+        public const string SkeletonDefaultName = "Skeleton Boss";
+        public const int SkeletonIddleFramesNumber = 5;
+        public const int SkeletonMoveFramesNumber = 9;
+        public const int SkeletonAttackFramesNumber = 5;
+        public const int SkeletonDeathFramesNumber = 7;
+        public const int SkeletonWidth = 50;
+        public const float SkeletonDefaultMoveSpeed = 1f;
+        public const int SkeletonDefaultHealth = 200;
+        public const int SkeletonDefaultArmor = 10;
+        public const int SkeletonDefaultFireResistance = 10;
+        public const int SkeletonDefaultLightingResistance = 10;
+        public const int SkeletonDefaultArcaneResistance = 10;
+        public const int SkeletonDefaultIceResistance = 10;
+        public const int SkeletonDefaultAttackDamage = 20;
+        public const int SkeletonAttackRange = 10;
+        public const int SkeletonAttackFrame = 5;
     }
 }

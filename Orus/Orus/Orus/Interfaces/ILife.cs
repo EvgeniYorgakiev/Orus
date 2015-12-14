@@ -1,4 +1,4 @@
-﻿using Orus.Animations;
+﻿using Orus.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;

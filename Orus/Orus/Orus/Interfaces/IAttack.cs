@@ -1,5 +1,5 @@
-﻿using Orus.Animations;
-using Orus.GameObjects;
+﻿using Orus.GameObjects;
+using Orus.Sprites.Animations;
 using System.Collections.Generic;
 
 namespace Orus.Interfaces
