@@ -19,8 +19,7 @@ namespace Orus.GameObjects.Enemies
 
         public void Update(GameTime gameTime)
         {
-            if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0 &&
-                this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth)
+            if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0)
             {
                 bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
                 if (this.CollidesWithObjects(new List<ICollide>() { Orus.Instance.Character }, movesRight, this.AttackRange))
@@ -39,6 +38,11 @@ namespace Orus.GameObjects.Enemies
                 }
             }
             this.Animate(gameTime);
+        }
+
+        public bool IsVisible()
+        {
+            return this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth;
         }
     }
 }

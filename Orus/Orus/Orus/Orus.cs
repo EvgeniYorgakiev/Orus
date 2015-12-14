@@ -9,6 +9,7 @@ using Orus.Interfaces;
 using Orus.Levels;
 using Orus.Menu;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Orus
 {
@@ -152,8 +153,8 @@ namespace Orus
                 Input.UpdateInput(gameTime);
                 this.Levels[this.CurrentLevelIndex].SpawnNewEnemies(600);
                 Character.Animate(gameTime);
-                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
-               {
+                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
+                {
                     enemy.Update(gameTime);
                 }
                 this.Camera.Update(gameTime, this.Character.Position);
@@ -190,7 +191,7 @@ namespace Orus
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
                 this.Levels[this.CurrentLevelIndex].Draw(this.SpriteBatch);
                 Character.DrawAnimations(SpriteBatch);
-                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
+                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
                 {
                     enemy.DrawAnimations(SpriteBatch);
                 }
