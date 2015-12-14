@@ -14,7 +14,7 @@ namespace Orus.Levels
         private Sprite levelBackground;
         private List<Sprite> bigTree;
         private List<Sprite> smallTree;
-                     
+        private Sprite crypt;
         private List<Enemy> enemies;
 
         public Level(int level, ContentManager content)
@@ -46,13 +46,13 @@ namespace Orus.Levels
                         this.SmallTree.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(1500, 55)));
 
                         this.Enemies.Add(new Zombie(new Point2D(300, 300), Orus.Instance.Content));
+                        this.Crypt = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Crypt"), new Point2D(1100, 115));
 
-                        
                         break;
                     }
             }
             this.LevelBackground.IsActive = true;
-
+            this.Crypt.IsActive = true;
             foreach (var item in BigTree)
             {
                 item.IsActive = true;
@@ -72,6 +72,17 @@ namespace Orus.Levels
             set
             {
                 this.levelBackground = value;
+            }
+        }
+        public Sprite Crypt
+        {
+            get
+            {
+                return this.crypt;
+            }
+            set
+            {
+                this.crypt = value;
             }
         }
         public List<Sprite> BigTree
