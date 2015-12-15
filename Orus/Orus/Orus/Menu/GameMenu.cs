@@ -20,7 +20,8 @@ namespace Orus.Menu
         private static Rectangle creditsButton;
         private static Rectangle quitButton;
         private static Rectangle backFromCreditsButton;
-        private static bool isNewGamePrssed = false;
+        private static bool isNewGamePressed = false;
+        private static bool characterSelectionInProgress = false;
 
         private static Sprite MainMenuBackground
         {
@@ -70,11 +71,22 @@ namespace Orus.Menu
         {
             get
             {
-                return isNewGamePrssed;
+                return isNewGamePressed;
             }
             set
             {
-                isNewGamePrssed = value;
+                isNewGamePressed = value;
+            }
+        }
+        public static bool CharacterSelectionInProgress
+        {
+            get
+            {
+                return characterSelectionInProgress;
+            }
+            set
+            {
+                characterSelectionInProgress = value;
             }
         }
 
@@ -184,7 +196,7 @@ namespace Orus.Menu
                 if (NewGameButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
                 {
                     isMenuActive = false;
-                    Orus.Instance.IsMouseVisible = false;
+                    CharacterSelectionInProgress = true;
                 }
                 else if (mouseState.LeftButton == ButtonState.Released)
                 {

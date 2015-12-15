@@ -16,7 +16,7 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
 
         public Zombie(string name, Point2D position, ContentManager Content)
             : base(name, position,
-                  new Rectangle((int)position.X - Constant.ZombieWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
+                  new Rectangle((int)position.X + Constant.ZombieWidth / 2, (int)position.Y,
                       Constant.ZombieWidth, Constant.DefaultHeighForEverything), Constant.ZombieDefaultMoveSpeed, 
                   Constant.ZombieDefaultHealth, Constant.ZombieDefaultArmor, Constant.ZombieDefaultFireResistance,
                   Constant.ZombieDefaultLightingResistance, Constant.ZombieDefaultArcaneResistance, Constant.ZombieDefaultIceResistance,

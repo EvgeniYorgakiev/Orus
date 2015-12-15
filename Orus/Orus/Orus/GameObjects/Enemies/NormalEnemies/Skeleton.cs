@@ -16,7 +16,7 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
 
         public Skeleton(string name, Point2D position, ContentManager Content)
             : base(name, position,
-                  new Rectangle((int)position.X - Constant.SkeletonWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
+                  new Rectangle((int)position.X + Constant.SkeletonWidth / 2, (int)position.Y,
                       Constant.SkeletonWidth, Constant.DefaultHeighForEverything), Constant.SkeletonDefaultMoveSpeed, 
                   Constant.SkeletonDefaultHealth, Constant.SkeletonDefaultArmor, Constant.SkeletonDefaultFireResistance,
                   Constant.SkeletonDefaultLightingResistance, Constant.SkeletonDefaultArcaneResistance, Constant.SkeletonDefaultIceResistance,

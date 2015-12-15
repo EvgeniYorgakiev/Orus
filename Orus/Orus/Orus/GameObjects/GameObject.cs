@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Orus.Constants;
+using Orus.Exceptions;
 
 namespace Orus.GameObjects
 {
@@ -21,6 +23,10 @@ namespace Orus.GameObjects
             }
             set
             {
+                if(value.Length < Constant.MinimumNameLength)
+                {
+                    throw new InvalidName("Invalid username. It must be atleast " + Constant.MinimumNameLength + " letters long");
+                }
                 this.name = value;
             }
         }

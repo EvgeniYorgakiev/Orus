@@ -16,7 +16,7 @@ namespace Orus.GameObjects.Player.Characters
 
         public Crusader(string name, Point2D position, ContentManager Content) 
             : base(name, position, 
-                  new Rectangle((int)position.X - Constant.CrusaderWidth / 2, (int)position.Y - Constant.DefaultHeighForEverything / 2,
+                  new Rectangle((int)position.X + Constant.CrusaderWidth / 2, (int)position.Y,
                       Constant.CrusaderWidth , Constant.DefaultHeighForEverything), Constant.CrusaderDefaultMoveSpeed,
                   Constant.CrusaderDefaultHealth, Constant.CrusaderDefaultArmor, Constant.CrusaderDefaultFireResistance,
                   Constant.CrusaderDefaultLightingResistance, Constant.CrusaderDefaultArcaneResistance, Constant.CrusaderDefaultIceResistance,

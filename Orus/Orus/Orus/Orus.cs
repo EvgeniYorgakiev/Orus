@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
+using Orus.Exceptions;
 using Orus.GameObjects;
 using Orus.GameObjects.Player;
 using Orus.GameObjects.Player.Characters;
@@ -19,10 +20,14 @@ namespace Orus
         private SpriteBatch spriteBatch;
         private Camera camera;
         private Character character;
+        private List<Character> allCharacters;
         private List<Level> levels;
         private int currentLevelIndex;
         private static Orus instance = null;
         private static readonly object padlock = new object();
+        private SpriteFont font;
+        private static TextInput nameFieldDescription;
+        private static TextInput nameField;
 
         public Orus()
         {
@@ -92,6 +97,18 @@ namespace Orus
             }
         }
 
+        public List<Character> AllCharacters
+        {
+            get
+            {
+                return this.allCharacters;
+            }
+            set
+            {
+                this.allCharacters = value;
+            }
+        }
+
         public List<Level> Levels
         {
             get
@@ -116,6 +133,42 @@ namespace Orus
             }
         }
 
+        public SpriteFont Font
+        {
+            get
+            {
+                return font;
+            }
+            set
+            {
+                font = value;
+            }
+        }
+
+        public TextInput NameFieldDescription
+        {
+            get
+            {
+                return nameFieldDescription;
+            }
+            set
+            {
+                nameFieldDescription = value;
+            }
+        }
+
+        public TextInput NameField
+        {
+            get
+            {
+                return nameField;
+            }
+            set
+            {
+                nameField = value;
+            }
+        }
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -133,8 +186,15 @@ namespace Orus
             graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             graphics.PreferredBackBufferHeight = Constant.WindowHeight;
             graphics.ApplyChanges();
+            this.Font = this.Content.Load<SpriteFont>("Texts\\Fonts\\Arial");
             GameMenu.Load(this.Content);
-            Character = new Crusader(new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition), Content);
+            this.NameFieldDescription = new TextInput("Please enter a name for your character", false, 30, 400, 100, Color.White);
+            this.NameField = new TextInput("", true, 60, 200, 250, Color.Black);
+            //Character = new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content);
+            AllCharacters = new List<Character>()
+            {
+                new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content)}
+            ;
         }
 
         protected override void UnloadContent()
@@ -147,6 +207,23 @@ namespace Orus
             if (GameMenu.IsMenuActive)
             {
                 GameMenu.Update();
+            }
+            else if (GameMenu.CharacterSelectionInProgress)
+            {
+                Input.UpdateCharacterSelectionInput();
+                try
+                {
+                    this.NameField.UpdateInputNameText(gameTime, false);
+                }
+                catch (InvalidName exception)
+                {
+                    this.NameFieldDescription = new TextInput(exception.Message, false, 30, 700, 100, Color.White);
+                }
+                this.NameFieldDescription.UpdateInputNameText(gameTime, true);
+                foreach (var character in AllCharacters)
+                {
+                    character.Animate(gameTime);
+                }
             }
             else
             {
@@ -179,21 +256,34 @@ namespace Orus
 
         protected override void Draw(GameTime gameTime)
         {
-            
             base.Draw(gameTime);
             if(GameMenu.IsMenuActive)
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                GameMenu.Draw(SpriteBatch);
+                GameMenu.Draw(this.SpriteBatch);
             }
             else
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
                 this.Levels[this.CurrentLevelIndex].Draw(this.SpriteBatch);
-                Character.DrawAnimations(SpriteBatch);
-                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
+                if (GameMenu.CharacterSelectionInProgress)
                 {
-                    enemy.DrawAnimations(SpriteBatch);
+                    foreach (var character in AllCharacters)
+                    {
+                        this.SpriteBatch.DrawString(this.Font, character.Name,
+                        new Vector2(character.Position.X, character.Position.Y), Color.White);
+                                    character.DrawAnimations(this.SpriteBatch);
+                    }
+                    this.NameField.Draw(spriteBatch);
+                    this.NameFieldDescription.Draw(spriteBatch);
+                }
+                else
+                {
+                    Character.DrawAnimations(this.SpriteBatch);
+                    foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
+                    {
+                        enemy.DrawAnimations(this.SpriteBatch);
+                    }
                 }
             }
             spriteBatch.End();

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using Orus.Sprites.Animations;
 using Orus.Sprites;
+using Orus.Menu;
 
 namespace Orus.GameObjects
 {
@@ -333,7 +334,7 @@ namespace Orus.GameObjects
         public virtual void DrawAnimations(SpriteBatch spriteBatch)
         {
             this.IddleAnimation.Draw(spriteBatch);
-            if(this.Health > 0)
+            if(this.Health > 0 && !GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawHealthBar(spriteBatch);
             }
@@ -357,7 +358,7 @@ namespace Orus.GameObjects
                 new Rectangle((int)(this.HealthBar.Position.X + Constant.HealthBarOffsetX), 
                 (int)(this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
                 (int)(this.HealthBar.Texture.Width * (healthInPercentage / 100)), 8),
-                 new Rectangle(0, 12, this.HealthBar.Texture.Width, 44), Color.Red);
+                 new Rectangle(0, 12, this.HealthBar.Texture.Width, 11), Color.Red);
 
             //The border
             spriteBatch.Draw(this.HealthBar.Texture,

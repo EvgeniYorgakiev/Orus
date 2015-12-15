@@ -38,6 +38,15 @@ namespace Orus.Constants
         public const int BackFromCreditsWidth = 100;
         public const int BackFromCreditsHeight = 124;
 
+        //New Game selection
+        public const int FirstCharacterPositionX = 200;
+        public const int AllCharactersPositionY = 250;
+
+        //Name input text
+        public const int InputBoxLeftCorner = 400;
+        public const int InputBoxHeight = 25;
+
+        public const int MinimumNameLength = 2;
         public const float TimeForFrameInMilliSeconds = 1000f / 60f;
         public const float DefaultRotation = 0f;
         public const float DefaultScale = 1f;
@@ -49,7 +58,7 @@ namespace Orus.Constants
         public const int DirectionIndicatingLeft = -1;
         public const int StartingPlayerXPosition = 0;
         public const int StartingPlayerYPosition = 300;
-        public const int DefaultHeighForEverything = 100;
+        public const int DefaultHeighForEverything = 140;
         public const double ConstantForArmorFormula = 0.06;
         public const int SpriteWidth = 120;
         public const float DefaultAnimationSpeed = 1f;
