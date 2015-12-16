@@ -75,7 +75,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public bool CollidesWithObjects(ICollection<ICollide> colliders, bool moveRight, int additionalXOffset = 0)
+        public bool CollidesWithObjects(List<ICollide> colliders, bool moveRight, int additionalXOffset = 0)
         {
             foreach (var collider in colliders)
             {
