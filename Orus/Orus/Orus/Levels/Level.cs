@@ -135,7 +135,7 @@ namespace Orus.Levels
                 {
                     case 0:
                         {
-                            this.Enemies.Add(new Zombie(new Point2D(300, 300), Orus.Instance.Content));
+                            this.Enemies.Add(new Skeleton(new Point2D(300, 300), Orus.Instance.Content));
                             break;
                         }
                 }

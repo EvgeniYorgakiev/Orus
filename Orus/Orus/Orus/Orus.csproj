@@ -73,7 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\InvalidName.cs" />
-    <Compile Include="InputHandler\TextInput.cs" />
+    <Compile Include="Interfaces\IQuest.cs" />
+    <Compile Include="Quests\SlayQuest.cs" />
+    <Compile Include="GameObjects\NPC\QuestGiver.cs" />
+    <Compile Include="InputHandler\Text.cs" />
+    <Compile Include="Interfaces\IInteractable.cs" />
+    <Compile Include="Levels\NewGameSelection.cs" />
     <Compile Include="Sprites\Animations\FrameAnimation.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Constants\Constant.cs" />

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Interfaces;
 using Orus.Constants;
+using Orus.Quests;
 
 namespace Orus.GameObjects.Enemies
 {
@@ -43,6 +44,22 @@ namespace Orus.GameObjects.Enemies
         public bool IsVisible()
         {
             return this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth;
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            foreach (var questGiver in Orus.Instance.QuestGivers)
+            {
+                if(questGiver.Quest is SlayQuest)
+                {
+                    SlayQuest currentQuest = questGiver.Quest as SlayQuest;
+                    if (currentQuest.NameOfEnemy == this.Name)
+                    {
+                        currentQuest.Update();
+                    }
+                }
+            }
         }
     }
 }

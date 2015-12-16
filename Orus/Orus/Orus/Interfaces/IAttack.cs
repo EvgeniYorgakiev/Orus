@@ -9,7 +9,6 @@ namespace Orus.Interfaces
         int AttackDamage { get; set; }
         int AttackRange { get; set; }
         FrameAnimation AttackAnimation { get; set; }
-        string AttackAnimationPath { get; set; }
-        void Attack(List<AnimatedGameObject> gameObjects);
+        void Attack(List<AttackableGameObject> gameObjects);
     }
 }

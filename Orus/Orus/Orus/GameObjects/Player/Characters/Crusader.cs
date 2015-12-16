@@ -17,32 +17,29 @@ namespace Orus.GameObjects.Player.Characters
         public Crusader(string name, Point2D position, ContentManager Content) 
             : base(name, position, 
                   new Rectangle((int)position.X + Constant.CrusaderWidth / 2, (int)position.Y,
-                      Constant.CrusaderWidth , Constant.DefaultHeighForEverything), Constant.CrusaderDefaultMoveSpeed,
+                      Constant.CrusaderWidth , Constant.DefaultHeighForEverything), 
+                  Constant.CrusaderDefaultMoveSpeed,
                   Constant.CrusaderDefaultHealth, Constant.CrusaderDefaultArmor, Constant.CrusaderDefaultFireResistance,
                   Constant.CrusaderDefaultLightingResistance, Constant.CrusaderDefaultArcaneResistance, Constant.CrusaderDefaultIceResistance,
                   Constant.CrusaderDefaultAttackDamage, Constant.CrusaderAttackRange, 
                   Constant.CrusaderAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.CrusaderDeathFramesNumber)
         {
-            this.IddleAnimationPath = "Sprites\\Crusader\\Crusader iddle";
-            this.MoveAnimationPath = "Sprites\\Crusader\\Crusader move";
-            this.AttackAnimationPath = "Sprites\\Crusader\\Crusader attack";
-            this.DeathAnimationPath = "Sprites\\Crusader\\Crusader death";
             this.IddleAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.IddleAnimationPath),
+                 Content.Load<Texture2D>(Constant.CrusaderIddleAnimationPath),
                  Constant.CrusaderIddleFramesNumber,
                  this);
             this.IddleAnimation.IsActive = true;
             this.MoveAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.MoveAnimationPath),
+                 Content.Load<Texture2D>(Constant.CrusaderMoveAnimationPath),
                  Constant.CrusaderMoveFramesNumber,
                  this);
             this.AttackAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.AttackAnimationPath),
+                 Content.Load<Texture2D>(Constant.CrusaderAttackAnimationPath),
                  Constant.CrusaderAttackFramesNumber,
                  this);
             this.AttackAnimation.IsLoop = false;
             this.DeathAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.DeathAnimationPath),
+                 Content.Load<Texture2D>(Constant.CrusaderDeathAnimationPath),
                  Constant.CrusaderDeathFramesNumber,
                  this);
             this.DeathAnimation.IsLoop = false;

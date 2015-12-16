@@ -6,18 +6,39 @@ using Orus.Exceptions;
 
 namespace Orus.InputHandler
 {
-    public class TextInput
+    public class Text
     {
         private Rectangle textBox;
         private Texture2D background;
-        private string text;
+        private string textInField;
         private string parsedText;
         private string typedText;
         private double typedTextLength;
         private int delayInMilliseconds;
         private int timeSincePress;
         private bool isDoneDrawing;
+        private bool isStatic;
         private Color color;
+        private SpriteFont font;
+
+        public Text(string text, bool hasBackground, int leftCorner, int topCorner, int widthOfBox, int height,
+            int delayInMilliseconds, Color color, bool isStatic, SpriteFont font)
+        {
+            this.TextBox = new Rectangle(leftCorner, topCorner,
+                        widthOfBox, height);
+            if (hasBackground)
+            {
+                this.Background = Orus.Instance.Content.Load<Texture2D>("Texts\\TextBackground\\TextInputBackground");
+            }
+            this.IsStatic = isStatic;
+            this.Font = font;
+            this.Color = color;
+            this.DelayInMilliseconds = delayInMilliseconds;
+            this.IsDoneDrawing = false;
+            this.TextInField = text;
+            this.TypedText = "";
+            this.ParsedText = ParseText(this.TextInField);
+        }
 
         public Rectangle TextBox
         {
@@ -43,22 +64,22 @@ namespace Orus.InputHandler
             }
         }
 
-        public string Text
+        public string TextInField
         {
             get
             {
-                return text;
+                return textInField;
             }
             set
             {
-                text = value;
+                textInField = value;
                 this.IsDoneDrawing = false;
-                this.ParsedText = this.ParseText(text);
+                this.ParsedText = this.ParseText(textInField);
                 this.TimeSincePress = 1;
             }
         }
 
-        private string ParsedText
+        public string ParsedText
         {
             get
             {
@@ -130,6 +151,18 @@ namespace Orus.InputHandler
             }
         }
 
+        private bool IsStatic
+        {
+            get
+            {
+                return isStatic;
+            }
+            set
+            {
+                isStatic = value;
+            }
+        }
+
         private Color Color
         {
             get
@@ -142,20 +175,16 @@ namespace Orus.InputHandler
             }
         }
 
-        public TextInput(string text, bool hasBackground, int topCorner, int widthOfBox, int delayInMilliseconds, Color color)
+        private SpriteFont Font
         {
-            this.TextBox = new Rectangle(Constant.InputBoxLeftCorner, topCorner,
-                        widthOfBox, Constant.InputBoxHeight);
-            if (hasBackground)
+            get
             {
-                this.Background = Orus.Instance.Content.Load<Texture2D>("Texts\\TextBackground\\TextInputBackground");
+                return font;
             }
-            this.Text = text;
-            this.TypedText = "";
-            this.ParsedText = ParseText(this.Text);
-            this.DelayInMilliseconds = delayInMilliseconds;
-            this.IsDoneDrawing = false;
-            this.Color = color;
+            set
+            {
+                font = value;
+            }
         }
 
         private string ParseText(string text)
@@ -166,9 +195,17 @@ namespace Orus.InputHandler
 
             foreach (string word in wordArray)
             {
-                if (Orus.Instance.Font.MeasureString(line + word).Length() > this.TextBox.Width)
+                if (Orus.Instance.NameFont.MeasureString(line + word).Length() > this.TextBox.Width)
                 {
-                    throw new InvalidName("Invalid username. It must be able to fit in the box");
+                    if (this.IsStatic)
+                    {
+                        returnString = returnString + line + '\n';
+                        line = string.Empty;
+                    }
+                    else
+                    {
+                        throw new InvalidName("Invalid username. It must be able to fit in the box");
+                    }
                 }
                 line = line + word + ' ';
             }
@@ -176,7 +213,7 @@ namespace Orus.InputHandler
             return returnString + line;
         }
 
-        public void UpdateInputNameText(GameTime gameTime, bool isStatic)
+        public void Update(GameTime gameTime, bool isStatic)
         {
             if (this.TimeSincePress == 0 && !isStatic)
             {
@@ -221,116 +258,116 @@ namespace Orus.InputHandler
             }
             if (keyboard.IsKeyDown(Keys.Q))
             {
-                this.Text += (char)('q' - shiftDifference);
+                this.TextInField += (char)('q' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.W))
             {
-                this.Text += (char)('w' - shiftDifference);
+                this.TextInField += (char)('w' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.E))
             {
-                this.Text += (char)('e' - shiftDifference);
+                this.TextInField += (char)('e' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.R))
             {
-                this.Text += (char)('r' - shiftDifference);
+                this.TextInField += (char)('r' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.T))
             {
-                this.Text += (char)('t' - shiftDifference);
+                this.TextInField += (char)('t' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.Y))
             {
-                this.Text += (char)('y' - shiftDifference);
+                this.TextInField += (char)('y' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.U))
             {
-                this.Text += (char)('u' - shiftDifference);
+                this.TextInField += (char)('u' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.I))
             {
-                this.Text += (char)('i' - shiftDifference);
+                this.TextInField += (char)('i' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.O))
             {
-                this.Text += (char)('o' - shiftDifference);
+                this.TextInField += (char)('o' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.P))
             {
-                this.Text += (char)('p' - shiftDifference);
+                this.TextInField += (char)('p' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.A))
             {
-                this.Text += (char)('a' - shiftDifference);
+                this.TextInField += (char)('a' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.S))
             {
-                this.Text += (char)('s' - shiftDifference);
+                this.TextInField += (char)('s' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.D))
             {
-                this.Text += (char)('d' - shiftDifference);
+                this.TextInField += (char)('d' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.F))
             {
-                this.Text += (char)('f' - shiftDifference);
+                this.TextInField += (char)('f' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.G))
             {
-                this.Text += (char)('g' - shiftDifference);
+                this.TextInField += (char)('g' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.H))
             {
-                this.Text += (char)('h' - shiftDifference);
+                this.TextInField += (char)('h' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.J))
             {
-                this.Text += (char)('j' - shiftDifference);
+                this.TextInField += (char)('j' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.K))
             {
-                this.Text += (char)('k' - shiftDifference);
+                this.TextInField += (char)('k' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.L))
             {
-                this.Text += (char)('l' - shiftDifference);
+                this.TextInField += (char)('l' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.Z))
             {
-                this.Text += (char)('z' - shiftDifference);
+                this.TextInField += (char)('z' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.X))
             {
-                this.Text += (char)('x' - shiftDifference);
+                this.TextInField += (char)('x' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.C))
             {
-                this.Text += (char)('c' - shiftDifference);
+                this.TextInField += (char)('c' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.V))
             {
-                this.Text += (char)('v' - shiftDifference);
+                this.TextInField += (char)('v' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.B))
             {
-                this.Text += (char)('b' - shiftDifference);
+                this.TextInField += (char)('b' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.N))
             {
-                this.Text += (char)('n' - shiftDifference);
+                this.TextInField += (char)('n' - shiftDifference);
             }
             if (keyboard.IsKeyDown(Keys.M))
             {
-                this.Text += (char)('m' - shiftDifference);
+                this.TextInField += (char)('m' - shiftDifference);
             }
-            if (keyboard.IsKeyDown(Keys.Back) && Text.Length > 0)
+            if (keyboard.IsKeyDown(Keys.Back) && TextInField.Length > 0)
             {
-                this.Text = Text.Substring(0, Text.Length - 1);
+                this.TextInField = TextInField.Substring(0, TextInField.Length - 1);
                 TypedText.TrimEnd();
-                if(TypedText.Length > Text.Length)
+                if(TypedText.Length > TextInField.Length)
                 {
-                    this.TypedText = Text;
-                    this.TypedTextLength = Text.Length;
+                    this.TypedText = TextInField;
+                    this.TypedTextLength = TextInField.Length;
                 }
             }
         }
@@ -341,7 +378,7 @@ namespace Orus.InputHandler
             {
                 spriteBatch.Draw(this.Background, this.TextBox, Color.White);
             }
-            spriteBatch.DrawString(Orus.Instance.Font, this.TypedText, new Vector2(this.TextBox.X, this.TextBox.Y), this.Color);
+            spriteBatch.DrawString(this.Font, this.TypedText, new Vector2(this.TextBox.X, this.TextBox.Y), this.Color);
         }
     }
 }

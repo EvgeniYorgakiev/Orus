@@ -43,8 +43,19 @@ namespace Orus.Constants
         public const int AllCharactersPositionY = 250;
 
         //Name input text
+        public const int NameFieldPositionY = 60;
+        public const int NameFieldDescriptionPositionY = 30;
+        public const int NameFieldWidth = 200;
+        public const int NameFieldDescriptionWidth = 400;
+        public const int ErrorNameFieldDescriptionWidth = 700;
+        public const int NameFieldDelay = 250;
+        public const int NameFieldDescriptionDelay = 100;
         public const int InputBoxLeftCorner = 400;
         public const int InputBoxHeight = 25;
+        public const int ConfirmationButtonPositionX = 615;
+        public const int ConfirmationButtonPositionY = 50;
+        public const int ConfirmationButtonWidth = 119;
+        public const int ConfirmationButtonHeight = 40;
 
         public const int MinimumNameLength = 2;
         public const float TimeForFrameInMilliSeconds = 1000f / 60f;
@@ -63,7 +74,12 @@ namespace Orus.Constants
         public const int SpriteWidth = 120;
         public const float DefaultAnimationSpeed = 1f;
 
+        //Characters
         public const string CrusaderDefaultName = "Crusader";
+        public const string CrusaderIddleAnimationPath = "Sprites\\Characters\\Crusader\\Crusader iddle";
+        public const string CrusaderMoveAnimationPath = "Sprites\\Characters\\Crusader\\Crusader move";
+        public const string CrusaderAttackAnimationPath = "Sprites\\Characters\\Crusader\\Crusader attack";
+        public const string CrusaderDeathAnimationPath = "Sprites\\Characters\\Crusader\\Crusader death";
         public const int CrusaderIddleFramesNumber = 11;
         public const int CrusaderMoveFramesNumber = 8;
         public const int CrusaderAttackFramesNumber = 8;
@@ -80,7 +96,12 @@ namespace Orus.Constants
         public const int CrusaderAttackRange = 20;
         public const int CrusaderAttackFrame = 8;
 
+        //Enemies
         public const string ZombieDefaultName = "Zombie";
+        public const string ZombieIddleAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie iddle";
+        public const string ZombieMoveAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie move";
+        public const string ZombieAttackAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie attack";
+        public const string ZombieDeathAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie death";
         public const int ZombieIddleFramesNumber = 13;
         public const int ZombieMoveFramesNumber = 11;
         public const int ZombieAttackFramesNumber = 14;
@@ -98,6 +119,10 @@ namespace Orus.Constants
         public const int ZombieAttackFrame = 7;
 
         public const string SkeletonDefaultName = "Skeleton Boss";
+        public const string SkeletonIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
+        public const string SkeletonMoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
+        public const string SkeletonAttackAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton attack";
+        public const string SkeletonDeathAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton death";
         public const int SkeletonIddleFramesNumber = 5;
         public const int SkeletonMoveFramesNumber = 9;
         public const int SkeletonAttackFramesNumber = 5;
@@ -113,5 +138,23 @@ namespace Orus.Constants
         public const int SkeletonDefaultAttackDamage = 20;
         public const int SkeletonAttackRange = 10;
         public const int SkeletonAttackFrame = 5;
+
+        //NPCs
+
+        public const int QuestGiverTextDelayInMilliseconds = 75;
+        public const int QuestGiverTextWidth = 250;
+
+        public const int QuestGiver1PositionY = 280;
+        public const int QuestGiver1PositionX = 150;
+        public const string QuestGiver1InitialText = "Milord, today when I visited my former master I found his skeleton roaming the halls of his crypt. Would you please put his skeleton to rest?";
+        public const string QuestGiver1CompletedText = "Thank you milord.";
+        public const int QuestGiver1OffsetFromTopForInitial = 50;
+        public const int QuestGiver1OffsetFromTopForCompleted = 0;
+        public const int QuestGiver1HeightForText = 50;
+
+        public const string PeasantDefaultName = "Peasant";
+        public const string PeasantIddleAnimationPath = "Sprites\\NPCS\\Peasant\\Peasant iddle";
+        public const int PeasantIddleFramesNumber = 5;
+        public const int PeasantWidth = 50;
     }
 }

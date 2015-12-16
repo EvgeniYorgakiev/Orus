@@ -23,26 +23,22 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
                   Constant.SkeletonDefaultAttackDamage, Constant.SkeletonAttackRange,
                   Constant.SkeletonAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.SkeletonDeathFramesNumber)
         {
-            this.IddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
-            this.MoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
-            this.AttackAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton attack";
-            this.DeathAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton death";
             this.IddleAnimation = new FrameAnimation(
-                Content.Load<Texture2D>(this.IddleAnimationPath),
+                Content.Load<Texture2D>(Constant.SkeletonIddleAnimationPath),
                 Constant.SkeletonIddleFramesNumber,
                 this);
             this.IddleAnimation.IsActive = true;
             this.MoveAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.MoveAnimationPath),
+                 Content.Load<Texture2D>(Constant.SkeletonMoveAnimationPath),
                  Constant.SkeletonMoveFramesNumber,
                  this);
             this.AttackAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.AttackAnimationPath),
+                 Content.Load<Texture2D>(Constant.SkeletonAttackAnimationPath),
                  Constant.SkeletonAttackFramesNumber,
                  this);
             this.AttackAnimation.IsLoop = false;
             this.DeathAnimation = new FrameAnimation(
-                 Content.Load<Texture2D>(this.DeathAnimationPath),
+                 Content.Load<Texture2D>(Constant.SkeletonDeathAnimationPath),
                  Constant.SkeletonDeathFramesNumber,
                  this);
             this.DeathAnimation.IsLoop = false;

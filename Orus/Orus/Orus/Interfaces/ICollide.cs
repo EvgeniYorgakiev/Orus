@@ -11,6 +11,6 @@ namespace Orus.Interfaces
     {
         Rectangle BoundingBox { get; set; }
 
-        bool Collides(AnimatedGameObject colliders, bool isMovingRight, int additionalOffset = 0);
+        bool Collides(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0);
     }
 }

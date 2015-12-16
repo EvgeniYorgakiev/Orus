@@ -54,9 +54,12 @@ namespace Orus.Sprites.Animations
                     if(!this.IsLoop)
                     {
                         this.IsActive = false;
-                        if(animatedObject.Health > 0)
+                        if ((animatedObject as AttackableGameObject) != null)
                         {
-                            animatedObject.IddleAnimation.IsActive = true;
+                            if ((animatedObject as AttackableGameObject).Health > 0)
+                            {
+                                animatedObject.IddleAnimation.IsActive = true;
+                            }
                         }
                     }
                 }

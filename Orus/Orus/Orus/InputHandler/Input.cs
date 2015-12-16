@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.GameObjects;
 
@@ -7,11 +8,24 @@ namespace Orus.InputHandler
     public static class Input
     {
         private static bool mouseClicked;
+        private static bool isSpacePressed = false;
 
         public static bool MouseClicked
         {
             get { return mouseClicked; }
             set { mouseClicked = value; }
+        }
+
+        public static bool IsSpacePressed
+        {
+            get
+            {
+                return isSpacePressed;
+            }
+            set
+            {
+                isSpacePressed = value;
+            }
         }
 
         public static void UpdateInput(GameTime gameTime)
@@ -26,11 +40,11 @@ namespace Orus.InputHandler
             {
                 Orus.Instance.Exit();
             }
-            else if (keyState.IsKeyDown(Keys.Right))
+            else if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
                 Orus.Instance.MoveCharacter(gameTime, true);
             }
-            else if (keyState.IsKeyDown(Keys.Left))
+            else if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
                 Orus.Instance.MoveCharacter(gameTime, false);
             }
@@ -38,9 +52,26 @@ namespace Orus.InputHandler
             {
                 Orus.Instance.Character.StopMovement();
             }
+            if (keyState.IsKeyDown(Keys.Space))
+            {
+                IsSpacePressed = true;
+            }
+            if(keyState.IsKeyUp(Keys.Space) && IsSpacePressed)
+            {
+                foreach (var questGiver in Orus.Instance.QuestGivers)
+                {
+                    if (questGiver.Collides(Orus.Instance.Character,
+                        !Orus.Instance.Character.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
+                    {
+                        questGiver.Interact();
+                        break;
+                    }
+                }
+                IsSpacePressed = false;
+            }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                Orus.Instance.Character.Attack(Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies.ConvertAll<AnimatedGameObject>(enemy => enemy));
+                Orus.Instance.Character.Attack(Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies.ConvertAll<AttackableGameObject>(enemy => enemy));
             }
         }
 
