@@ -16,11 +16,13 @@ namespace Orus.Sprites.Animations
         public FrameAnimation(Texture2D Texture, int frames, AnimatedGameObject animatedGameObject)
             : base(Texture, frames, animatedGameObject)
         {
+
         }
 
         public FrameAnimation(Texture2D Texture, int frames)
             : base(Texture, frames)
         {
+
         }
 
         public void Animate(GameTime gameTime)

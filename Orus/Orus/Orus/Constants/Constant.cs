@@ -86,10 +86,12 @@ namespace Orus.Constants
         public const string CrusaderMoveAnimationPath = "Sprites\\Characters\\Crusader\\Crusader move";
         public const string CrusaderAttackAnimationPath = "Sprites\\Characters\\Crusader\\Crusader attack";
         public const string CrusaderDeathAnimationPath = "Sprites\\Characters\\Crusader\\Crusader death";
+        public const string CrusaderDoubleAttackAnimationPath = "Sprites\\Characters\\Crusader\\Crusader attack";
         public const int CrusaderIddleFramesNumber = 11;
         public const int CrusaderMoveFramesNumber = 8;
         public const int CrusaderAttackFramesNumber = 8;
         public const int CrusaderDeathFramesNumber = 8;
+        public const int CrusaderDoubleAttackFramesNumber = 11;
         public const int CrusaderWidth = 50;
         public const float CrusaderDefaultMoveSpeed = 1f;
         public const int CrusaderDefaultHealth = 200;

@@ -27,6 +27,7 @@ namespace Orus.GameObjects
         private int attackRange;
         private float timeUntilDamageSinceAttack;
         private bool isAttacking = false;
+        private bool isUsingAbility = false;
         private float timeAttacking = 0.0f;
         private AttackableGameObject objectAttacked;
 
@@ -257,6 +258,18 @@ namespace Orus.GameObjects
             set
             {
                 this.isAttacking = value;
+            }
+        }
+
+        public bool IsUsingAbility
+        {
+            get
+            {
+                return this.isUsingAbility;
+            }
+            set
+            {
+                this.isUsingAbility = value;
             }
         }
 

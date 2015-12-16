@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Orus.Abilities;
 using Orus.GameObjects;
 
 namespace Orus.InputHandler
@@ -30,7 +31,8 @@ namespace Orus.InputHandler
 
         public static void UpdateInput(GameTime gameTime)
         {
-            if (Orus.Instance.Character.AttackAnimation.IsActive || Orus.Instance.Character.Health == 0)
+            if (Orus.Instance.Character.AttackAnimation.IsActive || Orus.Instance.Character.Health == 0 || 
+                Orus.Instance.Character.IsUsingAbility)
             {
                 return;
             }
@@ -68,6 +70,10 @@ namespace Orus.InputHandler
                     }
                 }
                 IsSpacePressed = false;
+            }
+            if (keyState.IsKeyDown(Keys.Q))
+            {
+                AbilityFactory.UseAbility(1, Orus.Instance.Character);
             }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
