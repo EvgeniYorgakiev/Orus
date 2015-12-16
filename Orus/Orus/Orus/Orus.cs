@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
@@ -11,6 +12,7 @@ using Orus.Levels;
 using Orus.Menu;
 using Orus.Quests;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Orus.GameObjects.Items;
 
@@ -31,6 +33,7 @@ namespace Orus
         private SpriteFont questFont;
         private SpriteFont nameFont;
         private NewGameSelection newGameSelection;
+        public static int a = 0;
 
         public Orus()
         {
@@ -264,11 +267,14 @@ namespace Orus
                 this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
+
+
         }
         
         public void MoveCharacter(GameTime gameTime, bool moveRight)
         {
             bool collides = Character.CollidesWithObjects(this.Levels[this.CurrentLevelIndex].Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
+
             if ((this.Character.Position.X < 0 && !moveRight) ||
                (this.Character.Position.X + Constant.SpriteWidth > 
                this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Width && moveRight))
@@ -279,6 +285,7 @@ namespace Orus
             {
                 this.Character.Move(gameTime, moveRight, collides);
             }
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -305,6 +312,8 @@ namespace Orus
                 }
                 else
                 {
+
+                    
                     foreach (var questGiver in this.QuestGivers)
                     {
                         questGiver.DrawAnimations(this.SpriteBatch);
@@ -314,7 +323,7 @@ namespace Orus
                         enemy.DrawAnimations(this.SpriteBatch);
                     }
 
-
+                    
                     foreach (var element in Item.VisibleItems)
                     {
                         element.Draw(SpriteBatch);

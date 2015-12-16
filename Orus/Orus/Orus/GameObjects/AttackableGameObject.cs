@@ -34,6 +34,9 @@ namespace Orus.GameObjects
         private bool isUsingAbility = false;
         private float timeAttacking = 0.0f;
         private AttackableGameObject objectAttacked;
+        public const float MovingDistanceArmour = 50;
+        public const float MovingDistanceStomper = 70;
+    
 
         protected AttackableGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
              int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
@@ -356,6 +359,17 @@ namespace Orus.GameObjects
                 if (!collides)
                 {
                     this.Position = new Point2D(this.Position.X + ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
+
+                }
+
+                foreach (var element in Item.VisibleItems)
+                {
+                    if (element.CollidesWithCharacter(this, true))
+                    {
+                        element.ItemPicture.IsActive = false;
+                        element.IsCollectedByCharacter = true;
+                    }
+
                 }
             }
             else
@@ -365,7 +379,23 @@ namespace Orus.GameObjects
                 {
                     this.Position = new Point2D(this.Position.X - ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
                 }
+
+                foreach (var element in Item.VisibleItems)
+                {
+                    if (element.CollidesWithCharacter(this, false))
+                    {
+                        element.ItemPicture.IsActive = false;
+                        element.IsCollectedByCharacter = true;
+
+                    }
+
+                }
+
+
             }
+
+
+
         }
 
         public void StopMovement()
@@ -498,15 +528,36 @@ namespace Orus.GameObjects
 
         private void GenerateItem()
         {
-            Point2D itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + 50);
+            Point2D itemPosition = new Point2D(0, 0);
 
             if (this is Zombie)
             {
+                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceStomper);
+                }
+                else
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceStomper);
+                }
+
                 Stomper.ItemAppear(itemPosition);
+
             }
             else if (this is Skeleton)
             {
+
+                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceArmour);
+                }
+                else
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceArmour);
+                }
+
                 GiantArmour.ItemAppear(itemPosition);
+
             }
         }
     }
