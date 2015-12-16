@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Interfaces;
 using Orus.Sprites;
@@ -20,7 +21,7 @@ namespace Orus.GameObjects.Items
 
         }
 
-        protected Item(string name, Point2D position) : base(name, position)
+        protected Item(string name, Point2D position, ContentManager content) : base(name, position)
         {
         }
 
@@ -34,7 +35,10 @@ namespace Orus.GameObjects.Items
         }
 
 
-
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.ItemPicture.IsActive = true;
+            this.ItemPicture.Draw(spriteBatch);
+        }
     }
 }

@@ -77,7 +77,9 @@
     <Compile Include="Abilities\AttackAbility.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
+    <Compile Include="GameObjects\Items\GiantArmour.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
+    <Compile Include="GameObjects\Items\MastermindShield.cs" />
     <Compile Include="GameObjects\Items\Stomper.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IQuest.cs" />

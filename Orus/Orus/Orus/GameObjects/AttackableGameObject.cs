@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.Interfaces;
@@ -8,6 +9,7 @@ using Orus.Sprites.Animations;
 using System.Collections.Generic;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Items;
+using Orus.GameObjects.Player.Characters;
 
 namespace Orus.GameObjects
 {
@@ -496,13 +498,15 @@ namespace Orus.GameObjects
 
         private void GenerateItem()
         {
+            Point2D itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + 50);
+
             if (this is Zombie)
             {
-                Stomper.ItemAppear(this.DeathAnimation.Position);
+                Stomper.ItemAppear(itemPosition);
             }
             else if (this is Skeleton)
             {
-
+                GiantArmour.ItemAppear(itemPosition);
             }
         }
     }
