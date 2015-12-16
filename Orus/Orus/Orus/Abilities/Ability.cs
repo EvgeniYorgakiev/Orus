@@ -14,6 +14,9 @@ namespace Orus.Abilities
         private float cooldownTime;
         private float timeSinceUse;
         private bool isOnCooldown;
+        private bool isPlayerUsable;
+        private bool isEnemyUsable;
+        private DamageType damageType;
 
         public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames)
         {
@@ -88,6 +91,45 @@ namespace Orus.Abilities
             set
             {
                 this.isOnCooldown = value;
+            }
+        }
+
+        public bool IsPlayerUsable
+        {
+            get
+            {
+                return this.isPlayerUsable;
+            }
+
+            set
+            {
+                this.isPlayerUsable = value;
+            }
+        }
+
+        public bool IsEnemyUsable
+        {
+            get
+            {
+                return this.isEnemyUsable;
+            }
+
+            set
+            {
+                this.isEnemyUsable = value;
+            }
+        }
+
+        public DamageType DamageType
+        {
+            get
+            {
+                return this.damageType;
+            }
+
+            set
+            {
+                this.damageType = value;
             }
         }
 
