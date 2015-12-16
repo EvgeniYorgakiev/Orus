@@ -12,6 +12,7 @@ namespace Orus.Levels
     public class Level
     {
         private Sprite levelBackground;
+        private Sprite leve2Background;
         private List<Sprite> decor;
         private Sprite crypt;
         private bool spawnedEnemies = false;
@@ -52,6 +53,11 @@ namespace Orus.Levels
                         this.Enemies.Add(new Zombie(new Point2D(1300, 300), Orus.Instance.Content));
                         this.Enemies.Add(new Zombie(new Point2D(1400, 300), Orus.Instance.Content));
 
+                        break;
+                    }
+                case 2:
+                    {
+                        this.LevelBackground = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Level2Background"), new Point2D(0, 0));
                         break;
                     }
             }
