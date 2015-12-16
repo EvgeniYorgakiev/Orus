@@ -49,11 +49,14 @@ namespace Orus.GameObjects.Items
             if (!this.IsCollectedByCharacter)
             {
                 this.ItemPicture.IsActive = true;
+                this.BoundingBox = new Rectangle((int) this.ItemPicture.Position.X, (int) this.ItemPicture.Position.Y,
+                    this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
+                this.ItemPicture.Draw(spriteBatch);
             }
-
-            this.ItemPicture.Draw(spriteBatch);
-
-            this.BoundingBox = new Rectangle((int)this.ItemPicture.Position.X, (int)this.ItemPicture.Position.Y, this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
+            else
+            {
+                this.BoundingBox = new Rectangle(0,0,0,0);
+            }
 
         }
 
@@ -69,33 +72,25 @@ namespace Orus.GameObjects.Items
         {
             if (isMovingRight)
             {
-                if (collider.Position.X + collider.BoundingBox.Width / 2 >
-                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset &&
-                    collider.Position.X < this.Position.X)
+                if (collider.Position.X + collider.BoundingBox.Width + collider.BoundingBox.Width/2 >
+                this.Position.X - additionalXOffset &&
+                    collider.Position.X + collider.BoundingBox.Width + collider.BoundingBox.Width/2 < this.Position.X + this.BoundingBox.Width)
                 {
                     return true;
                 }
-                if (collider.Position.X + collider.BoundingBox.Width / 2 <
-                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset &&
-                    collider.Position.X > this.Position.X)
-                {
-                    return true;
-                }
+
+
+
             }
             else
             {
-                if (collider.Position.X - collider.BoundingBox.Width / 2 >
-                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
-                    collider.Position.X < this.Position.X)
+                if (collider.Position.X + collider.BoundingBox.Width >
+                this.Position.X + additionalXOffset &&
+                    collider.Position.X + collider.BoundingBox.Width < this.Position.X + this.BoundingBox.Width)
                 {
                     return true;
                 }
-                if (collider.Position.X - collider.BoundingBox.Width / 2 <
-                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
-                    collider.Position.X > this.Position.X)
-                {
-                    return true;
-                }
+
             }
             return false;
         }

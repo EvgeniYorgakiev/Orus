@@ -364,10 +364,10 @@ namespace Orus.GameObjects
 
                 foreach (var element in Item.VisibleItems)
                 {
-                    if (element.CollidesWithCharacter(this, true))
+                    if (element.CollidesWithCharacter(this, directionIsRight))
                     {
-                        element.ItemPicture.IsActive = false;
                         element.IsCollectedByCharacter = true;
+                        element.ItemPicture.IsActive = false;
                     }
 
                 }
@@ -382,10 +382,14 @@ namespace Orus.GameObjects
 
                 foreach (var element in Item.VisibleItems)
                 {
-                    if (element.CollidesWithCharacter(this, false))
+                    if (element.CollidesWithCharacter(this, directionIsRight))
                     {
-                        element.ItemPicture.IsActive = false;
-                        element.IsCollectedByCharacter = true;
+                        if (this is Character)
+                        {
+                            element.IsCollectedByCharacter = true;
+                            element.ItemPicture.IsActive = false;
+                        }
+
 
                     }
 
