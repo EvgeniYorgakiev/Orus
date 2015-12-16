@@ -26,6 +26,12 @@ namespace Orus.Constants
         public const int CreditsButtonWidth = 101;
         public const int CreditsButtonHeight = 49;
 
+        //OPTIONS BTN
+        public const int OptionsButtonPositionX = 635;
+        public const int OptionsButtonPositionY = 120;
+        public const int OptionsButtonWidth = 93;
+        public const int OptionsButtonHeight = 75;
+
         //QUIT BTN
         public const int QuitButtonPositionX = 100;
         public const int QuitButtonPositionY = 424;
