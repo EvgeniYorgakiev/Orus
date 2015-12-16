@@ -12,6 +12,7 @@ using Orus.Menu;
 using Orus.Quests;
 using System.Collections.Generic;
 using System.Linq;
+using Orus.GameObjects.Items;
 
 namespace Orus
 {
@@ -312,6 +313,13 @@ namespace Orus
                     {
                         enemy.DrawAnimations(this.SpriteBatch);
                     }
+
+
+                    foreach (var element in Item.VisibleItems)
+                    {
+                        element.Draw(SpriteBatch);
+                    }
+
                     Character.DrawAnimations(this.SpriteBatch);
                 }
             }

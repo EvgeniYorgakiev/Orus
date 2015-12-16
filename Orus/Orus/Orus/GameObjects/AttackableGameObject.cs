@@ -6,6 +6,8 @@ using Orus.Menu;
 using Orus.Sprites;
 using Orus.Sprites.Animations;
 using System.Collections.Generic;
+using Orus.GameObjects.Enemies.NormalEnemies;
+using Orus.GameObjects.Items;
 
 namespace Orus.GameObjects
 {
@@ -487,6 +489,21 @@ namespace Orus.GameObjects
             base.Die();
             this.AttackAnimation.IsActive = false;
             this.DeathAnimation.IsActive = true;
+
+            GenerateItem();
+
+        }
+
+        private void GenerateItem()
+        {
+            if (this is Zombie)
+            {
+                Stomper.ItemAppear(this.DeathAnimation.Position);
+            }
+            else if (this is Skeleton)
+            {
+
+            }
         }
     }
 }
