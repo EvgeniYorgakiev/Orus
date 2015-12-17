@@ -34,9 +34,6 @@ namespace Orus.GameObjects
         private bool isUsingAbility = false;
         private float timeAttacking = 0.0f;
         private AttackableGameObject objectAttacked;
-        public const float MovingDistanceArmour = 50;
-        public const float MovingDistanceStomper = 70;
-
 
         protected AttackableGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
              int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,

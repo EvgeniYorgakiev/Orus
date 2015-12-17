@@ -49,11 +49,11 @@ namespace Orus.GameObjects.Enemies
             return this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth;
         }
 
+        public bool JustKilled { get; set; }
+
         public override void Die()
         {
             base.Die();
-
-            GenerateItem();
 
             foreach (var questGiver in Orus.Instance.QuestGivers)
             {
@@ -66,41 +66,9 @@ namespace Orus.GameObjects.Enemies
                     }
                 }
             }
+
+            this.JustKilled = true;
         }
 
-        private void GenerateItem()
-        {
-            Point2D itemPosition = new Point2D(0, 0);
-
-            if (this is Zombie)
-            {
-                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
-                {
-                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceStomper);
-                }
-                else
-                {
-                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceStomper);
-                }
-
-                Stomper.ItemAppear(itemPosition);
-
-            }
-            else if (this is Skeleton)
-            {
-
-                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
-                {
-                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceArmour);
-                }
-                else
-                {
-                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceArmour);
-                }
-
-                GiantArmour.ItemAppear(itemPosition);
-
-            }
-        }
     }
 }

@@ -18,6 +18,10 @@ namespace Orus.Levels
         private Texture2D confirmationButton;
         private Rectangle confirmationButtonLocation;
 
+
+
+
+
         public Text NameFieldDescription
         {
             get
@@ -117,6 +121,7 @@ namespace Orus.Levels
             try
             {
                 this.NameField.Update(gameTime, false);
+
             }
             catch (InvalidName exception)
             {
@@ -133,6 +138,7 @@ namespace Orus.Levels
             this.NameField.Draw(spriteBatch);
             this.NameFieldDescription.Draw(spriteBatch);
             spriteBatch.Draw(this.ConfirmationButton, this.ConfirmationButtonLocation, Color.White);
+
         }
     }
 }

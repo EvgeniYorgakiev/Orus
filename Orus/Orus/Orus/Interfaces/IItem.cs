@@ -14,10 +14,10 @@ namespace Orus.Interfaces
         Sprite ItemPicture { get; set; }
 
         void Draw(SpriteBatch spriteBatch);
+
         Rectangle BoundingBox { get; set; }
 
         bool IsCollectedByCharacter { get; set; }
 
-        void Update();
     }
 }

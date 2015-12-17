@@ -13,16 +13,8 @@ namespace Orus.GameObjects.Items
 {
     public abstract class Item : GameObject, IItem
     {
-        private static ICollection<IItem> visibleItems;
         private Rectangle boundingBox;
         private bool isCollectedByCharacter;
-
-
-        static Item()
-        {
-            Item.VisibleItems = new List<IItem>();
-
-        }
 
         protected Item(string name, Point2D position, ContentManager content) : base(name, position)
         {
@@ -34,19 +26,9 @@ namespace Orus.GameObjects.Items
             set { this.isCollectedByCharacter = value; }
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-
 
         public Sprite ItemPicture { get; set; }
 
-        public static ICollection<IItem> VisibleItems
-        {
-            get { return Item.visibleItems; }
-            set { Item.visibleItems = value; }
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

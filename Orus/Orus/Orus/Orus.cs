@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Orus.GameObjects.Items;
+using Orus.Sprites;
 
 namespace Orus
 {
@@ -34,7 +35,8 @@ namespace Orus
         private SpriteFont questFont;
         private SpriteFont nameFont;
         private NewGameSelection newGameSelection;
-        public static int a = 0;
+        private ICollection<IItem> visibleItems;
+        private int a = 0;
 
         public Orus()
         {
@@ -56,6 +58,7 @@ namespace Orus
                 }
             }
         }
+
 
         private GraphicsDeviceManager Graphics
         {
@@ -188,12 +191,15 @@ namespace Orus
             }
         }
 
+        public ICollection<IItem> VisibleItems { get; set; }
+
         protected override void Initialize()
         {
             base.Initialize();
             this.IsMouseVisible = true;
             this.Camera = new Camera(GraphicsDevice.Viewport);
             //this.Camera = new Camera(this);
+            VisibleItems = new List<IItem>();
         }
 
         protected override void LoadContent()
@@ -257,11 +263,17 @@ namespace Orus
                 Input.UpdateInput(gameTime);
                 this.Levels[this.CurrentLevelIndex].SpawnNewEnemies(600);
                 Character.Animate(gameTime);
-                this.Character.CheckCollisionOfCharacterWithItems(Item.VisibleItems);
+                this.Character.CheckCollisionOfCharacterWithItems(this.VisibleItems);
 
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
                 {
                     enemy.Update(gameTime);
+
+                    if (enemy.JustKilled)
+                    {
+                        ItemFactory.ProduceItemInField(enemy.DeathAnimation, enemy, this.VisibleItems);
+                        enemy.JustKilled = false;
+                    }
                 }
 
                 foreach (var questGiver in this.QuestGivers)
@@ -332,7 +344,7 @@ namespace Orus
                     }
 
                     
-                    foreach (var element in Item.VisibleItems)
+                    foreach (var element in this.VisibleItems)
                     {
                         element.Draw(SpriteBatch);
                     }

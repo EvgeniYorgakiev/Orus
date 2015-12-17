@@ -22,13 +22,6 @@ namespace Orus.GameObjects.Items
 
         }
 
-
-        public static void ItemAppear(Point2D position)
-        {
-            Item.VisibleItems.Add(new Stomper("Stomper", position, Orus.Instance.Content));
-
-        }
-
         public override Rectangle BoundingBox { get; set; }
     }
 }

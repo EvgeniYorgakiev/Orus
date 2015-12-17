@@ -79,12 +79,14 @@
     <Compile Include="Abilities\DoubleStrike.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
     <Compile Include="GameObjects\Items\GiantArmour.cs" />
+    <Compile Include="GameObjects\Items\InventoryMenu.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\MastermindShield.cs" />
     <Compile Include="GameObjects\Items\Stomper.cs" />
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\ICollectItems.cs" />
     <Compile Include="Interfaces\IQuest.cs" />
+    <Compile Include="ItemFactory.cs" />
     <Compile Include="Quests\SlayQuest.cs" />
     <Compile Include="GameObjects\NPC\QuestGiver.cs" />
     <Compile Include="InputHandler\Text.cs" />

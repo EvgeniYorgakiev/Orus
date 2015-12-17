@@ -20,13 +20,8 @@ namespace Orus.GameObjects.Items
             this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
         }
 
-        public static void ItemAppear(Point2D position)
-        {
-            Item.VisibleItems.Add(new GiantArmour("GiantArmour", position, Orus.Instance.Content));
-
-        }
-
 
         public override Rectangle BoundingBox { get; set; }
+
     }
 }

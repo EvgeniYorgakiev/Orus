@@ -18,12 +18,6 @@ namespace Orus.GameObjects.Items
 
         }
 
-
-        public static void ItemAppear(Point2D position)
-        {
-            Item.VisibleItems.Add(new MastermindShield("MastermindShield", position, Orus.Instance.Content));
-        }
-
         public override Rectangle BoundingBox { get; set; }
     }
 }
