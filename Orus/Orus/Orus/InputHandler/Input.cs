@@ -60,12 +60,19 @@ namespace Orus.InputHandler
             }
             if(keyState.IsKeyUp(Keys.Space) && IsSpacePressed)
             {
-                foreach (var questGiver in Orus.Instance.QuestGivers)
+                foreach (var questGiver in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].QuestGivers)
                 {
-                    if (questGiver.Collides(Orus.Instance.Character,
-                        !Orus.Instance.Character.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
+                    if (questGiver.Collides(Orus.Instance.Character))
                     {
                         questGiver.Interact();
+                        break;
+                    }
+                }
+                foreach (var interactiveItem in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Interactives)
+                {
+                    if (interactiveItem.Collides(Orus.Instance.Character))
+                    {
+                        interactiveItem.Interact();
                         break;
                     }
                 }

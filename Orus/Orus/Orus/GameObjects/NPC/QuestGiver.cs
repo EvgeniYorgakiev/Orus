@@ -8,7 +8,7 @@ using Orus.InputHandler;
 
 namespace Orus.GameObjects.NPC
 {
-    public class QuestGiver : AnimatedGameObject, IIddle, ICollide, IInteractable
+    public class QuestGiver : AnimatedGameObject, IIddle, IInteractable
     {
         private string initialTextOnly;
         private string completedTextOnly;
@@ -26,6 +26,7 @@ namespace Orus.GameObjects.NPC
             this.IddleAnimation = new FrameAnimation(
                  Orus.Instance.Content.Load<Texture2D>(iddleAnimationPath),
                  framesForIddleAnimation);
+            this.AnimationSpeed = 0.1f;
             this.IddleAnimation.IsActive = true;
             this.Quest = quest;
             this.InitialTextOnly = initialText;
@@ -118,6 +119,7 @@ namespace Orus.GameObjects.NPC
 
         public void Update(GameTime gameTime)
         {
+            base.Animate(gameTime);
             if (this.Updating)
             {
                 if (!this.Quest.Completed)

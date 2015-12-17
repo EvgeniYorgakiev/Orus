@@ -340,12 +340,35 @@ namespace Orus.GameObjects
             this.IddleAnimation.IsActive = false;
             foreach (var gameObject in gameObjects)
             {
-                if (gameObject.Collides(this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange))
+                if (this.CollidesForAttack(gameObject, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange))
                 {
                     this.ObjectAttacked = gameObject;
                     this.IsAttacking = true;
                     return;
                 }
+            }
+        }
+
+        public bool CollidesForAttack(ICollideable collider, bool isMovingRight, int additionalXOffset = 0)
+        {
+            if ((collider as AttackableGameObject) != null)
+            {
+                if ((collider as AttackableGameObject).Health == 0)
+                {
+                    return false;
+                }
+            }
+            if (this == collider || !this.Collides(collider, additionalXOffset))
+            {
+                return false;
+            }
+            if (isMovingRight)
+            {
+                return this.Position.X < collider.Position.X;
+            }
+            else
+            {
+                return this.Position.X > collider.Position.X;
             }
         }
 
@@ -420,7 +443,7 @@ namespace Orus.GameObjects
             base.Animate(gameTime);
             if (this.MoveAnimation != null)
             {
-                this.MoveAnimation.Animate(gameTime);
+                this.MoveAnimation.Animate(gameTime, this);
             }
             if (this.IsAttacking)
             {
@@ -429,8 +452,9 @@ namespace Orus.GameObjects
                 {
                     this.IsAttacking = false;
                     this.TimeAttacking = 0.0f;
-                    if(this.ObjectAttacked.Collides(
-                        this, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally), this.AttackRange) && this.Health > 0)
+                    if(this.CollidesForAttack(
+                        this.ObjectAttacked, !this.MoveAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally),
+                        this.AttackRange) && this.Health > 0)
                     {
                         this.ObjectAttacked.Health -= (int)(this.AttackDamage - (this.AttackDamage * (this.ArmorAsPercentage / 100)));
                     }

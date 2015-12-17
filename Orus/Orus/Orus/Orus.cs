@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
@@ -12,10 +11,9 @@ using Orus.Levels;
 using Orus.Menu;
 using Orus.Quests;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Orus.GameObjects.Items;
+using Orus.GameObjects.InteractiveBackgrounds;
 
 namespace Orus
 {
@@ -25,7 +23,6 @@ namespace Orus
         private SpriteBatch spriteBatch;
         private Camera camera;
         private Character character;
-        private List<QuestGiver> questGivers;
         private List<Character> allCharacters;
         private List<Level> levels;
         private int currentLevelIndex;
@@ -101,18 +98,6 @@ namespace Orus
             }
             set
             { this.character = value;
-            }
-        }
-
-        public List<QuestGiver> QuestGivers
-        {
-            get
-            {
-                return this.questGivers;
-            }
-            set
-            {
-                this.questGivers = value;
             }
         }
 
@@ -202,25 +187,13 @@ namespace Orus
             this.QuestFont = this.Content.Load<SpriteFont>("Texts\\Fonts\\QuestFont");
             this.Levels = new List<Level>()
             {
-                new Level(1, this.Content)
+                new Level(1, this.Content),
+                new Level(2, this.Content)
             };
             this.AllCharacters = new List<Character>()
             {
                 new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content)
             };
-            this.QuestGivers = new List<QuestGiver>()
-            {
-                new QuestGiver(Constant.PeasantDefaultName, 
-                new Point2D(Constant.QuestGiver1PositionX, Constant.QuestGiver1PositionY),
-                Constant.PeasantIddleAnimationPath, Constant.PeasantIddleFramesNumber,
-                new SlayQuest(Constant.SkeletonDefaultName, 1),
-                Constant.QuestGiver1InitialText,
-                Constant.QuestGiver1CompletedText,
-                Constant.QuestGiver1OffsetFromTopForInitial,
-                Constant.QuestGiver1OffsetFromTopForCompleted,
-                Constant.QuestGiver1HeightForText)
-            };
-            this.QuestGivers[0].IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
             this.CurrentLevelIndex = 0;
             this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
@@ -255,21 +228,9 @@ namespace Orus
             else
             {
                 Input.UpdateInput(gameTime);
-                this.Levels[this.CurrentLevelIndex].SpawnNewEnemies(600);
+                this.Levels[this.CurrentLevelIndex].Update(gameTime);
                 Character.Animate(gameTime);
                 this.Character.CheckCollisionOfCharacterWithItems(Item.VisibleItems);
-
-                foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
-                {
-                    enemy.Update(gameTime);
-                }
-
-                foreach (var questGiver in this.QuestGivers)
-                {
-                    questGiver.Update(gameTime);
-                }
-
-
                 this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
@@ -279,8 +240,15 @@ namespace Orus
         
         public void MoveCharacter(GameTime gameTime, bool moveRight)
         {
-            bool collides = Character.CollidesWithObjects(this.Levels[this.CurrentLevelIndex].Enemies.ConvertAll<ICollide>(enemy => enemy), moveRight);
-
+            bool collides = false;
+            foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
+            {
+                if (this.Character.CollidesForAttack(enemy, moveRight))
+                {
+                    collides = true;
+                    break;
+                }
+            }
             if ((this.Character.Position.X < 0 && !moveRight) ||
                (this.Character.Position.X + Constant.SpriteWidth > 
                this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Width && moveRight))
@@ -293,8 +261,6 @@ namespace Orus
             }
 
         }
-
-        
 
         protected override void Draw(GameTime gameTime)
         {
@@ -320,18 +286,6 @@ namespace Orus
                 }
                 else
                 {
-
-                    
-                    foreach (var questGiver in this.QuestGivers)
-                    {
-                        questGiver.DrawAnimations(this.SpriteBatch);
-                    }
-                    foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
-                    {
-                        enemy.DrawAnimations(this.SpriteBatch);
-                    }
-
-                    
                     foreach (var element in Item.VisibleItems)
                     {
                         element.Draw(SpriteBatch);

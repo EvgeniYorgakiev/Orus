@@ -10,10 +10,9 @@ using Orus.Menu;
 
 namespace Orus.GameObjects
 {
-    public abstract class AnimatedGameObject : GameObject, IIddle, ICollide
+    public abstract class AnimatedGameObject : ColliderObjects, IIddle
     {
         private FrameAnimation iddleAnimation;
-        private Rectangle boundingBox;
         private float animationSpeed;
 
         protected AnimatedGameObject(string name, Point2D position, Rectangle boundingBox) :
@@ -32,17 +31,6 @@ namespace Orus.GameObjects
             set
             {
                 this.iddleAnimation = value;
-            }
-        }
-        public Rectangle BoundingBox
-        {
-            get
-            {
-                return this.boundingBox;
-            }
-            set
-            {
-                this.boundingBox = value;
             }
         }
         public float AnimationSpeed
@@ -75,19 +63,6 @@ namespace Orus.GameObjects
             }
         }
 
-        public bool CollidesWithObjects(List<ICollide> colliders, bool moveRight, int additionalXOffset = 0)
-        {
-            foreach (var collider in colliders)
-            {
-                if (collider.Collides(this, moveRight, additionalXOffset))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public virtual void FlipImages(bool isFlipped)
         {
             if (isFlipped)
@@ -102,58 +77,12 @@ namespace Orus.GameObjects
 
         public virtual void Animate(GameTime gameTime)
         {
-            this.IddleAnimation.Animate(gameTime);
+            this.IddleAnimation.Animate(gameTime, this);
         }
 
         public virtual void DrawAnimations(SpriteBatch spriteBatch)
         {
             this.IddleAnimation.Draw(spriteBatch);
-        }
-
-        public bool Collides(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0)
-        {
-            if((this as AttackableGameObject) != null)
-            {
-                if((this as AttackableGameObject).Health == 0)
-                {
-                    return false;
-                }
-            }
-            if(this == collider)
-            {
-                return false;
-            }
-            if(isMovingRight)
-            {
-                if(collider.Position.X + collider.BoundingBox.Width / 2 >
-                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset && 
-                    collider.Position.X < this.Position.X)
-                {
-                    return true;
-                }
-                if (collider.Position.X + collider.BoundingBox.Width / 2 <
-                this.Position.X - collider.BoundingBox.Width / 2 - additionalXOffset &&
-                    collider.Position.X > this.Position.X)
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (collider.Position.X - collider.BoundingBox.Width / 2 >
-                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
-                    collider.Position.X < this.Position.X)
-                {
-                    return true;
-                }
-                if (collider.Position.X - collider.BoundingBox.Width / 2 <
-                this.Position.X + collider.BoundingBox.Width / 2 + additionalXOffset &&
-                    collider.Position.X > this.Position.X)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public virtual void Die()

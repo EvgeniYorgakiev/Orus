@@ -20,7 +20,7 @@ namespace Orus.Abilities
         {
             foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
             {
-                if (thisObject.Collides(enemy,
+                if (thisObject.CollidesForAttack(enemy,
                     !thisObject.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
                 {
                     this.AffectedTargets.Add(enemy);
