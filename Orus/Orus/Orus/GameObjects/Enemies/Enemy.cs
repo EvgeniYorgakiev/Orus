@@ -4,7 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Interfaces;
 using Orus.Constants;
+using Orus.GameObjects.Enemies.NormalEnemies;
+using Orus.GameObjects.Items;
 using Orus.Quests;
+using Orus.Sprites.Animations;
 
 namespace Orus.GameObjects.Enemies
 {
@@ -49,6 +52,9 @@ namespace Orus.GameObjects.Enemies
         public override void Die()
         {
             base.Die();
+
+            GenerateItem();
+
             foreach (var questGiver in Orus.Instance.QuestGivers)
             {
                 if(questGiver.Quest is SlayQuest)
@@ -59,6 +65,41 @@ namespace Orus.GameObjects.Enemies
                         currentQuest.Update();
                     }
                 }
+            }
+        }
+
+        private void GenerateItem()
+        {
+            Point2D itemPosition = new Point2D(0, 0);
+
+            if (this is Zombie)
+            {
+                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceStomper);
+                }
+                else
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceStomper);
+                }
+
+                Stomper.ItemAppear(itemPosition);
+
+            }
+            else if (this is Skeleton)
+            {
+
+                if (this.DeathAnimation.SpriteEffect == SpriteEffects.None)
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X, this.DeathAnimation.Position.Y + MovingDistanceArmour);
+                }
+                else
+                {
+                    itemPosition = new Point2D(this.DeathAnimation.Position.X + 100, this.DeathAnimation.Position.Y + MovingDistanceArmour);
+                }
+
+                GiantArmour.ItemAppear(itemPosition);
+
             }
         }
     }

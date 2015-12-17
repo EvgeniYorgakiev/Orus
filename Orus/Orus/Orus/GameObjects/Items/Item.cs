@@ -26,13 +26,17 @@ namespace Orus.GameObjects.Items
 
         protected Item(string name, Point2D position, ContentManager content) : base(name, position)
         {
-
         }
 
         public bool IsCollectedByCharacter
         {
             get { return this.isCollectedByCharacter; }
             set { this.isCollectedByCharacter = value; }
+        }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -62,42 +66,7 @@ namespace Orus.GameObjects.Items
 
 
 
-        public Rectangle BoundingBox
-        {
-            get { return this.boundingBox; }
-            set { this.boundingBox = value; }
-        }
+        public abstract Rectangle BoundingBox { get; set; }
 
-        public bool CollidesWithCharacter(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0)
-        {
-            if (isMovingRight)
-            {
-                if (collider.Position.X + collider.BoundingBox.Width + collider.BoundingBox.Width/2 >
-                this.Position.X - additionalXOffset &&
-                    collider.Position.X + collider.BoundingBox.Width + collider.BoundingBox.Width/2 < this.Position.X + this.BoundingBox.Width)
-                {
-                    return true;
-                }
-
-
-
-            }
-            else
-            {
-                if (collider.Position.X + collider.BoundingBox.Width >
-                this.Position.X + additionalXOffset &&
-                    collider.Position.X + collider.BoundingBox.Width < this.Position.X + this.BoundingBox.Width)
-                {
-                    return true;
-                }
-
-            }
-            return false;
-        }
-
-        public void Update()
-        {
-
-        }
     }
 }

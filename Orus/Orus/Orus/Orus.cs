@@ -14,6 +14,7 @@ using Orus.Quests;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Orus.GameObjects.Items;
 
 namespace Orus
@@ -256,14 +257,19 @@ namespace Orus
                 Input.UpdateInput(gameTime);
                 this.Levels[this.CurrentLevelIndex].SpawnNewEnemies(600);
                 Character.Animate(gameTime);
+                this.Character.CheckCollisionOfCharacterWithItems(Item.VisibleItems);
+
                 foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies.Where(enemy => enemy.IsVisible()))
                 {
                     enemy.Update(gameTime);
                 }
+
                 foreach (var questGiver in this.QuestGivers)
                 {
                     questGiver.Update(gameTime);
                 }
+
+
                 this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
@@ -287,6 +293,8 @@ namespace Orus
             }
 
         }
+
+        
 
         protected override void Draw(GameTime gameTime)
         {

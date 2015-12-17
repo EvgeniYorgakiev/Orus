@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Orus.GameObjects.Items;
 using Orus.Interfaces;
 
 namespace Orus.GameObjects.Player.Characters
@@ -16,6 +17,31 @@ namespace Orus.GameObjects.Player.Characters
         }
 
         public ICollection<IItem> CollectedItems { get; set; }
+
+        public void CheckCollisionOfCharacterWithItems(ICollection<IItem> itemCollection)
+        {
+            foreach (var element in itemCollection)
+            {
+                if (this.CollidesWithItem(element))
+                {
+                    element.IsCollectedByCharacter = true;
+                    element.ItemPicture.IsActive = false;
+                }
+            }
+        }
+
+        private bool CollidesWithItem(IItem collider)
+        {
+            if ((this.Position.X + this.BoundingBox.Width < collider.BoundingBox.X + collider.BoundingBox.Width
+            && this.Position.X > collider.BoundingBox.X) 
+            || ((this.Position.X + this.BoundingBox.Width > collider.BoundingBox.X) &&
+                (this.Position.X + this.BoundingBox.Width < collider.BoundingBox.X + collider.BoundingBox.Width)))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         public void Collect(IItem item)
         {
