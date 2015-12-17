@@ -23,5 +23,17 @@ namespace Orus.GameObjects.Items
         }
 
         public override Rectangle BoundingBox { get; set; }
+
+        public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
+        {
+            if (this.IsCollectedByCharacter)
+            {
+                this.ItemPicture.Position = cameraPoint;
+                this.ItemPicture.IsActive = true;
+                this.BoundingBox = new Rectangle((int)this.ItemPicture.Position.X, (int)this.ItemPicture.Position.Y,
+                    this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
+                this.ItemPicture.Draw(spriteBatch);
+            }
+        }
     }
 }

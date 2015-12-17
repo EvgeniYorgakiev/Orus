@@ -51,10 +51,5 @@ namespace Orus
             }
 
         }
-
-        public static void ProduceItemInTheMenu(ICollection<IItem> collectedItemsCollection)
-        {
-
-        }
     }
 }

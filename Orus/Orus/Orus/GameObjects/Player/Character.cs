@@ -13,7 +13,7 @@ namespace Orus.GameObjects.Player.Characters
             : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
                   attackDamage, attackRange, timeUntilDamageSinceAttack)
         {
-
+            this.CollectedItems = new List<IItem>();
         }
 
         public ICollection<IItem> CollectedItems { get; set; }
@@ -26,6 +26,7 @@ namespace Orus.GameObjects.Player.Characters
                 {
                     element.IsCollectedByCharacter = true;
                     element.ItemPicture.IsActive = false;
+                    this.Collect(element);
                 }
             }
         }

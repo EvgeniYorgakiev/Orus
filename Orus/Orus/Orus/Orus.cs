@@ -176,7 +176,7 @@ namespace Orus
             }
         }
 
-        public ICollection<IItem> VisibleItems { get; set; }
+        public ICollection<IItem> ItemsOnTheField { get; set; }
 
         protected override void Initialize()
         {
@@ -184,7 +184,7 @@ namespace Orus
             this.IsMouseVisible = true;
             this.Camera = new Camera(GraphicsDevice.Viewport);
             //this.Camera = new Camera(this);
-            VisibleItems = new List<IItem>();
+            ItemsOnTheField = new List<IItem>();
         }
 
         protected override void LoadContent()
@@ -234,9 +234,9 @@ namespace Orus
             else
             {
                 Input.UpdateInput(gameTime);
-                this.Levels[this.CurrentLevelIndex].Update(gameTime, VisibleItems);
+                this.Levels[this.CurrentLevelIndex].Update(gameTime, ItemsOnTheField);
                 Character.Animate(gameTime);
-                this.Character.CheckCollisionOfCharacterWithItems(this.VisibleItems);
+                this.Character.CheckCollisionOfCharacterWithItems(this.ItemsOnTheField);
                 this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
@@ -292,9 +292,15 @@ namespace Orus
                 }
                 else
                 {
-                    foreach (var element in this.VisibleItems)
+                    foreach (var element in this.ItemsOnTheField)
                     {
-                        element.Draw(SpriteBatch);
+                        element.DrawOnTheField(this.SpriteBatch);
+                    }
+
+                    foreach (var element in Character.CollectedItems)
+                    {
+                        Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Width, this.Camera.Center.Y + element.ItemPicture.Texture.Height/2);
+                        element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu);
                     }
 
                     Character.DrawAnimations(this.SpriteBatch);

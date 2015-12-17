@@ -13,7 +13,9 @@ namespace Orus.Interfaces
     {
         Sprite ItemPicture { get; set; }
 
-        void Draw(SpriteBatch spriteBatch);
+        void DrawOnTheField(SpriteBatch spriteBatch);
+
+        void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint);
 
         Rectangle BoundingBox { get; set; }
 

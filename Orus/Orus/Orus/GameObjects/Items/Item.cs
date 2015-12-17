@@ -30,7 +30,7 @@ namespace Orus.GameObjects.Items
         public Sprite ItemPicture { get; set; }
 
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void DrawOnTheField(SpriteBatch spriteBatch)
         {
             if (!this.IsCollectedByCharacter)
             {
@@ -39,13 +39,9 @@ namespace Orus.GameObjects.Items
                     this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
                 this.ItemPicture.Draw(spriteBatch);
             }
-            else
-            {
-                this.BoundingBox = new Rectangle(0,0,0,0);
-            }
-
         }
 
+        public abstract void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint);
 
 
         public abstract Rectangle BoundingBox { get; set; }
