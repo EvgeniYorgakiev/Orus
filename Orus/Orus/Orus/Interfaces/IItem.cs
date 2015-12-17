@@ -15,11 +15,13 @@ namespace Orus.Interfaces
 
         void DrawOnTheField(SpriteBatch spriteBatch);
 
-        void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint);
+        void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
 
         Rectangle BoundingBox { get; set; }
 
         bool IsCollectedByCharacter { get; set; }
+
+        int NumberOfCollection { get; set; }
 
     }
 }

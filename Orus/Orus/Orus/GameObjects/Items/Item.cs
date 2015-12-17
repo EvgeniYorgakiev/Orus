@@ -26,6 +26,10 @@ namespace Orus.GameObjects.Items
             set { this.isCollectedByCharacter = value; }
         }
 
+        public static int Counter { get; set; }
+
+        public int NumberOfCollection { get; set; }
+
 
         public Sprite ItemPicture { get; set; }
 
@@ -41,7 +45,7 @@ namespace Orus.GameObjects.Items
             }
         }
 
-        public abstract void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint);
+        public abstract void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
 
 
         public abstract Rectangle BoundingBox { get; set; }

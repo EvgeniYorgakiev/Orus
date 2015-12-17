@@ -15,20 +15,23 @@ namespace Orus.GameObjects.Items
         {
             this.ItemPicture = new Sprite(content.Load<Texture2D>("Sprites\\Items\\Mastermind_Shield"), position);
             this.BoundingBox = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
-
+            this.NumberOfCollection = Item.Counter;
         }
 
-        public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
+        public override Rectangle BoundingBox { get; set; }
+
+        public static int Counter { get; set; }
+
+        public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime)
         {
             if (this.IsCollectedByCharacter)
             {
-                this.ItemPicture.Position = new Point2D(cameraPoint.X + 4 * this.ItemPicture.Texture.Width, cameraPoint.Y);
+                this.ItemPicture.Position = new Point2D(cameraPoint.X + this.ItemPicture.Texture.Width * (this.NumberOfCollection), cameraPoint.Y);
                 this.ItemPicture.IsActive = true;
                 this.BoundingBox = new Rectangle((int)this.ItemPicture.Position.X, (int)this.ItemPicture.Position.Y,
                     this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
                 this.ItemPicture.Draw(spriteBatch);
             }
         }
-        public override Rectangle BoundingBox { get; set; }
     }
 }

@@ -297,10 +297,10 @@ namespace Orus
                         element.DrawOnTheField(this.SpriteBatch);
                     }
 
-                    foreach (var element in Character.CollectedItems)
+                    foreach (var element in this.Character.CollectedItems)
                     {
                         Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Width, this.Camera.Center.Y + element.ItemPicture.Texture.Height/2);
-                        element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu);
+                        element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu, gameTime);
                     }
 
                     Character.DrawAnimations(this.SpriteBatch);
