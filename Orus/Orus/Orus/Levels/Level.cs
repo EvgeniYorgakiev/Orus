@@ -6,71 +6,36 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.GameObjects;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.Sprites;
+using Orus.Constants;
+using Orus.GameObjects.NPC;
+using Orus.Interfaces;
+using Orus.GameObjects.InteractiveBackgrounds;
+using Orus.Quests;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Orus.GameObjects.Enemies.Boss;
 
 namespace Orus.Levels
 {
     public class Level
     {
         private Sprite levelBackground;
-        private Sprite leve2Background;
         private List<Sprite> decor;
-        private Sprite crypt;
+        private int requiredXForEnemySpawn;
         private bool spawnedEnemies = false;
-                     
         private List<Enemy> enemies;
+        private List<QuestGiver> questGivers;
+        private List<IInteractable> interactives;
+        private Point2D lastCharacterCoordinates;
 
         public Level(int level, ContentManager content)
         {
             this.Enemies = new List<Enemy>();
             this.Decor = new List<Sprite>();
+            this.QuestGivers = new List<QuestGiver>();
+            this.Interactives = new List<IInteractable>();
+            this.LastCharacterCoordinates = new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition);
             CreateLevel(level, content);
-        }
-
-        private void CreateLevel(int level, ContentManager content)
-        {
-            switch (level)
-            {
-                case 1:
-                    {
-                        this.LevelBackground = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Level1Background"), new Point2D(0, 0));
-
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\BigTree"), new Point2D(100, 50)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\BigTree"), new Point2D(500, 100)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\BigTree"), new Point2D(900, 75)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\BigTree"), new Point2D(1300, 100)));
-
-
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(350, 75)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(800, 55)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(650, 90)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(1100, 40)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>("Sprites\\Background\\SmallTree"), new Point2D(1500, 55)));
-                        
-                        this.Crypt = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Crypt"), new Point2D(1100, 115));
-                        
-                        this.Enemies.Add(new Zombie(new Point2D(1100, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1250, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1300, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1400, 300), Orus.Instance.Content));
-
-                        break;
-                    }
-                case 2:
-                    {
-                        this.LevelBackground = new Sprite(content.Load<Texture2D>("Sprites\\Background\\Level2Background"), new Point2D(0, 0));
-                        break;
-                    }
-            }
-            this.LevelBackground.IsActive = true;
-            this.Crypt.IsActive = true;
-            foreach (var item in this.Decor)
-            {
-                item.IsActive = true;
-            }
-            foreach (var item in this.Decor)
-            {
-                item.IsActive = true;
-            }
         }
 
         public Sprite LevelBackground
@@ -82,18 +47,6 @@ namespace Orus.Levels
             set
             {
                 this.levelBackground = value;
-            }
-        }
-
-        public Sprite Crypt
-        {
-            get
-            {
-                return this.crypt;
-            }
-            set
-            {
-                this.crypt = value;
             }
         }
 
@@ -133,15 +86,157 @@ namespace Orus.Levels
             }
         }
 
-        public void SpawnNewEnemies(int requiredX)
+        public int RequiredXForEnemySpawn
         {
-            if (!this.SpawnedEnemies && requiredX < Orus.Instance.Character.Position.X)
+            get
             {
-                switch (Orus.Instance.CurrentLevelIndex)
-                {
-                    case 0:
+                return this.requiredXForEnemySpawn;
+            }
+            set
+            {
+                this.requiredXForEnemySpawn = value;
+            }
+        }
+
+        public List<QuestGiver> QuestGivers
+        {
+            get
+            {
+                return this.questGivers;
+            }
+            set
+            {
+                this.questGivers = value;
+            }
+        }
+
+        public List<IInteractable> Interactives
+        {
+            get
+            {
+                return this.interactives;
+            }
+            set
+            {
+                this.interactives = value;
+            }
+        }
+
+        public Point2D LastCharacterCoordinates
+        {
+            get
+            {
+                return this.lastCharacterCoordinates;
+            }
+            set
+            {
+                this.lastCharacterCoordinates = value;
+            }
+        }
+
+        private void CreateLevel(int level, ContentManager content)
+        {
+            switch (level)
+            {
+                case 1:
+                    {
+                        this.LevelBackground = new Sprite(content.Load<Texture2D>(Constant.Level1BackgroundPath), new Point2D(0, 0));
+
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(100, 50)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(500, 100)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(900, 75)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(1300, 100)));
+
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(350, 75)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(800, 55)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(650, 90)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(1100, 40)));
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(1500, 55)));
+                        
+                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.CryptPath),
+                            new Point2D(Constant.CryptPositionX, Constant.CryptPositionY)));
+
+                        this.Enemies.Add(new Zombie(new Point2D(1100, 300), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1250, 300), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1300, 300), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1400, 300), Orus.Instance.Content));
+                        this.RequiredXForEnemySpawn = 600;
+
+                        this.QuestGivers = new List<QuestGiver>()
                         {
-                            this.Enemies.Add(new Skeleton(new Point2D(300, 300), Orus.Instance.Content));
+                            new QuestGiver(Constant.PeasantDefaultName,
+                            new Point2D(Constant.QuestGiver1PositionX, Constant.QuestGiver1PositionY),
+                            Constant.PeasantIddleAnimationPath, Constant.PeasantIddleFramesNumber,
+                            new SlayQuest(Constant.SkeletonBossDefaultName, 1),
+                            Constant.QuestGiver1InitialText,
+                            Constant.QuestGiver1CompletedText,
+                            Constant.QuestGiver1OffsetFromTopForInitial,
+                            Constant.QuestGiver1OffsetFromTopForCompleted,
+                            Constant.QuestGiver1HeightForText)
+                        };
+                        this.Interactives = new List<IInteractable>()
+                        {
+                            new LevelChanger("Crypt",
+                            new Point2D(Constant.CryptPositionX, Constant.CryptPositionY),
+                            new Rectangle(Constant.CryptPositionX, Constant.CryptPositionY,
+                                          Constant.CryptWidth, Constant.CryptHeight), 2)
+                        };
+                        this.QuestGivers[0].IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
+
+                        break;
+                    }
+                case 2:
+                    {
+                        this.LevelBackground = new Sprite(content.Load<Texture2D>(Constant.Level2BackgroundPath), new Point2D(0, 0));
+                        this.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 300), Orus.Instance.Content));
+                        this.Interactives = new List<IInteractable>()
+                        {
+                            new LevelChanger("CryptExit",
+                            new Point2D(0, Constant.StartingPlayerYPosition),
+                            new Rectangle(0, Constant.StartingPlayerYPosition,
+                                          Constant.CryptWidth, Constant.CryptHeight), 1)
+                        };
+                        break;
+                    }
+            }
+            this.LevelBackground.IsActive = true;
+            foreach (var item in this.Decor)
+            {
+                item.IsActive = true;
+            }
+        }
+
+        public static void Load(int index)
+        {
+            Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LastCharacterCoordinates = Orus.Instance.Character.Position;
+            Orus.Instance.CurrentLevelIndex = index - 1;
+            Orus.Instance.Character.Position = Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LastCharacterCoordinates;
+        }
+
+        public void Update(GameTime gameTime, ICollection<IItem> visibleItems)
+        {
+            foreach (var enemy in this.Enemies.Where(enemy => enemy.IsVisible()))
+            {
+                enemy.Update(gameTime);
+
+                if (enemy.JustKilled)
+                {
+                    ItemFactory.ProduceItemInField(enemy.DeathAnimation, enemy, visibleItems);
+                    enemy.JustKilled = false;
+                }
+            }
+            foreach (var questGiver in this.QuestGivers)
+            {
+                questGiver.Update(gameTime);
+            }
+
+            if (!this.SpawnedEnemies && this.RequiredXForEnemySpawn < Orus.Instance.Character.Position.X && this.RequiredXForEnemySpawn > 0)
+            {
+                switch (Orus.Instance.CurrentLevelIndex + 1)
+                {
+                    case 1:
+                        {
+                            this.Enemies.Add(new Zombie(new Point2D(300, 300), Orus.Instance.Content));
                             break;
                         }
                 }
@@ -152,14 +247,17 @@ namespace Orus.Levels
         public void Draw(SpriteBatch spriteBatch)
         {
             this.LevelBackground.Draw(spriteBatch);
-            this.Crypt.Draw(spriteBatch);
             foreach (var item in this.Decor)
             {
                 item.Draw(spriteBatch);
             }
-            foreach (var item in this.Decor)
+            foreach (var questGiver in this.QuestGivers)
             {
-                item.Draw(spriteBatch);
+                questGiver.DrawAnimations(spriteBatch);
+            }
+            foreach (var enemy in this.Enemies.Where(enemy => enemy.IsVisible()))
+            {
+                enemy.DrawAnimations(spriteBatch);
             }
         }
     }

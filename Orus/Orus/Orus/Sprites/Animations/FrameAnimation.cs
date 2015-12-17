@@ -30,7 +30,7 @@ namespace Orus.Sprites.Animations
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
             if (this.Time > Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length)
             {
-                time = 0f;
+                this.Time = 0f;
                 this.FrameIndex++;
                 if(this.FrameIndex == this.Rectangles.Length)
                 {

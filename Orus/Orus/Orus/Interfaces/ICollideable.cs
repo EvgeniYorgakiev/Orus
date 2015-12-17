@@ -7,10 +7,12 @@ using System.Text;
 
 namespace Orus.Interfaces
 {
-    public interface ICollide
+    public interface ICollideable
     {
+        Point2D Position { get; set; }
+
         Rectangle BoundingBox { get; set; }
 
-        bool Collides(AnimatedGameObject collider, bool isMovingRight, int additionalXOffset = 0);
+        bool Collides(ICollideable collider, int additionalOffset = 0);
     }
 }

@@ -63,6 +63,17 @@ namespace Orus.Constants
         public const int ConfirmationButtonWidth = 119;
         public const int ConfirmationButtonHeight = 40;
 
+        //Levels
+        public const string Level1BackgroundPath = "Sprites\\Background\\Level1Background";
+        public const string Level2BackgroundPath = "Sprites\\Background\\Level2Background";
+        public const string SmallTreePath = "Sprites\\Background\\SmallTree";
+        public const string BigTreePath = "Sprites\\Background\\BigTree";
+        public const string CryptPath = "Sprites\\Background\\Crypt";
+        public const int CryptPositionX = 700;
+        public const int CryptPositionY = 115;
+        public const int CryptWidth = 150;
+        public const int CryptHeight = 100;
+
         public const int MinimumNameLength = 2;
         public const float TimeForFrameInMilliSeconds = 1000f / 60f;
         public const float DefaultRotation = 0f;
@@ -122,11 +133,11 @@ namespace Orus.Constants
         public const int ZombieDefaultLightingResistance = 0;
         public const int ZombieDefaultArcaneResistance = 0;
         public const int ZombieDefaultIceResistance = 0;
-        public const int ZombieDefaultAttackDamage = 10;
+        public const int ZombieDefaultAttackDamage = 30;
         public const int ZombieAttackRange = 10;
         public const int ZombieAttackFrame = 7;
 
-        public const string SkeletonDefaultName = "Skeleton Boss";
+        public const string SkeletonDefaultName = "Skeleton";
         public const string SkeletonIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
         public const string SkeletonMoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
         public const string SkeletonAttackAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton attack";
@@ -137,15 +148,36 @@ namespace Orus.Constants
         public const int SkeletonDeathFramesNumber = 7;
         public const int SkeletonWidth = 50;
         public const float SkeletonDefaultMoveSpeed = 1f;
-        public const int SkeletonDefaultHealth = 200;
-        public const int SkeletonDefaultArmor = 10;
-        public const int SkeletonDefaultFireResistance = 10;
-        public const int SkeletonDefaultLightingResistance = 10;
-        public const int SkeletonDefaultArcaneResistance = 10;
-        public const int SkeletonDefaultIceResistance = 10;
+        public const int SkeletonDefaultHealth = 100;
+        public const int SkeletonDefaultArmor = 5;
+        public const int SkeletonDefaultFireResistance = 5;
+        public const int SkeletonDefaultLightingResistance = 5;
+        public const int SkeletonDefaultArcaneResistance = 5;
+        public const int SkeletonDefaultIceResistance = 5;
         public const int SkeletonDefaultAttackDamage = 20;
         public const int SkeletonAttackRange = 10;
         public const int SkeletonAttackFrame = 5;
+        
+        public const string SkeletonBossDefaultName = "Skeleton Boss";
+        public const string SkeletonBossIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
+        public const string SkeletonBossMoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
+        public const string SkeletonBossAttackAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton attack";
+        public const string SkeletonBossDeathAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton death";
+        public const int SkeletonBossIddleFramesNumber = 5;
+        public const int SkeletonBossMoveFramesNumber = 9;
+        public const int SkeletonBossAttackFramesNumber = 5;
+        public const int SkeletonBossDeathFramesNumber = 7;
+        public const int SkeletonBossWidth = 50;
+        public const float SkeletonBossDefaultMoveSpeed = 1f;
+        public const int SkeletonBossDefaultHealth = 200;
+        public const int SkeletonBossDefaultArmor = 10;
+        public const int SkeletonBossDefaultFireResistance = 10;
+        public const int SkeletonBossDefaultLightingResistance = 10;
+        public const int SkeletonBossDefaultArcaneResistance = 10;
+        public const int SkeletonBossDefaultIceResistance = 10;
+        public const int SkeletonBossDefaultAttackDamage = 40;
+        public const int SkeletonBossAttackRange = 10;
+        public const int SkeletonBossAttackFrame = 5;
 
         //NPCs
 
@@ -162,7 +194,7 @@ namespace Orus.Constants
 
         public const string PeasantDefaultName = "Peasant";
         public const string PeasantIddleAnimationPath = "Sprites\\NPCS\\Peasant\\Peasant iddle";
-        public const int PeasantIddleFramesNumber = 5;
+        public const int PeasantIddleFramesNumber = 4;
         public const int PeasantWidth = 50;
     }
 }

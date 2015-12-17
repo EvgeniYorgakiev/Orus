@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Orus.Interfaces
 {
-    interface IInteractable
+    public interface IInteractable : ICollideable
     {
         void Interact();
     }

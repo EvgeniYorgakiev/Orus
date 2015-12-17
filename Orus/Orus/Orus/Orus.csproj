@@ -78,6 +78,9 @@
     <Compile Include="Abilities\DamageType.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
+    <Compile Include="GameObjects\ColliderObjects.cs" />
+    <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
+    <Compile Include="GameObjects\InteractiveBackgrounds\LevelChanger.cs" />
     <Compile Include="GameObjects\Items\GiantArmour.cs" />
     <Compile Include="GameObjects\Items\InventoryMenu.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
@@ -102,7 +105,7 @@
     <Compile Include="GameObjects\Player\Camera.cs" />
     <Compile Include="GameObjects\Point2D.cs" />
     <Compile Include="InputHandler\Input.cs" />
-    <Compile Include="Interfaces\ICollide.cs" />
+    <Compile Include="Interfaces\ICollideable.cs" />
     <Compile Include="Interfaces\IDeath.cs" />
     <Compile Include="Interfaces\IAttack.cs" />
     <Compile Include="Interfaces\ILife.cs" />
