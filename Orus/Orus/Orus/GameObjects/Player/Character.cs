@@ -48,17 +48,40 @@ namespace Orus.GameObjects.Player.Characters
         {
             this.CollectedItems.Add(item);
 
+            IncreaseCollectedItemCounter(item);
+        }
+
+        private void IncreaseCollectedItemCounter(IItem item)
+        {
             if (item is Stomper)
             {
                 Stomper.Counter++;
+
+                if (Stomper.Counter == 2)
+                {
+                    this.Health = MaxHealth;
+                    Stomper.Counter = 0;
+                }
             }
             else if (item is GiantArmour)
             {
                 GiantArmour.Counter++;
+
+                if (GiantArmour.Counter == 2)
+                {
+                    this.Health = MaxHealth;
+                    GiantArmour.Counter = 0;
+                }
             }
             else if (item is MastermindShield)
             {
                 MastermindShield.Counter++;
+
+                if (MastermindShield.Counter == 2)
+                {
+                    this.Health = MaxHealth;
+                    MastermindShield.Counter = 0;
+                }
             }
         }
     }
