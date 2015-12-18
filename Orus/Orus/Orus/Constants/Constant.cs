@@ -49,6 +49,8 @@ namespace Orus.Constants
         public const int AllCharactersPositionY = 250;
 
         //Name input text
+        public const string NameFontPath = "Texts\\Fonts\\NameFont";
+        public const string QuestFontPath = "Texts\\Fonts\\QuestFont";
         public const int NameFieldPositionY = 60;
         public const int NameFieldDescriptionPositionY = 30;
         public const int NameFieldWidth = 200;

@@ -65,6 +65,10 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="mscorlib" />
+    <Reference Include="Polenter.SharpSerializer, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Third Party\Serializer\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -77,6 +81,7 @@
     <Compile Include="Abilities\AttackAbility.cs" />
     <Compile Include="Abilities\DamageType.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
+    <Compile Include="DataManager\SaveGame.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
     <Compile Include="GameObjects\ColliderObjects.cs" />
     <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
@@ -96,6 +101,7 @@
     <Compile Include="Interfaces\IInteractable.cs" />
     <Compile Include="Levels\NewGameSelection.cs" />
     <Compile Include="Sprites\Animations\FrameAnimation.cs" />
+    <Compile Include="Sprites\Rectangle.cs" />
     <Compile Include="Sprites\Sprite.cs" />
     <Compile Include="Constants\Constant.cs" />
     <Compile Include="GameObjects\AttackableGameObject.cs" />
@@ -120,12 +126,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Orus.cs" />
+    <Compile Include="Sprites\Texture2DSubstitude.cs" />
+    <Compile Include="Sprites\SpriteFontSubstitude.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.dll" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.License.txt" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.Portable.dll" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.Portable.XML" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.Readme.txt" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.Silverlight.dll" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.Silverlight.xml" />
+    <Content Include="Third Party\Serializer\Polenter.SharpSerializer.XML" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OrusContent\OrusContent.contentproj">

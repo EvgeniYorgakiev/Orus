@@ -10,6 +10,11 @@ namespace Orus.GameObjects.Player
         private Viewport viewPort;
         private Point2D center;
 
+        public Camera()
+        {
+
+        }
+
         public Camera(Viewport viewPort)
         {
             this.ViewPort = viewPort;
@@ -57,7 +62,7 @@ namespace Orus.GameObjects.Player
         public void Update(GameTime gameTime, Point2D characterPosition)
         {
             if((characterPosition.X + Constant.WindowWidth / 2 < 
-                Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Width &&
+                Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width &&
                 characterPosition.X - Constant.WindowWidth / 2 > 0) || 
                 characterPosition.X > this.Center.X + Constant.WindowWidth)
             {

@@ -18,11 +18,16 @@ namespace Orus.Abilities
         private bool isEnemyUsable;
         private DamageType damageType;
 
+        public Ability()
+        {
+
+        }
+
         public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames)
         {
             this.Damage = damage;
             this.Animation = new FrameAnimation(
-                Orus.Instance.Content.Load<Texture2D>(pathForAnimation),
+                pathForAnimation,
                 animationFrames);
             this.Animation.IsLoop = false;
             this.CooldownTime = cooldown;

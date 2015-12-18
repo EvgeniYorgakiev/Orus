@@ -13,8 +13,13 @@ namespace Orus.GameObjects.Items
 {
     public abstract class Item : GameObject, IItem
     {
-        private Rectangle boundingBox;
+        private Rectangle2D boundingBox;
         private bool isCollectedByCharacter;
+
+        protected Item()
+        {
+
+        }
 
         protected Item(string name, Point2D position, ContentManager content) : base(name, position)
         {
@@ -36,8 +41,8 @@ namespace Orus.GameObjects.Items
             if (!this.IsCollectedByCharacter)
             {
                 this.ItemPicture.IsActive = true;
-                this.BoundingBox = new Rectangle((int) this.ItemPicture.Position.X, (int) this.ItemPicture.Position.Y,
-                    this.ItemPicture.Texture.Width, this.ItemPicture.Texture.Height);
+                this.BoundingBox = new Rectangle2D((int) this.ItemPicture.Position.X, (int) this.ItemPicture.Position.Y,
+                    this.ItemPicture.Texture.Texture.Width, this.ItemPicture.Texture.Texture.Height);
                 this.ItemPicture.Draw(spriteBatch);
             }
         }
@@ -45,7 +50,7 @@ namespace Orus.GameObjects.Items
         public abstract void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
 
 
-        public abstract Rectangle BoundingBox { get; set; }
+        public abstract Rectangle2D BoundingBox { get; set; }
 
     }
 }

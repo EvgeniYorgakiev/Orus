@@ -5,13 +5,14 @@ using Microsoft.Xna.Framework.Input;
 using Orus.Constants;
 using Orus.Exceptions;
 using Orus.GameObjects;
+using Orus.Sprites;
 
 namespace Orus.InputHandler
 {
     public class Text
     {
-        private Rectangle textBox;
-        private Texture2D background;
+        private Rectangle2D textBox;
+        private Texture2DSubstitude background;
         private string textInField;
         private string parsedText;
         private string typedText;
@@ -19,21 +20,26 @@ namespace Orus.InputHandler
         private int delayInMilliseconds;
         private int timeSincePress;
         private bool isDoneDrawing;
-        private bool isStatic;
+        private bool isInputBox;
         private Color color;
-        private SpriteFont font;
+        private SpriteFontSubstitude font;
+
+        public Text()
+        {
+
+        }
 
         public Text(string text, bool hasBackground, int leftCorner, int topCorner, int widthOfBox, int height,
-            int delayInMilliseconds, Color color, bool isStatic, SpriteFont font)
+            int delayInMilliseconds, Color color, bool isInputBox, string fontPath)
         {
-            this.TextBox = new Rectangle(leftCorner, topCorner,
+            this.TextBox = new Rectangle2D(leftCorner, topCorner,
                         widthOfBox, height);
             if (hasBackground)
             {
-                this.Background = Orus.Instance.Content.Load<Texture2D>("Texts\\TextBackground\\TextInputBackground");
+                this.Background = new Texture2DSubstitude("Texts\\TextBackground\\TextInputBackground");
             }
-            this.IsStatic = isStatic;
-            this.Font = font;
+            this.IsInputBox = isInputBox;
+            this.Font = new SpriteFontSubstitude(fontPath);
             this.Color = color;
             this.DelayInMilliseconds = delayInMilliseconds;
             this.IsDoneDrawing = false;
@@ -42,7 +48,7 @@ namespace Orus.InputHandler
             this.ParsedText = ParseText(this.TextInField);
         }
 
-        public Rectangle TextBox
+        public Rectangle2D TextBox
         {
             get
             {
@@ -54,7 +60,7 @@ namespace Orus.InputHandler
             }
         }
 
-        public Texture2D Background
+        public Texture2DSubstitude Background
         {
             get
             {
@@ -63,21 +69,6 @@ namespace Orus.InputHandler
             set
             {
                 background = value;
-            }
-        }
-
-        public string TextInField
-        {
-            get
-            {
-                return textInField;
-            }
-            set
-            {
-                textInField = value;
-                this.IsDoneDrawing = false;
-                this.ParsedText = this.ParseText(textInField);
-                this.TimeSincePress = 1;
             }
         }
 
@@ -141,7 +132,7 @@ namespace Orus.InputHandler
             }
         }
 
-        private bool IsDoneDrawing
+        public bool IsDoneDrawing
         {
             get
             {
@@ -153,19 +144,19 @@ namespace Orus.InputHandler
             }
         }
 
-        private bool IsStatic
+        public bool IsInputBox
         {
             get
             {
-                return isStatic;
+                return isInputBox;
             }
             set
             {
-                isStatic = value;
+                isInputBox = value;
             }
         }
 
-        private Color Color
+        public Color Color
         {
             get
             {
@@ -177,7 +168,7 @@ namespace Orus.InputHandler
             }
         }
 
-        private SpriteFont Font
+        public SpriteFontSubstitude Font
         {
             get
             {
@@ -189,7 +180,22 @@ namespace Orus.InputHandler
             }
         }
 
-        private string ParseText(string text)
+        public string TextInField
+        {
+            get
+            {
+                return textInField;
+            }
+            set
+            {
+                textInField = value;
+                this.IsDoneDrawing = false;
+                this.ParsedText = this.ParseText(textInField, true);
+                this.TimeSincePress = 1;
+            }
+        }
+
+        private string ParseText(string text, bool textIsWhole = false)
         {
             string line = string.Empty;
             string returnString = string.Empty;
@@ -197,9 +203,9 @@ namespace Orus.InputHandler
 
             foreach (string word in wordArray)
             {
-                if (Orus.Instance.NameFont.MeasureString(line + word).Length() > this.TextBox.Width)
+                if (Orus.Instance.NameFont.Font.MeasureString(line + word).Length() > this.TextBox.Width)
                 {
-                    if (this.IsStatic)
+                    if (!this.IsInputBox || textIsWhole)
                     {
                         returnString = returnString + line + '\n';
                         line = string.Empty;
@@ -378,9 +384,10 @@ namespace Orus.InputHandler
         {
             if(this.Background != null)
             {
-                spriteBatch.Draw(this.Background, this.TextBox, Color.White);
+                spriteBatch.Draw(this.Background.Texture, 
+                    new Rectangle(this.TextBox.X, this.TextBox.Y, this.TextBox.Width, this.TextBox.Height), Color.White);
             }
-            spriteBatch.DrawString(this.Font, this.TypedText, new Vector2(this.TextBox.X, this.TextBox.Y), this.Color);
+            spriteBatch.DrawString(this.Font.Font, this.TypedText, new Vector2(this.TextBox.X, this.TextBox.Y), this.Color);
         }
     }
 }

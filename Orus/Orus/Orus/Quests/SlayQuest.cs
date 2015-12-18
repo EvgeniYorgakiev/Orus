@@ -13,6 +13,11 @@ namespace Orus.Quests
         private int requiredNumber;
         private int currentNumber;
 
+        public SlayQuest()
+        {
+
+        }
+
         public SlayQuest(string nameOfEnemy, int requiredNumber)
         {
             this.NameOfEnemy = nameOfEnemy;

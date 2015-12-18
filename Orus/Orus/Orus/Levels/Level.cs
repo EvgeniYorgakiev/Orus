@@ -28,6 +28,11 @@ namespace Orus.Levels
         private List<IInteractable> interactives;
         private Point2D lastCharacterCoordinates;
 
+        public Level()
+        {
+
+        }
+
         public Level(int level, ContentManager content)
         {
             this.Enemies = new List<Enemy>();
@@ -140,20 +145,20 @@ namespace Orus.Levels
             {
                 case 1:
                     {
-                        this.LevelBackground = new Sprite(content.Load<Texture2D>(Constant.Level1BackgroundPath), new Point2D(0, 0));
+                        this.LevelBackground = new Sprite(Constant.Level1BackgroundPath, new Point2D(0, 0));
 
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(100, 50)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(500, 100)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(900, 75)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.BigTreePath), new Point2D(1300, 100)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(100, 50)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(500, 100)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(900, 75)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(1300, 100)));
 
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(350, 75)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(800, 55)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(650, 90)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(1100, 40)));
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.SmallTreePath), new Point2D(1500, 55)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(350, 75)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(800, 55)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(650, 90)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1100, 40)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1500, 55)));
                         
-                        this.Decor.Add(new Sprite(content.Load<Texture2D>(Constant.CryptPath),
+                        this.Decor.Add(new Sprite(Constant.CryptPath,
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY)));
 
                         this.Enemies.Add(new Zombie(new Point2D(1100, 300), Orus.Instance.Content));
@@ -178,7 +183,7 @@ namespace Orus.Levels
                         {
                             new LevelChanger("Crypt",
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY),
-                            new Rectangle(Constant.CryptPositionX, Constant.CryptPositionY,
+                            new Rectangle2D(Constant.CryptPositionX, Constant.CryptPositionY,
                                           Constant.CryptWidth, Constant.CryptHeight), 2)
                         };
                         this.QuestGivers[0].IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
@@ -187,13 +192,13 @@ namespace Orus.Levels
                     }
                 case 2:
                     {
-                        this.LevelBackground = new Sprite(content.Load<Texture2D>(Constant.Level2BackgroundPath), new Point2D(0, 0));
+                        this.LevelBackground = new Sprite(Constant.Level2BackgroundPath, new Point2D(0, 0));
                         this.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 300), Orus.Instance.Content));
                         this.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("CryptExit",
                             new Point2D(0, Constant.StartingPlayerYPosition),
-                            new Rectangle(0, Constant.StartingPlayerYPosition,
+                            new Rectangle2D(0, Constant.StartingPlayerYPosition,
                                           Constant.CryptWidth, Constant.CryptHeight), 1)
                         };
                         break;

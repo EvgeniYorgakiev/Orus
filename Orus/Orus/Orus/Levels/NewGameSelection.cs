@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Orus.GameObjects.Player.Characters;
 using Orus.GameObjects;
 using Orus.Menu;
+using Orus.Sprites;
 
 namespace Orus.Levels
 {
@@ -15,12 +16,8 @@ namespace Orus.Levels
     {
         private Text nameFieldDescription;
         private Text nameField;
-        private Texture2D confirmationButton;
-        private Rectangle confirmationButtonLocation;
-
-
-
-
+        private Texture2DSubstitude confirmationButton;
+        private Rectangle2D confirmationButtonLocation;
 
         public Text NameFieldDescription
         {
@@ -46,7 +43,7 @@ namespace Orus.Levels
             }
         }
 
-        public Texture2D ConfirmationButton
+        public Texture2DSubstitude ConfirmationButton
         {
             get
             {
@@ -58,7 +55,7 @@ namespace Orus.Levels
             }
         }
 
-        public Rectangle ConfirmationButtonLocation
+        public Rectangle2D ConfirmationButtonLocation
         {
             get
             {
@@ -72,22 +69,22 @@ namespace Orus.Levels
 
         public void Load()
         {
-            this.ConfirmationButton = Orus.Instance.Content.Load<Texture2D>("Sprites\\Buttons\\Start");
-            this.ConfirmationButtonLocation = new Rectangle(Constant.ConfirmationButtonPositionX, Constant.ConfirmationButtonPositionY,
+            this.ConfirmationButton = new Texture2DSubstitude("Sprites\\Buttons\\Start");
+            this.ConfirmationButtonLocation = new Rectangle2D(Constant.ConfirmationButtonPositionX, Constant.ConfirmationButtonPositionY,
                 Constant.ConfirmationButtonWidth, Constant.ConfirmationButtonHeight);
             this.NameField = new Text("", true, Constant.InputBoxLeftCorner, Constant.NameFieldPositionY, 
                 Constant.NameFieldWidth, Constant.InputBoxHeight,
-                Constant.NameFieldDelay, Color.Black, false, Orus.Instance.NameFont);
+                Constant.NameFieldDelay, Color.Black, true, Constant.NameFontPath);
             this.NameFieldDescription = new Text("Please enter a name for your character", false, 
                 Constant.InputBoxLeftCorner, Constant.NameFieldDescriptionPositionY, 
                 Constant.NameFieldDescriptionWidth, Constant.InputBoxHeight,
-                Constant.NameFieldDescriptionDelay, Color.White, true, Orus.Instance.NameFont);
+                Constant.NameFieldDescriptionDelay, Color.White, false, Constant.NameFontPath);
         }
 
         public void Update(GameTime gameTime)
         {
             var mouseState = Mouse.GetState();
-            if(this.ConfirmationButtonLocation.Contains(mouseState.X, mouseState.Y) && mouseState.LeftButton == ButtonState.Pressed)
+            if(this.ConfirmationButtonLocation.AsRectangle().Contains(mouseState.X, mouseState.Y) && mouseState.LeftButton == ButtonState.Pressed)
             {
                 try
                 {
@@ -105,7 +102,7 @@ namespace Orus.Levels
                         character.Name = this.NameField.TextInField;
                         character.IddleAnimation.Scale = 1;
                         character.Position = new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition);
-                        GameMenu.CharacterSelectionInProgress = false;
+                        Orus.Instance.GameMenu.CharacterSelectionInProgress = false;
                         Orus.Instance.IsMouseVisible = false;
                         Orus.Instance.Character = character;
                     }
@@ -115,7 +112,7 @@ namespace Orus.Levels
                     this.NameFieldDescription = new Text(exception.Message, false, 
                         Constant.InputBoxLeftCorner, Constant.NameFieldDescriptionPositionY,
                         Constant.ErrorNameFieldDescriptionWidth, Constant.InputBoxHeight,
-                        Constant.NameFieldDescriptionDelay, Color.White, true, Orus.Instance.NameFont);
+                        Constant.NameFieldDescriptionDelay, Color.White, false, Constant.NameFontPath);
                 }
             }
             try
@@ -128,7 +125,7 @@ namespace Orus.Levels
                 this.NameFieldDescription = new Text(exception.Message, false,
                     Constant.InputBoxLeftCorner, Constant.NameFieldDescriptionPositionY,
                     Constant.ErrorNameFieldDescriptionWidth, Constant.InputBoxHeight,
-                    Constant.NameFieldDescriptionDelay, Color.White, true, Orus.Instance.NameFont);
+                    Constant.NameFieldDescriptionDelay, Color.White, false, Constant.NameFontPath);
             }
             this.NameFieldDescription.Update(gameTime, true);
         }
@@ -137,7 +134,7 @@ namespace Orus.Levels
         {
             this.NameField.Draw(spriteBatch);
             this.NameFieldDescription.Draw(spriteBatch);
-            spriteBatch.Draw(this.ConfirmationButton, this.ConfirmationButtonLocation, Color.White);
+            spriteBatch.Draw(this.ConfirmationButton.Texture, this.ConfirmationButtonLocation.AsRectangle(), Color.White);
 
         }
     }

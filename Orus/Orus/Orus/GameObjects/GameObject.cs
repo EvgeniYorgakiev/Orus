@@ -9,6 +9,11 @@ namespace Orus.GameObjects
         private string name;
         private Point2D position;
 
+        protected GameObject()
+        {
+
+        }
+
         protected GameObject(string name, Point2D position)
         {
             this.Name = name;

@@ -17,7 +17,7 @@ namespace Orus.Interfaces
 
         void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
 
-        Rectangle BoundingBox { get; set; }
+        Rectangle2D BoundingBox { get; set; }
 
         bool IsCollectedByCharacter { get; set; }
 

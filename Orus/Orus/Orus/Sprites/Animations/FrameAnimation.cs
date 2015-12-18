@@ -13,14 +13,19 @@ namespace Orus.Sprites.Animations
 
         public float Time { get { return time; } set { time = value; } }
 
-        public FrameAnimation(Texture2D Texture, int frames, AnimatedGameObject animatedGameObject)
-            : base(Texture, frames, animatedGameObject)
+        public FrameAnimation()
         {
 
         }
 
-        public FrameAnimation(Texture2D Texture, int frames)
-            : base(Texture, frames)
+        public FrameAnimation(string path, int frames, AnimatedGameObject animatedGameObject)
+            : base(path, frames, animatedGameObject)
+        {
+
+        }
+
+        public FrameAnimation(string path, int frames)
+            : base(path, frames)
         {
 
         }

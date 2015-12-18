@@ -8,24 +8,24 @@ using Orus.Sprites;
 
 namespace Orus.Menu
 {
-    public static class GameMenu
+    public class GameMenu
     {
-        private static Sprite mainMenuBackground;
-        private static Sprite creditsBackground;
-        private static Sprite creditsInfo;
-        private static Sprite optionsMenuBackground;
-        private static bool isMenuActive = true;
-        private static bool isCreditsActive = false;
-        private static bool isGameOn = true;
-        private static Rectangle newGameButton;
-        private static Rectangle creditsButton;
-        private static Rectangle quitButton;
-        private static Rectangle backFromCreditsButton;
-        private static Rectangle optionsButton;
-        private static bool isNewGamePressed = false;
-        private static bool characterSelectionInProgress = false;
+        private Sprite mainMenuBackground;
+        private Sprite creditsBackground;
+        private Sprite creditsInfo;
+        private Sprite optionsMenuBackground;
+        private bool isMenuActive = true;
+        private bool isCreditsActive = false;
+        private bool isGameOn = true;
+        private Rectangle2D newGameButton;
+        private Rectangle2D creditsButton;
+        private Rectangle2D quitButton;
+        private Rectangle2D backFromCreditsButton;
+        private Rectangle2D optionsButton;
+        private bool isNewGamePressed = false;
+        private bool characterSelectionInProgress = false;
 
-        private static Sprite MainMenuBackground
+        private Sprite MainMenuBackground
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Orus.Menu
                 mainMenuBackground = value;
             }
         }
-        private static Sprite OptionsMenuBackground
+        private Sprite OptionsMenuBackground
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Orus.Menu
                 optionsMenuBackground = value;
             }
         }
-        private static Rectangle OptionsButton
+        private Rectangle2D OptionsButton
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Orus.Menu
                 optionsButton = value;
             }
         }
-        private static Sprite CreditsInfo
+        private Sprite CreditsInfo
         {
             get
             {
@@ -69,7 +69,7 @@ namespace Orus.Menu
                 creditsInfo = value;
             }
         }
-        private static Sprite CreditsBackground
+        private Sprite CreditsBackground
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Orus.Menu
                 creditsBackground = value;
             }
         }
-        public static bool IsMenuActive
+        public bool IsMenuActive
         {
             get
             {
@@ -91,7 +91,7 @@ namespace Orus.Menu
                 isMenuActive = value;
             }
         }
-        public static bool IsNewGamePressed
+        public bool IsNewGamePressed
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Orus.Menu
                 isNewGamePressed = value;
             }
         }
-        public static bool CharacterSelectionInProgress
+        public bool CharacterSelectionInProgress
         {
             get
             {
@@ -114,7 +114,7 @@ namespace Orus.Menu
             }
         }
 
-        public static bool IsCreditsActive
+        public bool IsCreditsActive
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Orus.Menu
                 isCreditsActive = value;
             }
         }
-        public static bool IsGameOn
+        public bool IsGameOn
         {
             get
             {
@@ -138,7 +138,7 @@ namespace Orus.Menu
         }
 
         //Buttons
-        public static Rectangle NewGameButton
+        public Rectangle2D NewGameButton
         {
             get
             {
@@ -149,7 +149,7 @@ namespace Orus.Menu
                 newGameButton = value;
             }
         }
-        public static Rectangle BackFromCreditsButton
+        public Rectangle2D BackFromCreditsButton
         {
             get
             {
@@ -161,7 +161,7 @@ namespace Orus.Menu
             }
         }
 
-        public static Rectangle CreditsButton
+        public Rectangle2D CreditsButton
         {
             get
             {
@@ -172,7 +172,7 @@ namespace Orus.Menu
                 creditsButton = value;
             }
         }
-        public static Rectangle QuitButton
+        public Rectangle2D QuitButton
         {
             get
             {
@@ -184,22 +184,22 @@ namespace Orus.Menu
             }
         }
 
-        public static void Load(ContentManager Content)
+        public void Load(ContentManager Content)
         {
-            MainMenuBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\Main Menu"), new Point2D(0, 0));
-            CreditsBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsBackground"), new Point2D(0, 0));
-            CreditsInfo = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsInfo"), new Point2D(0, 0));
-            OptionsMenuBackground = new Sprite(Content.Load<Texture2D>("Sprites\\Background\\CreditsBackground"), new Point2D(0, 0));
+            MainMenuBackground = new Sprite("Sprites\\Background\\Main Menu", new Point2D(0, 0));
+            CreditsBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
+            CreditsInfo = new Sprite("Sprites\\Background\\CreditsInfo", new Point2D(0, 0));
+            OptionsMenuBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
 
-            newGameButton = new Rectangle(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
+            newGameButton = new Rectangle2D(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
                                           Constant.NewGameButtonWidth, Constant.NewGameButtonHeight);
-            creditsButton = new Rectangle(Constant.CreditsButtonPositionX, Constant.CreditsButtonPositionY,
+            creditsButton = new Rectangle2D(Constant.CreditsButtonPositionX, Constant.CreditsButtonPositionY,
                                           Constant.CreditsButtonWidth, Constant.CreditsButtonHeight);
-            quitButton = new Rectangle(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
+            quitButton = new Rectangle2D(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
                                           Constant.QuitButtonWidth, Constant.WindowHeight);
-            backFromCreditsButton = new Rectangle(Constant.BackFromCreditsPositionX, Constant.BackFromCreditsPositionY,
+            backFromCreditsButton = new Rectangle2D(Constant.BackFromCreditsPositionX, Constant.BackFromCreditsPositionY,
                                           Constant.BackFromCreditsWidth, Constant.BackFromCreditsHeight);
-            optionsButton = new Rectangle(Constant.OptionsButtonPositionX, Constant.OptionsButtonPositionY,
+            optionsButton = new Rectangle2D(Constant.OptionsButtonPositionX, Constant.OptionsButtonPositionY,
                                           Constant.OptionsButtonWidth, Constant.OptionsButtonHeight);
 
             MainMenuBackground.IsActive = true;
@@ -208,18 +208,18 @@ namespace Orus.Menu
             OptionsMenuBackground.IsActive = false;
         }
 
-        public static void Update()
+        public void Update()
         {
             var mouseState = Mouse.GetState();
 
             //New Game BTN
-            if (NewGameButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
+            if (NewGameButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
             {
                 IsNewGamePressed = true;
             }
             if (IsNewGamePressed)
             {
-                if (NewGameButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
+                if (NewGameButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
                 {
                     isMenuActive = false;
                     CharacterSelectionInProgress = true;
@@ -230,21 +230,19 @@ namespace Orus.Menu
                 }
             }
             //Credits BTN
-            if (CreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
+            if (CreditsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
             {
                 MainMenuBackground.IsActive = false;
                 CreditsBackground.IsActive = true;
                 CreditsInfo.IsActive = true;
             }
             //Options BTN
-            if (OptionsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
+            if (OptionsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
             {
-                MainMenuBackground.IsActive = false;                
-                OptionsMenuBackground.IsActive = true;
-                
+                DataManager.SaveGame.Load();
             }
             //Back From Credits BTN / Back From Options
-            if (BackFromCreditsButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && ((CreditsBackground.IsActive == true) || (OptionsMenuBackground.IsActive == true)))
+            if (BackFromCreditsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && ((CreditsBackground.IsActive == true) || (OptionsMenuBackground.IsActive == true)))
             {
                 MainMenuBackground.IsActive = true;
                 OptionsMenuBackground.IsActive = false;
@@ -252,7 +250,7 @@ namespace Orus.Menu
                 CreditsInfo.IsActive = false;
             }
             //Quit BTN
-            if (QuitButton.Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
+            if (QuitButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
             {
                 Orus.Instance.Exit();
             }
@@ -260,7 +258,7 @@ namespace Orus.Menu
         }
 
 
-        public static void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             CreditsBackground.Draw(spriteBatch);
             MainMenuBackground.Draw(spriteBatch);

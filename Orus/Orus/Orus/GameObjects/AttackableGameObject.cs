@@ -35,7 +35,12 @@ namespace Orus.GameObjects
         private float timeAttacking = 0.0f;
         private AttackableGameObject objectAttacked;
 
-        protected AttackableGameObject(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
+        protected AttackableGameObject()
+        {
+
+        }
+
+        protected AttackableGameObject(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
              int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
              int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
              : base(name, position, boundingBox)
@@ -50,7 +55,7 @@ namespace Orus.GameObjects
             this.LightingResistance = lightingResistance;
             this.ArcaneResistance = arcaneResistance;
             this.IceResistance = iceResistance;
-            this.HealthBar = new Sprite(Orus.Instance.Content.Load<Texture2D>("Sprites\\Health\\HealthBarBorder"), this.Position);
+            this.HealthBar = new Sprite("Sprites\\Health\\HealthBarBorder", this.Position);
             this.HealthBar.IsActive = true;
             this.MoveSpeed = moveSpeed;
         }
@@ -470,7 +475,7 @@ namespace Orus.GameObjects
         public override void DrawAnimations(SpriteBatch spriteBatch)
         {
             base.DrawAnimations(spriteBatch);
-            if (this.Health > 0 && !GameMenu.CharacterSelectionInProgress)
+            if (this.Health > 0 && !Orus.Instance.GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawHealthBar(spriteBatch);
             }
@@ -492,22 +497,22 @@ namespace Orus.GameObjects
         {
             //The gray part 
 
-            spriteBatch.Draw(this.HealthBar.Texture,
+            spriteBatch.Draw(this.HealthBar.Texture.Texture,
                 new Vector2(this.HealthBar.Position.X + Constant.HealthBarOffsetX, this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
-                new Rectangle(0, 12, this.HealthBar.Texture.Width, 8), Color.Gray);
+                new Rectangle(0, 12, this.HealthBar.Texture.Texture.Width, 8), Color.Gray);
             //The red health
 
             double healthInPercentage = ((double)this.Health / this.MaxHealth) * 100;
-            spriteBatch.Draw(this.HealthBar.Texture,
+            spriteBatch.Draw(this.HealthBar.Texture.Texture,
                 new Rectangle((int)(this.HealthBar.Position.X + Constant.HealthBarOffsetX),
                 (int)(this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
-                (int)(this.HealthBar.Texture.Width * (healthInPercentage / 100)), 8),
-                 new Rectangle(0, 12, this.HealthBar.Texture.Width, 11), Color.Red);
+                (int)(this.HealthBar.Texture.Texture.Width * (healthInPercentage / 100)), 8),
+                 new Rectangle(0, 12, this.HealthBar.Texture.Texture.Width, 11), Color.Red);
 
             //The border
-            spriteBatch.Draw(this.HealthBar.Texture,
+            spriteBatch.Draw(this.HealthBar.Texture.Texture,
                new Vector2(this.HealthBar.Position.X + Constant.HealthBarOffsetX, this.HealthBar.Position.Y + Constant.HealthBarOffsetY),
-               new Rectangle(0, 0, this.HealthBar.Texture.Width, 11), Color.White);
+               new Rectangle(0, 0, this.HealthBar.Texture.Texture.Width, 11), Color.White);
         }
 
         public override void Die()

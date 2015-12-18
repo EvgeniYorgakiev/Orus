@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Orus.Levels;
+using Orus.Sprites;
 
 namespace Orus.GameObjects.InteractiveBackgrounds
 {
@@ -12,7 +13,12 @@ namespace Orus.GameObjects.InteractiveBackgrounds
     {
         private int newLevelIndex;
 
-        public LevelChanger(string name, Point2D position, Rectangle boundingBox, int newLevelIndex)
+        public LevelChanger()
+        {
+
+        }
+
+        public LevelChanger(string name, Point2D position, Rectangle2D boundingBox, int newLevelIndex)
             : base(name, position)
         {
             this.NewLevelIndex = newLevelIndex;

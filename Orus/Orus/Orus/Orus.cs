@@ -2,43 +2,41 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.GameObjects;
-using Orus.GameObjects.NPC;
 using Orus.GameObjects.Player;
 using Orus.GameObjects.Player.Characters;
 using Orus.InputHandler;
 using Orus.Interfaces;
 using Orus.Levels;
 using Orus.Menu;
-using Orus.Quests;
 using System.Collections.Generic;
-using System.Linq;
-using Orus.GameObjects.Items;
+using Orus.DataManager;
+using System;
 using Orus.Sprites;
-using Orus.GameObjects.InteractiveBackgrounds;
 
 namespace Orus
 {
+    [Serializable()]
     public sealed class Orus : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Camera camera;
+        private GameMenu gameMenu;
         private Character character;
         private List<Character> allCharacters;
         private List<Level> levels;
         private int currentLevelIndex;
         private static Orus instance = null;
         private static readonly object padlock = new object();
-        private SpriteFont questFont;
-        private SpriteFont nameFont;
+        private SpriteFontSubstitude questFont;
+        private SpriteFontSubstitude nameFont;
         private NewGameSelection newGameSelection;
-        private ICollection<IItem> visibleItems;
-        
 
         public Orus()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.Exiting += SaveGame.Save;
         }
 
         public static Orus Instance
@@ -55,8 +53,7 @@ namespace Orus
                 }
             }
         }
-
-
+        
         private GraphicsDeviceManager Graphics
         {
             get
@@ -90,6 +87,18 @@ namespace Orus
             set
             {
                 this.camera = value;
+            }
+        }
+
+        public GameMenu GameMenu
+        {
+            get
+            {
+                return this.gameMenu;
+            }
+            set
+            {
+                this.gameMenu = value;
             }
         }
 
@@ -140,7 +149,7 @@ namespace Orus
             }
         }
 
-        public SpriteFont QuestFont
+        public SpriteFontSubstitude QuestFont
         {
             get
             {
@@ -152,7 +161,7 @@ namespace Orus
             }
         }
 
-        public SpriteFont NameFont
+        public SpriteFontSubstitude NameFont
         {
             get
             {
@@ -189,8 +198,8 @@ namespace Orus
 
         protected override void LoadContent()
         {
-            this.NameFont = this.Content.Load<SpriteFont>("Texts\\Fonts\\NameFont");
-            this.QuestFont = this.Content.Load<SpriteFont>("Texts\\Fonts\\QuestFont");
+            this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
+            this.QuestFont = new SpriteFontSubstitude(Constant.QuestFontPath);
             this.Levels = new List<Level>()
             {
                 new Level(1, this.Content),
@@ -205,6 +214,7 @@ namespace Orus
             this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             this.Graphics.PreferredBackBufferHeight = Constant.WindowHeight;
             this.Graphics.ApplyChanges();
+            this.GameMenu = new GameMenu();
             GameMenu.Load(this.Content);
             this.NewGameSelection = new NewGameSelection();
             this.NewGameSelection.Load();
@@ -233,11 +243,11 @@ namespace Orus
             }
             else
             {
+                this.Camera.Update(gameTime, this.Character.Position);
                 Input.UpdateInput(gameTime);
                 this.Levels[this.CurrentLevelIndex].Update(gameTime, ItemsOnTheField);
                 Character.Animate(gameTime);
                 this.Character.CheckCollisionOfCharacterWithItems(this.ItemsOnTheField);
-                this.Camera.Update(gameTime, this.Character.Position);
             }
             base.Update(gameTime);
 
@@ -257,7 +267,7 @@ namespace Orus
             }
             if ((this.Character.Position.X < 0 && !moveRight) ||
                (this.Character.Position.X + Constant.SpriteWidth > 
-               this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Width && moveRight))
+               this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Texture.Width && moveRight))
             {
                 collides = true;
             }
@@ -284,7 +294,7 @@ namespace Orus
                 {
                     foreach (var character in AllCharacters)
                     {
-                        this.SpriteBatch.DrawString(this.NameFont, character.Name,
+                        this.SpriteBatch.DrawString(this.NameFont.Font, character.Name,
                         new Vector2(character.Position.X, character.Position.Y), Color.White);
                                     character.DrawAnimations(this.SpriteBatch);
                     }
@@ -299,7 +309,8 @@ namespace Orus
 
                     foreach (var element in this.Character.CollectedItems)
                     {
-                        Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Width, this.Camera.Center.Y + element.ItemPicture.Texture.Height/2);
+                        Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Texture.Width,
+                            this.Camera.Center.Y + element.ItemPicture.Texture.Texture.Height/2);
                         element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu, gameTime);
                     }
 

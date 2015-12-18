@@ -10,6 +10,11 @@ namespace Orus.Abilities
 {
     public class DoubleStrike : AttackAbility
     {
+        public DoubleStrike()
+        {
+
+        }
+
         public DoubleStrike(int damage, string pathForAnimation, int framesForAnimation)
             : base(damage, 20, 0.8f, pathForAnimation, framesForAnimation)
         {

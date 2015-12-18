@@ -1,15 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.GameObjects;
-using Orus.GameObjects.Player.Characters;
 
 namespace Orus.Sprites
 {
     public class Sprite
     {
-        private Texture2D texture;
+        private Texture2DSubstitude texture;
         private Point2D position = Point2D.Zero();
         private Color color = Color.White;
         private Point2D origin;
@@ -17,34 +15,39 @@ namespace Orus.Sprites
         private float scale = Constant.DefaultScale;
         private float layerDepth = Constant.DefaultLayerDepth;
         private SpriteEffects spriteEffect;
-        private Rectangle[] rectangles;
+        private Rectangle2D[] rectangles;
         private int frameIndex = Constant.DefaultFrameIndex;
         private bool isActive = false;
         private bool isLoop = true;
 
-        public Sprite(Texture2D Texture, Point2D position)
+        public Sprite()
         {
-            this.Texture = Texture;
+
+        }
+
+        public Sprite(string path, Point2D position)
+        {
+            this.Texture = new Texture2DSubstitude(path);
             this.Position = position;
         }
 
-        public Sprite(Texture2D Texture, int frames, AnimatedGameObject animatedGameObject) : this(Texture, frames)
+        public Sprite(string path, int frames, AnimatedGameObject animatedGameObject) : this(path, frames)
         {
             this.Position = animatedGameObject.Position;
         }
 
-        public Sprite(Texture2D Texture, int frames)
+        public Sprite(string path, int frames)
         {
-            this.Texture = Texture;
-            int width = Texture.Width / frames;
-            this.Rectangles = new Rectangle[frames];
+            this.Texture = new Texture2DSubstitude(path);
+            int width = Texture.Texture.Width / frames;
+            this.Rectangles = new Rectangle2D[frames];
             for (int i = 0; i < frames; i++)
             {
-                this.Rectangles[i] = new Rectangle(i * width, Constant.DefaultYForImage, width, Texture.Height);
+                this.Rectangles[i] = new Rectangle2D(i * width, Constant.DefaultYForImage, width, Texture.Texture.Height);
             }
         }
 
-        public Texture2D Texture
+        public Texture2DSubstitude Texture
         {
             get
             {
@@ -66,7 +69,7 @@ namespace Orus.Sprites
                 this.position = value;
             }
         }
-        protected Color Color
+        public Color Color
         {
             get
             {
@@ -77,7 +80,7 @@ namespace Orus.Sprites
                 this.color = value;
             }
         }
-        protected Point2D Origin
+        public Point2D Origin
         {
             get
             {
@@ -132,7 +135,7 @@ namespace Orus.Sprites
                 this.spriteEffect = value;
             }
         }
-        protected Rectangle[] Rectangles
+        public Rectangle2D[] Rectangles
         {
             get
             {
@@ -183,13 +186,15 @@ namespace Orus.Sprites
             {
                 if(rectangles != null)
                 {
-                    spriteBatch.Draw(this.Texture, new Vector2(this.Position.X, this.Position.Y), this.Rectangles[FrameIndex],
+                    spriteBatch.Draw(this.Texture.Texture, new Vector2(this.Position.X, this.Position.Y), 
+                        new Rectangle(this.Rectangles[FrameIndex].X, this.Rectangles[FrameIndex].Y ,
+                        this.Rectangles[FrameIndex].Width, this.Rectangles[FrameIndex].Height),
                          this.Color, this.Rotation, new Vector2(this.Origin.X, this.Origin.Y), this.Scale, this.SpriteEffect, this.LayerDepth);
                     
                 }
                 else
                 {
-                    spriteBatch.Draw(this.Texture, new Vector2(this.Position.X, this.Position.Y), this.Color);
+                    spriteBatch.Draw(this.Texture.Texture, new Vector2(this.Position.X, this.Position.Y), this.Color);
                 }
             }
         }

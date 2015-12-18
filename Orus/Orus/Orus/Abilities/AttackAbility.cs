@@ -12,6 +12,11 @@ namespace Orus.Abilities
         private bool isAttacking = false;
         private List<AttackableGameObject> affectedTargets; 
 
+        public AttackAbility()
+        {
+
+        }
+
         public AttackAbility(int damage, int cooldown, float timeForAttack, string pathForAnimation, int framesForAnimation)
             : base(damage, 20, pathForAnimation, framesForAnimation)
         {
