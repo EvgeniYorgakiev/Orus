@@ -10,10 +10,11 @@ namespace Orus.Abilities
         private float timeForAttack;
         private float timeAttacking;
         private bool isAttacking = false;
-        private List<AttackableGameObject> affectedTargets; 
+        private List<AttackableGameObject> affectedTargets;
+        private const DamageType damageType = DamageType.Physical;
 
         public AttackAbility(int damage, int cooldown, float timeForAttack, string pathForAnimation, int framesForAnimation)
-            : base(damage, 20, pathForAnimation, framesForAnimation)
+            : base(damage, cooldown, pathForAnimation, framesForAnimation, damageType)
         {
             this.TimeForAttack = timeForAttack;
             this.AffectedTargets = new List<AttackableGameObject>();
@@ -79,11 +80,7 @@ namespace Orus.Abilities
                     this.TimeAttacking += gameTime.ElapsedGameTime.Milliseconds / 1000;
                     if (TimeAttacking >= TimeForAttack)
                     {
-                        foreach (var affectedTarget in this.AffectedTargets)
-                        {
-                            affectedTarget.Health -= (int)(this.Damage -
-                                (this.Damage * (objectUsingAbility.ArmorAsPercentage / 100)));
-                        }
+                        BattleEngine.DamageResolution(this);
                         this.IsAttacking = false;
                     }
                 }

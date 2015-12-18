@@ -77,6 +77,7 @@
     <Compile Include="Abilities\AttackAbility.cs" />
     <Compile Include="Abilities\DamageType.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
+    <Compile Include="BattleEngine.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
     <Compile Include="GameObjects\ColliderObjects.cs" />
     <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
