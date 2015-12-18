@@ -17,13 +17,12 @@ namespace Orus.Abilities
         private bool isPlayerUsable;
         private bool isEnemyUsable;
         private DamageType damageType;
-
+        
         public Ability()
         {
 
         }
-
-        public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames)
+        public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames, DamageType damageType)
         {
             this.Damage = damage;
             this.Animation = new FrameAnimation(
@@ -32,6 +31,7 @@ namespace Orus.Abilities
             this.Animation.IsLoop = false;
             this.CooldownTime = cooldown;
             this.TimeSinceUse = 0;
+            this.DamageType = damageType;
         }
 
         public FrameAnimation Animation

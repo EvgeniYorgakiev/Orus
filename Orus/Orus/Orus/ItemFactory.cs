@@ -17,6 +17,8 @@ namespace Orus
         public const float MovingDistanceArmour = 50;
         public const float MovingDistanceStomper = 70;
 
+        //Generate new item on the field.
+
         public static void ProduceItemInField (FrameAnimation enemyAnimation, Enemy enemy, ICollection<IItem> visibleItems)
         {
             Point2D itemPosition = new Point2D(0, 0);
