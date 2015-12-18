@@ -26,10 +26,7 @@ namespace Orus.GameObjects.Items
             set { this.isCollectedByCharacter = value; }
         }
 
-        public static int Counter { get; set; }
-
         public int NumberOfCollection { get; set; }
-
 
         public Sprite ItemPicture { get; set; }
 

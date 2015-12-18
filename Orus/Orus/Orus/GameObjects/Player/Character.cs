@@ -48,7 +48,18 @@ namespace Orus.GameObjects.Player.Characters
         {
             this.CollectedItems.Add(item);
 
-            Item.Counter++;
+            if (item is Stomper)
+            {
+                Stomper.Counter++;
+            }
+            else if (item is GiantArmour)
+            {
+                GiantArmour.Counter++;
+            }
+            else if (item is MastermindShield)
+            {
+                MastermindShield.Counter++;
+            }
         }
     }
 }
