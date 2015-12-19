@@ -38,6 +38,7 @@ namespace Orus.Abilities
 
         public override void Action(Character character)
         {
+            UpdateAffectedTargets(character);
             base.Action(character);
         }
     }

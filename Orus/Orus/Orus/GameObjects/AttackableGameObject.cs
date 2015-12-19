@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Items;
 using Orus.GameObjects.Player.Characters;
+using Orus.Abilities;
 
 namespace Orus.GameObjects
 {
@@ -34,6 +35,7 @@ namespace Orus.GameObjects
         private bool isUsingAbility = false;
         private float timeAttacking = 0.0f;
         private AttackableGameObject objectAttacked;
+        private Ability abilityInUse;
 
         protected AttackableGameObject()
         {
@@ -306,6 +308,19 @@ namespace Orus.GameObjects
             }
         }
 
+        public Ability AbilityInUse
+        {
+            get
+            {
+                return this.abilityInUse;
+            }
+            set
+            {
+                this.abilityInUse = value;
+            }
+        }
+
+
         public override Point2D Position
         {
             get
@@ -461,6 +476,10 @@ namespace Orus.GameObjects
                         this.ObjectAttacked.Health -= (int)(this.AttackDamage - (this.AttackDamage * (this.ArmorAsPercentage / 100)));
                     }
                 }
+            }
+            if (this.isUsingAbility)
+            {
+                this.AbilityInUse.Update(gameTime, this);
             }
             if (this.AttackAnimation != null)
             {

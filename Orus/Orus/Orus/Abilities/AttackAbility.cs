@@ -77,23 +77,25 @@ namespace Orus.Abilities
 
         public override void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
         {
-            if (IsOnCooldown)
+            if (this.IsOnCooldown)
             {
-                base.Update(gameTime, objectUsingAbility);
-                if (this.IsAttacking)
+                if (!this.Animation.IsActive)
                 {
-                    this.TimeAttacking += gameTime.ElapsedGameTime.Milliseconds / 1000;
-                    if (TimeAttacking >= TimeForAttack)
-                    {
-                        BattleEngine.DamageResolution(this);
-                        this.IsAttacking = false;
-                    }
+                    objectUsingAbility.IsUsingAbility = false;
                 }
+                this.TimeSinceUse += gameTime.ElapsedGameTime.Milliseconds / 1000;
+                if (this.TimeSinceUse >= this.CooldownTime)
+                {
+                    BattleEngine.DamageResolution(this);
+                    this.IsOnCooldown = false;
+                }
+                this.Animation.Animate(gameTime, objectUsingAbility);
             }
         }
 
         public override void Action(Character character)
         {
+            character.AbilityInUse = this;
             base.Action(character);
         }
     }

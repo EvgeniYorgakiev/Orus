@@ -138,22 +138,7 @@ namespace Orus.Abilities
             }
         }
 
-        public virtual void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
-        {
-            if (this.IsOnCooldown)
-            {
-                if (!this.Animation.IsActive)
-                {
-                    objectUsingAbility.IsUsingAbility = false;
-                }
-                this.TimeSinceUse += gameTime.ElapsedGameTime.Milliseconds / 1000;
-                if (this.TimeSinceUse >= this.CooldownTime)
-                {
-                    this.IsOnCooldown = false;
-                }
-                this.Animation.Animate(gameTime, objectUsingAbility);
-            }
-        }
+        public abstract void Update(GameTime gameTime, AttackableGameObject objectUsingAbility);
 
         public virtual void Action(Character character)
         {
