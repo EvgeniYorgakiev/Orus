@@ -36,7 +36,7 @@ namespace Orus
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            this.Exiting += SaveGame.Save;
+            this.Exiting += Data.Save;
         }
 
         public static Orus Instance
@@ -190,35 +190,41 @@ namespace Orus
         protected override void Initialize()
         {
             base.Initialize();
-            this.IsMouseVisible = true;
-            this.Camera = new Camera(GraphicsDevice.Viewport);
             //this.Camera = new Camera(this);
-            ItemsOnTheField = new List<IItem>();
         }
 
         protected override void LoadContent()
         {
-            this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
-            this.QuestFont = new SpriteFontSubstitude(Constant.QuestFontPath);
-            this.Levels = new List<Level>()
-            {
-                new Level(1, this.Content),
-                new Level(2, this.Content)
-            };
-            this.AllCharacters = new List<Character>()
-            {
-                new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content)
-            };
-            this.CurrentLevelIndex = 0;
             this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             this.Graphics.PreferredBackBufferHeight = Constant.WindowHeight;
             this.Graphics.ApplyChanges();
             this.GameMenu = new GameMenu();
             GameMenu.Load(this.Content);
+            this.NewGame();
+            //Character = new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content);
+        }
+
+        public void NewGame()
+        {
+            this.IsMouseVisible = true;
+            this.Camera = new Camera(GraphicsDevice.Viewport);
+            ItemsOnTheField = new List<IItem>();
+            this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
+            this.QuestFont = new SpriteFontSubstitude(Constant.QuestFontPath);
+            this.Levels = new List<Level>()
+            {
+                new Level(1, this.Content),
+                new Level(2, this.Content),
+                new Level(3, this.Content)
+            };
+            this.AllCharacters = new List<Character>()
+            {
+                new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content)
+            };
+            this.CurrentLevelIndex = 0;
             this.NewGameSelection = new NewGameSelection();
             this.NewGameSelection.Load();
-            //Character = new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content);
         }
 
         protected override void UnloadContent()
@@ -318,6 +324,23 @@ namespace Orus
                 }
             }
             spriteBatch.End();
+        }
+
+        public void UpdateGameProperties(Orus newGameProperties)
+        {
+            this.Camera = new Camera(Orus.Instance.GraphicsDevice.Viewport);
+            this.Character = newGameProperties.Character;
+            this.CurrentLevelIndex = newGameProperties.CurrentLevelIndex;
+            this.ItemsOnTheField = newGameProperties.ItemsOnTheField;
+            this.Levels = newGameProperties.Levels;
+            this.NewGameSelection = newGameProperties.NewGameSelection;
+            this.GameMenu = newGameProperties.GameMenu;
+            this.GameMenu.IsMenuActive = false;
+            this.IsMouseVisible = false;
+            this.GameMenu.HasLoaded = true;
+            this.GameMenu.DifferenceInPositionFromLoad = new Point2D(
+                this.Window.ClientBounds.X - newGameProperties.Window.ClientBounds.X,
+                this.Window.ClientBounds.Y - newGameProperties.Window.ClientBounds.Y);
         }
     }
 }

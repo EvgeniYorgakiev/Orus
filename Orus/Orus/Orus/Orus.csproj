@@ -81,8 +81,8 @@
     <Compile Include="Abilities\AttackAbility.cs" />
     <Compile Include="Abilities\DamageType.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
-    <Compile Include="DataManager\SaveGame.cs" />
-    <Compile Include="BattleEngine.cs" />
+    <Compile Include="DataManager\Data.cs" />
+    <Compile Include="Factories\BattleEngine.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
     <Compile Include="GameObjects\ColliderObjects.cs" />
     <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
@@ -95,7 +95,8 @@
     <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\ICollectItems.cs" />
     <Compile Include="Interfaces\IQuest.cs" />
-    <Compile Include="ItemFactory.cs" />
+    <Compile Include="Factories\ItemFactory.cs" />
+    <Compile Include="Menu\Button.cs" />
     <Compile Include="Quests\SlayQuest.cs" />
     <Compile Include="GameObjects\NPC\QuestGiver.cs" />
     <Compile Include="InputHandler\Text.cs" />
@@ -126,7 +127,7 @@
     <Compile Include="Menu\GameMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainClass.cs" />
-    <Compile Include="Orus.cs" />
+    <Compile Include="GameEngine\Orus.cs" />
     <Compile Include="Sprites\Texture2DSubstitude.cs" />
     <Compile Include="Sprites\SpriteFontSubstitude.cs" />
   </ItemGroup>

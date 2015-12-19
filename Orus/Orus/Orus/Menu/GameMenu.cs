@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using Orus.Constants;
 using Orus.GameObjects;
 using Orus.Sprites;
+using Polenter.Serialization;
+using System.Diagnostics;
 
 namespace Orus.Menu
 {
@@ -17,15 +19,17 @@ namespace Orus.Menu
         private bool isMenuActive = true;
         private bool isCreditsActive = false;
         private bool isGameOn = true;
-        private Rectangle2D newGameButton;
-        private Rectangle2D creditsButton;
-        private Rectangle2D quitButton;
-        private Rectangle2D backFromCreditsButton;
-        private Rectangle2D optionsButton;
-        private bool isNewGamePressed = false;
+        private Button newGameButton;
+        private Button loadGameButton;
+        private Button creditsButton;
+        private Button quitButton;
+        private Button backButton;
+        private Button optionsButton;
         private bool characterSelectionInProgress = false;
+        private bool hasLoaded = false;
+        private Point2D differenceInPositionFromLoad;
 
-        private Sprite MainMenuBackground
+        public Sprite MainMenuBackground
         {
             get
             {
@@ -36,7 +40,8 @@ namespace Orus.Menu
                 mainMenuBackground = value;
             }
         }
-        private Sprite OptionsMenuBackground
+
+        public Sprite OptionsMenuBackground
         {
             get
             {
@@ -47,18 +52,8 @@ namespace Orus.Menu
                 optionsMenuBackground = value;
             }
         }
-        private Rectangle2D OptionsButton
-        {
-            get
-            {
-                return optionsButton;
-            }
-            set
-            {
-                optionsButton = value;
-            }
-        }
-        private Sprite CreditsInfo
+
+        public Sprite CreditsInfo
         {
             get
             {
@@ -69,7 +64,8 @@ namespace Orus.Menu
                 creditsInfo = value;
             }
         }
-        private Sprite CreditsBackground
+
+        public Sprite CreditsBackground
         {
             get
             {
@@ -80,6 +76,7 @@ namespace Orus.Menu
                 creditsBackground = value;
             }
         }
+
         public bool IsMenuActive
         {
             get
@@ -91,17 +88,7 @@ namespace Orus.Menu
                 isMenuActive = value;
             }
         }
-        public bool IsNewGamePressed
-        {
-            get
-            {
-                return isNewGamePressed;
-            }
-            set
-            {
-                isNewGamePressed = value;
-            }
-        }
+
         public bool CharacterSelectionInProgress
         {
             get
@@ -125,6 +112,7 @@ namespace Orus.Menu
                 isCreditsActive = value;
             }
         }
+
         public bool IsGameOn
         {
             get
@@ -137,8 +125,34 @@ namespace Orus.Menu
             }
         }
 
+        [ExcludeFromSerialization]
+        public bool HasLoaded
+        {
+            get
+            {
+                return this.hasLoaded;
+            }
+            set
+            {
+                this.hasLoaded = value;
+            }
+        }
+
+        [ExcludeFromSerialization]
+        public Point2D DifferenceInPositionFromLoad
+        {
+            get
+            {
+                return this.differenceInPositionFromLoad;
+            }
+            set
+            {
+                this.differenceInPositionFromLoad = value;
+            }
+        }
+
         //Buttons
-        public Rectangle2D NewGameButton
+        public Button NewGameButton
         {
             get
             {
@@ -149,19 +163,44 @@ namespace Orus.Menu
                 newGameButton = value;
             }
         }
-        public Rectangle2D BackFromCreditsButton
+
+        public Button LoadGameButton
         {
             get
             {
-                return backFromCreditsButton;
+                return loadGameButton;
             }
             set
             {
-                backFromCreditsButton = value;
+                loadGameButton = value;
             }
         }
 
-        public Rectangle2D CreditsButton
+        public Button BackButton
+        {
+            get
+            {
+                return backButton;
+            }
+            set
+            {
+                backButton = value;
+            }
+        }
+
+        public Button OptionsButton
+        {
+            get
+            {
+                return optionsButton;
+            }
+            set
+            {
+                optionsButton = value;
+            }
+        }
+
+        public Button CreditsButton
         {
             get
             {
@@ -172,7 +211,8 @@ namespace Orus.Menu
                 creditsButton = value;
             }
         }
-        public Rectangle2D QuitButton
+
+        public Button QuitButton
         {
             get
             {
@@ -186,84 +226,213 @@ namespace Orus.Menu
 
         public void Load(ContentManager Content)
         {
-            MainMenuBackground = new Sprite("Sprites\\Background\\Main Menu", new Point2D(0, 0));
-            CreditsBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
-            CreditsInfo = new Sprite("Sprites\\Background\\CreditsInfo", new Point2D(0, 0));
-            OptionsMenuBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
+            this.MainMenuBackground = new Sprite("Sprites\\Background\\Main Menu", new Point2D(0, 0));
+            this.CreditsBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
+            this.CreditsInfo = new Sprite("Sprites\\Background\\CreditsInfo", new Point2D(0, 0));
+            this.OptionsMenuBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
 
-            newGameButton = new Rectangle2D(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
-                                          Constant.NewGameButtonWidth, Constant.NewGameButtonHeight);
-            creditsButton = new Rectangle2D(Constant.CreditsButtonPositionX, Constant.CreditsButtonPositionY,
-                                          Constant.CreditsButtonWidth, Constant.CreditsButtonHeight);
-            quitButton = new Rectangle2D(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
-                                          Constant.QuitButtonWidth, Constant.WindowHeight);
-            backFromCreditsButton = new Rectangle2D(Constant.BackFromCreditsPositionX, Constant.BackFromCreditsPositionY,
-                                          Constant.BackFromCreditsWidth, Constant.BackFromCreditsHeight);
-            optionsButton = new Rectangle2D(Constant.OptionsButtonPositionX, Constant.OptionsButtonPositionY,
-                                          Constant.OptionsButtonWidth, Constant.OptionsButtonHeight);
+            this.NewGameButton = new Button(
+                new Rectangle2D(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
+                                Constant.NewGameButtonWidth, Constant.NewGameButtonHeight));
 
-            MainMenuBackground.IsActive = true;
-            CreditsBackground.IsActive = false;
-            CreditsInfo.IsActive = false;
-            OptionsMenuBackground.IsActive = false;
+            this.LoadGameButton = new Button(
+                new Rectangle2D(Constant.LoadGameButtonPositionX, Constant.LoadGameButtonPositionY,
+                                Constant.LoadGameButtonWidth, Constant.LoadGameButtonHeight));
+
+            this.CreditsButton = new Button(
+                new Rectangle2D(Constant.CreditsButtonPositionX, Constant.CreditsButtonPositionY,
+                                Constant.CreditsButtonWidth, Constant.CreditsButtonHeight));
+            this.QuitButton = new Button(
+                new Rectangle2D(Constant.QuitButtonPositionX, Constant.QuitButtonPositionY,
+                                Constant.QuitButtonWidth, Constant.WindowHeight));
+            this.BackButton = new Button(
+                new Rectangle2D(Constant.BackFromCreditsPositionX, Constant.BackFromCreditsPositionY,
+                                Constant.BackFromCreditsWidth, Constant.BackFromCreditsHeight));
+            this.OptionsButton = new Button(
+                new Rectangle2D(Constant.OptionsButtonPositionX, Constant.OptionsButtonPositionY,
+                                Constant.OptionsButtonWidth, Constant.OptionsButtonHeight));
+
+            this.MainMenuBackground.IsActive = true;
+            this.CreditsBackground.IsActive = false;
+            this.CreditsInfo.IsActive = false;
+            this.OptionsMenuBackground.IsActive = false;
         }
 
         public void Update()
         {
             var mouseState = Mouse.GetState();
 
+            Point2D mouseCoordinates = new Point2D(
+                mouseState.X - this.DifferenceInPositionFromLoad.X,
+                mouseState.Y - this.DifferenceInPositionFromLoad.Y);
+            //if((mouseState.LeftButton == ButtonState.Pressed))
+            //{
+            //    Debug.WriteLine(mouseState.X + " " +  mouseState.Y);
+            //}
+
             //New Game BTN
-            if (NewGameButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
+            CheckNewGame(mouseState, mouseCoordinates);
+            //Load Game BTN
+            CheckLoadGame(mouseState, mouseCoordinates);
+            //Credits BTN
+            CheckCredits(mouseState, mouseCoordinates);
+            //Options BTN
+            CheckOptions(mouseState, mouseCoordinates);
+            //Back From Credits BTN / Back From Options
+            CheckBackButton(mouseState, mouseCoordinates);
+            //Quit BTN
+            CheckQuit(mouseState, mouseCoordinates);
+        }
+        
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.CreditsBackground.Draw(spriteBatch);
+            this.MainMenuBackground.Draw(spriteBatch);
+            this.OptionsMenuBackground.Draw(spriteBatch);
+            this.CreditsInfo.Draw(spriteBatch);
+        }
+
+        public void CheckNewGame(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.NewGameButton.ButtonPressed(mouseState, this.MainMenuBackground, mouseCoordinates))
             {
-                IsNewGamePressed = true;
+                this.NewGameButton.IsButtonPressed = true;
             }
-            if (IsNewGamePressed)
+            if (this.NewGameButton.IsButtonPressed)
             {
-                if (NewGameButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Released))
+                if (this.NewGameButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
                 {
-                    isMenuActive = false;
-                    CharacterSelectionInProgress = true;
+                    Orus.Instance.NewGame();
+                    this.IsMenuActive = false;
+                    this.CharacterSelectionInProgress = true;
+                    this.NewGameButton.IsButtonPressed = false;
+                    this.HasLoaded = true;
                 }
                 else if (mouseState.LeftButton == ButtonState.Released)
                 {
-                    IsNewGamePressed = false;
+                    this.NewGameButton.IsButtonPressed = false;
                 }
             }
-            //Credits BTN
-            if (CreditsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
-            {
-                MainMenuBackground.IsActive = false;
-                CreditsBackground.IsActive = true;
-                CreditsInfo.IsActive = true;
-            }
-            //Options BTN
-            if (OptionsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && (MainMenuBackground.IsActive == true))
-            {
-                DataManager.SaveGame.Load();
-            }
-            //Back From Credits BTN / Back From Options
-            if (BackFromCreditsButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed) && ((CreditsBackground.IsActive == true) || (OptionsMenuBackground.IsActive == true)))
-            {
-                MainMenuBackground.IsActive = true;
-                OptionsMenuBackground.IsActive = false;
-                CreditsBackground.IsActive = false;
-                CreditsInfo.IsActive = false;
-            }
-            //Quit BTN
-            if (QuitButton.AsRectangle().Contains(mouseState.X, mouseState.Y) && (mouseState.LeftButton == ButtonState.Pressed))
-            {
-                Orus.Instance.Exit();
-            }
-
         }
 
-
-        public void Draw(SpriteBatch spriteBatch)
+        public void CheckLoadGame(MouseState mouseState, Point2D mouseCoordinates)
         {
-            CreditsBackground.Draw(spriteBatch);
-            MainMenuBackground.Draw(spriteBatch);
-            OptionsMenuBackground.Draw(spriteBatch);
-            CreditsInfo.Draw(spriteBatch);
+            if (this.LoadGameButton.ButtonPressed(mouseState, this.MainMenuBackground, mouseCoordinates))
+            {
+                this.LoadGameButton.IsButtonPressed = true;
+            }
+            if (this.LoadGameButton.IsButtonPressed)
+            {
+                if (this.LoadGameButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    if (this.HasLoaded)
+                    {
+                        this.IsMenuActive = false;
+                    }
+                    else
+                    {
+                        DataManager.Data.Load();
+                    }
+                    this.LoadGameButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.LoadGameButton.IsButtonPressed = false;
+                }
+            }
+        }
+
+        public void CheckOptions(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.OptionsButton.ButtonPressed(mouseState, this.MainMenuBackground, mouseCoordinates))
+            {
+                this.OptionsButton.IsButtonPressed = true;
+            }
+            if (this.OptionsButton.IsButtonPressed)
+            {
+                if (this.OptionsButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    MainMenuBackground.IsActive = false;
+                    OptionsMenuBackground.IsActive = true;
+                    this.OptionsButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.OptionsButton.IsButtonPressed = false;
+                }
+            }
+        }
+
+        public void CheckCredits(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.CreditsButton.ButtonPressed(mouseState, this.MainMenuBackground, mouseCoordinates))
+            {
+                this.CreditsButton.IsButtonPressed = true;
+            }
+            if (this.CreditsButton.IsButtonPressed)
+            {
+                if (this.CreditsButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    this.MainMenuBackground.IsActive = false;
+                    this.CreditsBackground.IsActive = true;
+                    this.CreditsInfo.IsActive = true;
+                    this.CreditsButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.CreditsButton.IsButtonPressed = false;
+                }
+            }
+        }
+
+        public void CheckBackButton(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.BackButton.ButtonPressed(mouseState, this.OptionsMenuBackground, mouseCoordinates) ||
+                this.BackButton.ButtonPressed(mouseState, this.CreditsBackground, mouseCoordinates))
+            {
+                this.BackButton.IsButtonPressed = true;
+            }
+            if (this.BackButton.IsButtonPressed)
+            {
+                if (this.BackButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    this.MainMenuBackground.IsActive = true;
+                    this.OptionsMenuBackground.IsActive = false;
+                    this.CreditsBackground.IsActive = false;
+                    this.CreditsInfo.IsActive = false;
+                    this.BackButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.BackButton.IsButtonPressed = false;
+                }
+            }
+        }
+
+        public void CheckQuit(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.QuitButton.ButtonPressed(mouseState, this.MainMenuBackground, mouseCoordinates))
+            {
+                this.QuitButton.IsButtonPressed = true;
+            }
+            if (this.QuitButton.IsButtonPressed)
+            {
+                if (this.QuitButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    Orus.Instance.Exit();
+                    this.QuitButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.QuitButton.IsButtonPressed = false;
+                }
+            }
         }
     }
 }

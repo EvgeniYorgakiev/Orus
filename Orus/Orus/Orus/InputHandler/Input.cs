@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Abilities;
+using Orus.DataManager;
 using Orus.GameObjects;
 
 namespace Orus.InputHandler
@@ -40,7 +41,8 @@ namespace Orus.InputHandler
             var mouseState = Mouse.GetState();
             if (keyState.IsKeyDown(Keys.Escape))
             {
-                Orus.Instance.Exit();
+                Orus.Instance.GameMenu.IsMenuActive = true;
+                Orus.Instance.IsMouseVisible = true;
             }
             else if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {

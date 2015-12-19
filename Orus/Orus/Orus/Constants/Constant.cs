@@ -20,6 +20,12 @@ namespace Orus.Constants
         public const int NewGameButtonWidth = 90;
         public const int NewGameButtonHeight = 70;
 
+        //LOAD GAME BTN
+        public const int LoadGameButtonPositionX = 350;
+        public const int LoadGameButtonPositionY = 205;
+        public const int LoadGameButtonWidth = 100;
+        public const int LoadGameButtonHeight = 60;
+
         //CREDITS BTN
         public const int CreditsButtonPositionX = 486;
         public const int CreditsButtonPositionY = 145;

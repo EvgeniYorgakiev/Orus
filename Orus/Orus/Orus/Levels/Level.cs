@@ -157,7 +157,7 @@ namespace Orus.Levels
                         this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(650, 90)));
                         this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1100, 40)));
                         this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1500, 55)));
-                        
+
                         this.Decor.Add(new Sprite(Constant.CryptPath,
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY)));
 
@@ -184,7 +184,13 @@ namespace Orus.Levels
                             new LevelChanger("Crypt",
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY),
                             new Rectangle2D(Constant.CryptPositionX, Constant.CryptPositionY,
-                                          Constant.CryptWidth, Constant.CryptHeight), 2)
+                                          Constant.CryptWidth, Constant.CryptHeight), 2),
+                            new LevelChanger("Level3",
+                                new Point2D(
+                                    this.LevelBackground.Texture.Texture.Width - Constant.SpriteWidth, 
+                                    Constant.StartingPlayerYPosition),
+                                new Rectangle2D(0, Constant.StartingPlayerYPosition,
+                                    Constant.SpriteWidth, Constant.DefaultHeighForEverything), 1)
                         };
                         this.QuestGivers[0].IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
 
@@ -197,9 +203,34 @@ namespace Orus.Levels
                         this.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("CryptExit",
-                            new Point2D(0, Constant.StartingPlayerYPosition),
-                            new Rectangle2D(0, Constant.StartingPlayerYPosition,
-                                          Constant.CryptWidth, Constant.CryptHeight), 1)
+                                             new Point2D(0, Constant.StartingPlayerYPosition),
+                                             new Rectangle2D(0, Constant.StartingPlayerYPosition,
+                                                             Constant.SpriteWidth, Constant.DefaultHeighForEverything), 1)
+                        };
+                        break;
+                    }
+                case 3:
+                    {
+                        this.LevelBackground = new Sprite(Constant.Level1BackgroundPath, new Point2D(0, 0));
+
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(250, 50)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(400, 100)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(700, 75)));
+                        this.Decor.Add(new Sprite(Constant.BigTreePath, new Point2D(1100, 100)));
+
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(50, 75)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(350, 55)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(650, 90)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(975, 40)));
+                        this.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1350, 55)));
+
+                        this.Enemies.Add(new Zombie(new Point2D(1100, 300), Orus.Instance.Content));
+                        this.Interactives = new List<IInteractable>()
+                        {
+                            new LevelChanger("LevelReturn",
+                                             new Point2D(0, Constant.StartingPlayerYPosition),
+                                             new Rectangle2D(0, Constant.StartingPlayerYPosition,
+                                                              Constant.SpriteWidth, Constant.DefaultHeighForEverything), 1)
                         };
                         break;
                     }
