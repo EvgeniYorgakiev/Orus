@@ -29,10 +29,19 @@ namespace Orus.GameObjects.Player.Characters
                   new Rectangle2D((int)position.X + Constant.CrusaderWidth / 2, (int)position.Y,
                       Constant.CrusaderWidth , Constant.DefaultHeighForEverything), 
                   Constant.CrusaderDefaultMoveSpeed,
-                  Constant.CrusaderDefaultHealth, Constant.CrusaderDefaultArmor, Constant.CrusaderDefaultFireResistance,
-                  Constant.CrusaderDefaultLightingResistance, Constant.CrusaderDefaultArcaneResistance, Constant.CrusaderDefaultIceResistance,
-                  Constant.CrusaderDefaultAttackDamage, Constant.CrusaderAttackRange, 
-                  Constant.CrusaderAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.CrusaderDeathFramesNumber)
+                  Constant.CrusaderDefaultHealth,
+                  Constant.CrusaderDefaultArmor,
+                  Constant.CrusaderDefaultFireResistance,
+                  Constant.CrusaderDefaultLightingResistance,
+                  Constant.CrusaderDefaultArcaneResistance,
+                  Constant.CrusaderDefaultIceResistance,
+                  Constant.CrusaderDefaultAttackDamage, 
+                  Constant.CrusaderAttackRange, 
+                  Constant.CrusaderAttackFrame *
+                  Constant.TimeForFrameInMilliSeconds * 
+                  Constant.CrusaderDeathFramesNumber,
+                  Constant.CrusaderHealthOnLevelUp,
+                  Constant.CrusaderDamageOnLevelUp)
         {
             this.IddleAnimation = new FrameAnimation(
                  Constant.CrusaderIddleAnimationPath,
@@ -87,9 +96,9 @@ namespace Orus.GameObjects.Player.Characters
             }
         }
 
-        public override void Animate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            base.Animate(gameTime);
+            base.Update(gameTime);
             this.DoubleStrike.Update(gameTime, this);
         }
 

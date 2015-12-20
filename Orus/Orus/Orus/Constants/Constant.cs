@@ -14,6 +14,10 @@ namespace Orus.Constants
         public const int HealthBarOffsetX = 25;
         public const int HealthBarOffsetY = 15;
 
+        //Health bar
+        public const int ExperiencePositionX = 20;
+        public const int ExperiencePositionY = 500;
+
         //NEW GAME BTN
         public const int NewGameButtonPositionX = 730;
         public const int NewGameButtonPositionY = 215;
@@ -114,12 +118,14 @@ namespace Orus.Constants
         public const int CrusaderWidth = 50;
         public const float CrusaderDefaultMoveSpeed = 1f;
         public const int CrusaderDefaultHealth = 200;
+        public const int CrusaderHealthOnLevelUp = 20;
         public const int CrusaderDefaultArmor = 20;
         public const int CrusaderDefaultFireResistance = 10;
         public const int CrusaderDefaultLightingResistance = 10;
         public const int CrusaderDefaultArcaneResistance = 10;
         public const int CrusaderDefaultIceResistance = 10;
         public const int CrusaderDefaultAttackDamage = 30;
+        public const int CrusaderDamageOnLevelUp = 4;
         public const int CrusaderAttackRange = 20;
         public const int CrusaderAttackFrame = 8;
 
@@ -144,6 +150,7 @@ namespace Orus.Constants
         public const int ZombieDefaultAttackDamage = 30;
         public const int ZombieAttackRange = 10;
         public const int ZombieAttackFrame = 7;
+        public const int ZombieExperience = 30;
 
         public const string SkeletonDefaultName = "Skeleton";
         public const string SkeletonIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
@@ -165,7 +172,8 @@ namespace Orus.Constants
         public const int SkeletonDefaultAttackDamage = 20;
         public const int SkeletonAttackRange = 10;
         public const int SkeletonAttackFrame = 5;
-        
+        public const int SkeletonExperience = 55;
+
         public const string SkeletonBossDefaultName = "Skeleton Boss";
         public const string SkeletonBossIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
         public const string SkeletonBossMoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
@@ -186,6 +194,7 @@ namespace Orus.Constants
         public const int SkeletonBossDefaultAttackDamage = 40;
         public const int SkeletonBossAttackRange = 10;
         public const int SkeletonBossAttackFrame = 5;
+        public const int SkeletonBossExperience = 140;
 
         //NPCs
 

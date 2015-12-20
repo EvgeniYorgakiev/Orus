@@ -29,9 +29,7 @@ namespace Orus.GameObjects.Items
 
         public static int Counter { get; set; }
 
-        public Text InventoryCounterText { get; set; }
-
-        public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime)
+        public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
         {
             if (this.IsCollectedByCharacter)
             {
@@ -39,12 +37,7 @@ namespace Orus.GameObjects.Items
                 this.ItemPicture.IsActive = true;
                 this.BoundingBox = new Rectangle2D((int)this.ItemPicture.Position.X, (int)this.ItemPicture.Position.Y,
                     this.ItemPicture.Texture.Texture.Width, this.ItemPicture.Texture.Texture.Height);
-                this.ItemPicture.Draw(spriteBatch);
-
-                string counter = String.Format("{0}", Stomper.Counter);
-                InventoryCounterText = new Text(counter, false, (int)this.ItemPicture.Position.X - 20, (int)this.ItemPicture.Position.Y - 20, 1, 1, 0, Color.Brown, false, Constant.NameFontPath);
-                InventoryCounterText.Update(gameTime, false);
-                InventoryCounterText.Draw(spriteBatch);
+                base.DrawOnTheGameMenu(spriteBatch, cameraPoint);
             }
         }
     }

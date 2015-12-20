@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Constants;
@@ -265,9 +264,9 @@ namespace Orus.Menu
             Point2D mouseCoordinates = new Point2D(
                 mouseState.X - this.DifferenceInPositionFromLoad.X,
                 mouseState.Y - this.DifferenceInPositionFromLoad.Y);
-            //if((mouseState.LeftButton == ButtonState.Pressed))
+            //if ((mouseState.LeftButton == ButtonState.Pressed))
             //{
-            //    Debug.WriteLine(mouseState.X + " " +  mouseState.Y);
+            //    Debug.WriteLine(mouseState.X + " " + mouseState.Y);
             //}
 
             //New Game BTN

@@ -125,7 +125,7 @@ namespace Orus.GameObjects.NPC
 
         public void Update(GameTime gameTime)
         {
-            base.Animate(gameTime);
+            base.Update(gameTime);
             if (this.Updating)
             {
                 if (!this.Quest.Completed)

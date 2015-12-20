@@ -15,7 +15,7 @@ namespace Orus.GameObjects.Enemies.Boss
         }
 
         public  SkeletonBoss(Point2D position, ContentManager Content)
-            : this(Constant. SkeletonBossDefaultName, position, Content)
+            : this(Constant.SkeletonBossDefaultName, position, Content)
         {
 
         }
@@ -23,11 +23,20 @@ namespace Orus.GameObjects.Enemies.Boss
         public  SkeletonBoss(string name, Point2D position, ContentManager Content)
             : base(name, position,
                   new Rectangle2D((int)position.X + Constant. SkeletonBossWidth / 2, (int)position.Y,
-                      Constant. SkeletonBossWidth, Constant.DefaultHeighForEverything), Constant. SkeletonBossDefaultMoveSpeed,
-                  Constant. SkeletonBossDefaultHealth, Constant. SkeletonBossDefaultArmor, Constant. SkeletonBossDefaultFireResistance,
-                  Constant. SkeletonBossDefaultLightingResistance, Constant. SkeletonBossDefaultArcaneResistance, Constant. SkeletonBossDefaultIceResistance,
-                  Constant. SkeletonBossDefaultAttackDamage, Constant. SkeletonBossAttackRange,
-                  Constant. SkeletonBossAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant. SkeletonBossDeathFramesNumber)
+                      Constant.SkeletonBossWidth, Constant.DefaultHeighForEverything), 
+                  Constant.SkeletonBossDefaultMoveSpeed,
+                  Constant.SkeletonBossDefaultHealth,
+                  Constant.SkeletonBossDefaultArmor, 
+                  Constant.SkeletonBossDefaultFireResistance,
+                  Constant.SkeletonBossDefaultLightingResistance,
+                  Constant.SkeletonBossDefaultArcaneResistance,
+                  Constant.SkeletonBossDefaultIceResistance,
+                  Constant.SkeletonBossDefaultAttackDamage, 
+                  Constant.SkeletonBossAttackRange,
+                  Constant.SkeletonBossAttackFrame * 
+                  Constant.TimeForFrameInMilliSeconds * 
+                  Constant.SkeletonBossDeathFramesNumber,
+                  Constant.SkeletonBossExperience)
         {
             this.IddleAnimation = new FrameAnimation(
                 Constant. SkeletonBossIddleAnimationPath,

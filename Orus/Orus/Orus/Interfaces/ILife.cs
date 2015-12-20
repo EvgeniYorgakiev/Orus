@@ -9,7 +9,7 @@ namespace Orus.Interfaces
     interface ILife
     {
         int Health { get; set; }
-        Sprite HealthBar { get; set; }
+        Sprite Bar { get; set; }
         int Armor { get; set; }
         double ArmorAsPercentage { get;}
         int FireResistance { get; set; }

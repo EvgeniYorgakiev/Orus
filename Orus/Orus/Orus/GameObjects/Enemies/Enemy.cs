@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.GameObjects.Enemies.NormalEnemies;
-using Orus.GameObjects.Items;
 using Orus.Quests;
 using Orus.Sprites;
 
@@ -10,20 +7,34 @@ namespace Orus.GameObjects.Enemies
 {
     public class Enemy : AttackableGameObject
     {
+        private int experience;
+
         protected Enemy()
         {
 
         }
 
         protected Enemy(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float timeUntilDamageSinceAttack, int experience)
             : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
                   attackDamage, attackRange, timeUntilDamageSinceAttack)
         {
-
+            this.Experience = experience;
         }
 
-        public void Update(GameTime gameTime)
+        public int Experience
+        {
+            get
+            {
+                return this.experience;
+            }
+            set
+            {
+                this.experience = value;
+            }
+        }
+
+        public override void Update(GameTime gameTime)
         {
             if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0)
             {
@@ -41,7 +52,7 @@ namespace Orus.GameObjects.Enemies
                     bool collides = false;
                     foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
                     {
-                        if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
+                        if (this.CollidesForAttack(enemy, movesRight, this.AttackRange))
                         {
                             collides = true;
                             break;
@@ -50,7 +61,7 @@ namespace Orus.GameObjects.Enemies
                     this.Move(gameTime, movesRight, collides);
                 }
             }
-            this.Animate(gameTime);
+            base.Update(gameTime);
         }
 
         public bool IsVisible()

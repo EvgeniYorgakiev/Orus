@@ -1,6 +1,5 @@
 ﻿using Orus.GameObjects.Enemies;
 using System.Collections.Generic;
-using System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.GameObjects;
@@ -17,7 +16,7 @@ using Orus.GameObjects.Enemies.Boss;
 
 namespace Orus.Levels
 {
-    public class Level
+    public abstract class Level
     {
         private Sprite levelBackground;
         private List<Sprite> decor;
@@ -28,17 +27,18 @@ namespace Orus.Levels
         private List<IInteractable> interactives;
         private Point2D lastCharacterCoordinates;
 
-        public Level()
+        protected Level()
         {
 
         }
 
-        public Level(int level, ContentManager content)
+        protected Level(int level, ContentManager content)
         {
             this.Enemies = new List<Enemy>();
             this.Decor = new List<Sprite>();
             this.QuestGivers = new List<QuestGiver>();
             this.Interactives = new List<IInteractable>();
+            this.ItemsOnTheField = new List<IItem>();
             this.LastCharacterCoordinates = new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition);
             CreateLevel(level, content);
         }
@@ -138,6 +138,8 @@ namespace Orus.Levels
                 this.lastCharacterCoordinates = value;
             }
         }
+
+        public ICollection<IItem> ItemsOnTheField { get; set; }
 
         private void CreateLevel(int level, ContentManager content)
         {
@@ -249,7 +251,7 @@ namespace Orus.Levels
             Orus.Instance.Character.Position = Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LastCharacterCoordinates;
         }
 
-        public void Update(GameTime gameTime, ICollection<IItem> visibleItems)
+        public virtual void Update(GameTime gameTime)
         {
             foreach (var enemy in this.Enemies.Where(enemy => enemy.IsVisible()))
             {
@@ -257,7 +259,7 @@ namespace Orus.Levels
 
                 if (enemy.JustKilled)
                 {
-                    ItemFactory.ProduceItemInField(enemy.DeathAnimation, enemy, visibleItems);
+                    ItemFactory.ProduceItemInField(enemy.DeathAnimation, enemy, this.ItemsOnTheField);
                     enemy.JustKilled = false;
                 }
             }
@@ -265,24 +267,15 @@ namespace Orus.Levels
             {
                 questGiver.Update(gameTime);
             }
-
-            if (!this.SpawnedEnemies && this.RequiredXForEnemySpawn < Orus.Instance.Character.Position.X && this.RequiredXForEnemySpawn > 0)
-            {
-                switch (Orus.Instance.CurrentLevelIndex + 1)
-                {
-                    case 1:
-                        {
-                            this.Enemies.Add(new Zombie(new Point2D(300, 300), Orus.Instance.Content));
-                            break;
-                        }
-                }
-                this.SpawnedEnemies = true;
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             this.LevelBackground.Draw(spriteBatch);
+            foreach (var element in this.ItemsOnTheField)
+            {
+                element.DrawOnTheField(spriteBatch);
+            }
             foreach (var item in this.Decor)
             {
                 item.Draw(spriteBatch);

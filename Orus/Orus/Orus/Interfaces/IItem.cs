@@ -15,7 +15,9 @@ namespace Orus.Interfaces
 
         void DrawOnTheField(SpriteBatch spriteBatch);
 
-        void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
+        void Update(GameTime gameTime);
+
+        void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint);
 
         Rectangle2D BoundingBox { get; set; }
 

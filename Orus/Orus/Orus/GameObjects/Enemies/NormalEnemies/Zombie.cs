@@ -23,11 +23,20 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
         public Zombie(string name, Point2D position, ContentManager Content)
             : base(name, position,
                   new Rectangle2D((int)position.X + Constant.ZombieWidth / 2, (int)position.Y,
-                      Constant.ZombieWidth, Constant.DefaultHeighForEverything), Constant.ZombieDefaultMoveSpeed, 
-                  Constant.ZombieDefaultHealth, Constant.ZombieDefaultArmor, Constant.ZombieDefaultFireResistance,
-                  Constant.ZombieDefaultLightingResistance, Constant.ZombieDefaultArcaneResistance, Constant.ZombieDefaultIceResistance,
-                  Constant.ZombieDefaultAttackDamage, Constant.ZombieAttackRange,
-                  Constant.ZombieAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.ZombieDeathFramesNumber)
+                      Constant.ZombieWidth, Constant.DefaultHeighForEverything), 
+                  Constant.ZombieDefaultMoveSpeed, 
+                  Constant.ZombieDefaultHealth, 
+                  Constant.ZombieDefaultArmor, 
+                  Constant.ZombieDefaultFireResistance,
+                  Constant.ZombieDefaultLightingResistance,
+                  Constant.ZombieDefaultArcaneResistance, 
+                  Constant.ZombieDefaultIceResistance,
+                  Constant.ZombieDefaultAttackDamage, 
+                  Constant.ZombieAttackRange,
+                  Constant.ZombieAttackFrame * 
+                  Constant.TimeForFrameInMilliSeconds * 
+                  Constant.ZombieDeathFramesNumber,
+                  Constant.ZombieExperience)
         {
             this.IddleAnimation = new FrameAnimation(
                 Constant.ZombieIddleAnimationPath,

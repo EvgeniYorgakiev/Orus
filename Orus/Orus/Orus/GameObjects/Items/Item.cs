@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Interfaces;
 using Orus.Sprites;
+using Orus.InputHandler;
+using Orus.Constants;
 
 namespace Orus.GameObjects.Items
 {
@@ -35,6 +37,7 @@ namespace Orus.GameObjects.Items
 
         public Sprite ItemPicture { get; set; }
 
+        public Text InventoryCounterText { get; set; }
 
         public void DrawOnTheField(SpriteBatch spriteBatch)
         {
@@ -47,8 +50,18 @@ namespace Orus.GameObjects.Items
             }
         }
 
-        public abstract void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint, GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            string counter = String.Format("{0}", Stomper.Counter);
+            InventoryCounterText = new Text(counter, false, (int)this.ItemPicture.Position.X - 20, (int)this.ItemPicture.Position.Y - 20, 1, 1, 0, Color.DarkSlateGray, false, Constant.NameFontPath);
+            InventoryCounterText.Update(gameTime, false);
+       }
 
+        public virtual void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
+        {
+            this.ItemPicture.Draw(spriteBatch);
+            this.InventoryCounterText.Draw(spriteBatch);
+        }
 
         public abstract Rectangle2D BoundingBox { get; set; }
 

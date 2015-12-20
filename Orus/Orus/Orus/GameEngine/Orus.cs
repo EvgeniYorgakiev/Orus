@@ -185,8 +185,6 @@ namespace Orus
             }
         }
 
-        public ICollection<IItem> ItemsOnTheField { get; set; }
-
         protected override void Initialize()
         {
             base.Initialize();
@@ -202,21 +200,19 @@ namespace Orus
             this.GameMenu = new GameMenu();
             GameMenu.Load(this.Content);
             this.NewGame();
-            //Character = new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content);
         }
 
         public void NewGame()
         {
             this.IsMouseVisible = true;
             this.Camera = new Camera(GraphicsDevice.Viewport);
-            ItemsOnTheField = new List<IItem>();
             this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
             this.QuestFont = new SpriteFontSubstitude(Constant.QuestFontPath);
             this.Levels = new List<Level>()
             {
-                new Level(1, this.Content),
-                new Level(2, this.Content),
-                new Level(3, this.Content)
+                new Level1(),
+                new OptionalLevel1(),
+                new Level2()
             };
             this.AllCharacters = new List<Character>()
             {
@@ -244,20 +240,23 @@ namespace Orus
                 Input.UpdateCharacterSelectionInput();
                 foreach (var character in AllCharacters)
                 {
-                    character.Animate(gameTime);
+                    character.Update(gameTime);
                 }
             }
             else
             {
                 this.Camera.Update(gameTime, this.Character.Position);
-                Input.UpdateInput(gameTime);
-                this.Levels[this.CurrentLevelIndex].Update(gameTime, ItemsOnTheField);
-                Character.Animate(gameTime);
-                this.Character.CheckCollisionOfCharacterWithItems(this.ItemsOnTheField);
+                this.Levels[this.CurrentLevelIndex].Update(gameTime);
+                if (this.Character.Health > 0 || 
+                    (this.Character.DeathAnimation.FrameIndex < this.Character.DeathAnimation.Rectangles.Length &&
+                     this.Character.DeathAnimation.IsActive))
+                {
+                    Input.UpdateInput(gameTime);
+                    this.Character.CheckCollisionOfCharacterWithItems(this.Levels[this.CurrentLevelIndex].ItemsOnTheField);
+                    this.Character.Update(gameTime);
+                }
             }
             base.Update(gameTime);
-
-
         }
         
         public void MoveCharacter(GameTime gameTime, bool moveRight)
@@ -308,19 +307,7 @@ namespace Orus
                 }
                 else
                 {
-                    foreach (var element in this.ItemsOnTheField)
-                    {
-                        element.DrawOnTheField(this.SpriteBatch);
-                    }
-
-                    foreach (var element in this.Character.CollectedItems)
-                    {
-                        Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Texture.Width,
-                            this.Camera.Center.Y + element.ItemPicture.Texture.Texture.Height/2);
-                        element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu, gameTime);
-                    }
-
-                    Character.DrawAnimations(this.SpriteBatch);
+                    this.Character.DrawAnimations(this.SpriteBatch);
                 }
             }
             spriteBatch.End();
@@ -331,7 +318,6 @@ namespace Orus
             this.Camera = new Camera(Orus.Instance.GraphicsDevice.Viewport);
             this.Character = newGameProperties.Character;
             this.CurrentLevelIndex = newGameProperties.CurrentLevelIndex;
-            this.ItemsOnTheField = newGameProperties.ItemsOnTheField;
             this.Levels = newGameProperties.Levels;
             this.NewGameSelection = newGameProperties.NewGameSelection;
             this.GameMenu = newGameProperties.GameMenu;

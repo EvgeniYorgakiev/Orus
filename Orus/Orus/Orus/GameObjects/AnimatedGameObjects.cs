@@ -80,7 +80,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public virtual void Animate(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             this.IddleAnimation.Animate(gameTime, this);
         }

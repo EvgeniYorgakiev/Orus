@@ -23,11 +23,20 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
         public Skeleton(string name, Point2D position, ContentManager Content)
             : base(name, position,
                   new Rectangle2D((int)position.X + Constant.SkeletonWidth / 2, (int)position.Y,
-                      Constant.SkeletonWidth, Constant.DefaultHeighForEverything), Constant.SkeletonDefaultMoveSpeed, 
-                  Constant.SkeletonDefaultHealth, Constant.SkeletonDefaultArmor, Constant.SkeletonDefaultFireResistance,
-                  Constant.SkeletonDefaultLightingResistance, Constant.SkeletonDefaultArcaneResistance, Constant.SkeletonDefaultIceResistance,
-                  Constant.SkeletonDefaultAttackDamage, Constant.SkeletonAttackRange,
-                  Constant.SkeletonAttackFrame * Constant.TimeForFrameInMilliSeconds * Constant.SkeletonDeathFramesNumber)
+                      Constant.SkeletonWidth, Constant.DefaultHeighForEverything),
+                  Constant.SkeletonDefaultMoveSpeed, 
+                  Constant.SkeletonDefaultHealth,
+                  Constant.SkeletonDefaultArmor, 
+                  Constant.SkeletonDefaultFireResistance,
+                  Constant.SkeletonDefaultLightingResistance, 
+                  Constant.SkeletonDefaultArcaneResistance, 
+                  Constant.SkeletonDefaultIceResistance,
+                  Constant.SkeletonDefaultAttackDamage,
+                  Constant.SkeletonAttackRange,
+                  Constant.SkeletonAttackFrame * 
+                  Constant.TimeForFrameInMilliSeconds * 
+                  Constant.SkeletonDeathFramesNumber,
+                  Constant.SkeletonExperience)
         {
             this.IddleAnimation = new FrameAnimation(
                 Constant.SkeletonIddleAnimationPath,
