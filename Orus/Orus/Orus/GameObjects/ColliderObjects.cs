@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Orus.Interfaces;
+using Orus.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,16 @@ using System.Text;
 
 namespace Orus.GameObjects
 {
-    public class ColliderObjects : GameObject, ICollideable
+    public abstract class ColliderObjects : GameObject, ICollideable
     {
-        private Rectangle boundingBox;
+        private Rectangle2D boundingBox;
 
-        public ColliderObjects(string name, Point2D position)
+        protected ColliderObjects()
+        {
+
+        }
+
+        protected ColliderObjects(string name, Point2D position)
             : base(name, position)
         {
 
@@ -26,12 +32,12 @@ namespace Orus.GameObjects
 
             set
             {
-                this.BoundingBox = new Rectangle((int)value.X, (int)value.Y, this.BoundingBox.Width, this.BoundingBox.Height);
+                this.BoundingBox = new Rectangle2D((int)value.X, (int)value.Y, this.BoundingBox.Width, this.BoundingBox.Height);
                 base.Position = value;
             }
         }
 
-        public Rectangle BoundingBox
+        public Rectangle2D BoundingBox
         {
             get
             {

@@ -17,16 +17,21 @@ namespace Orus.Abilities
         private bool isPlayerUsable;
         private bool isEnemyUsable;
         private DamageType damageType;
+        
+        public Ability()
+        {
 
-        public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames)
+        }
+        public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames, DamageType damageType)
         {
             this.Damage = damage;
             this.Animation = new FrameAnimation(
-                Orus.Instance.Content.Load<Texture2D>(pathForAnimation),
+                pathForAnimation,
                 animationFrames);
             this.Animation.IsLoop = false;
             this.CooldownTime = cooldown;
             this.TimeSinceUse = 0;
+            this.DamageType = damageType;
         }
 
         public FrameAnimation Animation
@@ -133,22 +138,7 @@ namespace Orus.Abilities
             }
         }
 
-        public virtual void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
-        {
-            if (this.IsOnCooldown)
-            {
-                if (!this.Animation.IsActive)
-                {
-                    objectUsingAbility.IsUsingAbility = false;
-                }
-                this.TimeSinceUse += gameTime.ElapsedGameTime.Milliseconds / 1000;
-                if (this.TimeSinceUse >= this.CooldownTime)
-                {
-                    this.IsOnCooldown = false;
-                }
-                this.Animation.Animate(gameTime, objectUsingAbility);
-            }
-        }
+        public abstract void Update(GameTime gameTime, AttackableGameObject objectUsingAbility);
 
         public virtual void Action(Character character)
         {

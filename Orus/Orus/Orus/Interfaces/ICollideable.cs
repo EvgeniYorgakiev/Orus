@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Orus.GameObjects;
+using Orus.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Orus.Interfaces
     {
         Point2D Position { get; set; }
 
-        Rectangle BoundingBox { get; set; }
+        Rectangle2D BoundingBox { get; set; }
 
         bool Collides(ICollideable collider, int additionalOffset = 0);
     }

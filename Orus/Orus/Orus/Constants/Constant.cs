@@ -14,11 +14,21 @@ namespace Orus.Constants
         public const int HealthBarOffsetX = 25;
         public const int HealthBarOffsetY = 15;
 
+        //Health bar
+        public const int ExperiencePositionX = 20;
+        public const int ExperiencePositionY = 500;
+
         //NEW GAME BTN
         public const int NewGameButtonPositionX = 730;
         public const int NewGameButtonPositionY = 215;
         public const int NewGameButtonWidth = 90;
         public const int NewGameButtonHeight = 70;
+
+        //LOAD GAME BTN
+        public const int LoadGameButtonPositionX = 350;
+        public const int LoadGameButtonPositionY = 205;
+        public const int LoadGameButtonWidth = 100;
+        public const int LoadGameButtonHeight = 60;
 
         //CREDITS BTN
         public const int CreditsButtonPositionX = 486;
@@ -38,6 +48,12 @@ namespace Orus.Constants
         public const int QuitButtonWidth = 100;
         public const int QuitButtonHeight = 100;
 
+        //MUSIC ON/OFF BTN
+        public const int MusicButtonPositionX = 400;
+        public const int MusicButtonPositionY = 100;
+        public const int MusicButtonWidth = 190;
+        public const int MusicButtonHeight = 45;
+
         //CREDITS BACK BTN
         public const int BackFromCreditsPositionX = 900;
         public const int BackFromCreditsPositionY = 380;
@@ -49,6 +65,8 @@ namespace Orus.Constants
         public const int AllCharactersPositionY = 250;
 
         //Name input text
+        public const string NameFontPath = "Texts\\Fonts\\NameFont";
+        public const string QuestFontPath = "Texts\\Fonts\\QuestFont";
         public const int NameFieldPositionY = 60;
         public const int NameFieldDescriptionPositionY = 30;
         public const int NameFieldWidth = 200;
@@ -106,14 +124,17 @@ namespace Orus.Constants
         public const int CrusaderWidth = 50;
         public const float CrusaderDefaultMoveSpeed = 1f;
         public const int CrusaderDefaultHealth = 200;
+        public const int CrusaderHealthOnLevelUp = 20;
         public const int CrusaderDefaultArmor = 20;
         public const int CrusaderDefaultFireResistance = 10;
         public const int CrusaderDefaultLightingResistance = 10;
         public const int CrusaderDefaultArcaneResistance = 10;
         public const int CrusaderDefaultIceResistance = 10;
         public const int CrusaderDefaultAttackDamage = 30;
+        public const int CrusaderDamageOnLevelUp = 4;
         public const int CrusaderAttackRange = 20;
         public const int CrusaderAttackFrame = 8;
+        public const float CrusaderAttackSpeed = 1;
 
         //Enemies
         public const string ZombieDefaultName = "Zombie";
@@ -123,7 +144,7 @@ namespace Orus.Constants
         public const string ZombieDeathAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie death";
         public const int ZombieIddleFramesNumber = 13;
         public const int ZombieMoveFramesNumber = 11;
-        public const int ZombieAttackFramesNumber = 14;
+        public const int ZombieAttackFramesNumber = 5;
         public const int ZombieDeathFramesNumber = 14;
         public const int ZombieWidth = 50;
         public const float ZombieDefaultMoveSpeed = 0.3f;
@@ -135,7 +156,9 @@ namespace Orus.Constants
         public const int ZombieDefaultIceResistance = 0;
         public const int ZombieDefaultAttackDamage = 30;
         public const int ZombieAttackRange = 10;
-        public const int ZombieAttackFrame = 7;
+        public const int ZombieAttackFrame = 4;
+        public const float ZombieAttackSpeed = 0.2f;
+        public const int ZombieExperience = 30;
 
         public const string SkeletonDefaultName = "Skeleton";
         public const string SkeletonIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
@@ -156,8 +179,10 @@ namespace Orus.Constants
         public const int SkeletonDefaultIceResistance = 5;
         public const int SkeletonDefaultAttackDamage = 20;
         public const int SkeletonAttackRange = 10;
-        public const int SkeletonAttackFrame = 5;
-        
+        public const int SkeletonAttackFrame = 4;
+        public const float SkeletonAttackSpeed = 0.25f;
+        public const int SkeletonExperience = 55;
+
         public const string SkeletonBossDefaultName = "Skeleton Boss";
         public const string SkeletonBossIddleAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton iddle";
         public const string SkeletonBossMoveAnimationPath = "Sprites\\Enemies\\Skeleton\\Skeleton move";
@@ -175,9 +200,36 @@ namespace Orus.Constants
         public const int SkeletonBossDefaultLightingResistance = 10;
         public const int SkeletonBossDefaultArcaneResistance = 10;
         public const int SkeletonBossDefaultIceResistance = 10;
-        public const int SkeletonBossDefaultAttackDamage = 40;
+        public const int SkeletonBossDefaultAttackDamage = 80;
         public const int SkeletonBossAttackRange = 10;
         public const int SkeletonBossAttackFrame = 5;
+        public const float SkeletonBossAttackSpeed = 0.15f;
+        public const int SkeletonBossExperience = 140;
+        public const float SkeletonBossScale = 1.5f;
+
+        public const string LichBossDefaultName = "Lich Boss";
+        public const string LichBossIddleAnimationPath = "Sprites\\Enemies\\Lich\\Lich iddle";
+        public const string LichBossMoveAnimationPath = "Sprites\\Enemies\\Lich\\Lich move";
+        public const string LichBossAttackAnimationPath = "Sprites\\Enemies\\Lich\\Lich attack";
+        public const string LichBossDeathAnimationPath = "Sprites\\Enemies\\Lich\\Lich death";
+        public const int LichBossIddleFramesNumber = 4;
+        public const int LichBossMoveFramesNumber = 8;
+        public const int LichBossAttackFramesNumber = 5;
+        public const int LichBossDeathFramesNumber = 10;
+        public const int LichBossWidth = 50;
+        public const float LichBossDefaultMoveSpeed = 1f;
+        public const int LichBossDefaultHealth = 150;
+        public const int LichBossDefaultArmor = 5;
+        public const int LichBossDefaultFireResistance = 5;
+        public const int LichBossDefaultLightingResistance = 5;
+        public const int LichBossDefaultArcaneResistance = 5;
+        public const int LichBossDefaultIceResistance = 5;
+        public const int LichBossDefaultAttackDamage = 15;
+        public const int LichBossAttackRange = 10;
+        public const int LichBossAttackFrame = 5;
+        public const float LichBossAttackSpeed = 1f;
+        public const int LichBossExperience = 140;
+        public const float LichBossScale = 1.25f;
 
         //NPCs
 

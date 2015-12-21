@@ -4,7 +4,8 @@ using Orus.Interfaces;
 using Orus.Sprites.Animations;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.InputHandler;
+using Orus.Texts;
+using Orus.Sprites;
 
 namespace Orus.GameObjects.NPC
 {
@@ -17,14 +18,19 @@ namespace Orus.GameObjects.NPC
         private IQuest quest;
         private bool updating;
 
+        public QuestGiver()
+        {
+
+        }
+
         public QuestGiver(string name, Point2D position, string iddleAnimationPath, int framesForIddleAnimation, IQuest quest,
             string initialText, string completedText, int offsetFromTopForInitial, int offsetFromTopForCompleted, int heightForText) 
             : base(name, position, 
-                  new Rectangle((int)position.X + Constant.PeasantWidth / 2, (int)position.Y,
+                  new Rectangle2D((int)position.X + Constant.PeasantWidth / 2, (int)position.Y,
                       Constant.PeasantWidth, Constant.DefaultHeighForEverything))
         {
             this.IddleAnimation = new FrameAnimation(
-                 Orus.Instance.Content.Load<Texture2D>(iddleAnimationPath),
+                 iddleAnimationPath,
                  framesForIddleAnimation);
             this.AnimationSpeed = 0.1f;
             this.IddleAnimation.IsActive = true;
@@ -34,10 +40,10 @@ namespace Orus.GameObjects.NPC
             this.Position = position;
             this.InitialText = new Text(this.InitialTextOnly, false, (int)this.Position.X, (int)this.Position.Y - offsetFromTopForInitial, 
                 Constant.QuestGiverTextWidth, heightForText, Constant.QuestGiverTextDelayInMilliseconds,
-                Color.White, true, Orus.Instance.QuestFont);
+                Color.White, false, Constant.QuestFontPath);
             this.CompletedText = new Text(this.CompletedTextOnly, false, (int)this.Position.X, (int)this.Position.Y - offsetFromTopForCompleted,
                 Constant.QuestGiverTextWidth, heightForText, Constant.QuestGiverTextDelayInMilliseconds,
-                Color.White, true, Orus.Instance.QuestFont);
+                Color.White, false, Constant.QuestFontPath);
         }
 
         public string InitialTextOnly
@@ -119,7 +125,7 @@ namespace Orus.GameObjects.NPC
 
         public void Update(GameTime gameTime)
         {
-            base.Animate(gameTime);
+            base.Update(gameTime);
             if (this.Updating)
             {
                 if (!this.Quest.Completed)

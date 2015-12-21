@@ -13,14 +13,19 @@ namespace Orus.Sprites.Animations
 
         public float Time { get { return time; } set { time = value; } }
 
-        public FrameAnimation(Texture2D Texture, int frames, AnimatedGameObject animatedGameObject)
-            : base(Texture, frames, animatedGameObject)
+        public FrameAnimation()
         {
 
         }
 
-        public FrameAnimation(Texture2D Texture, int frames)
-            : base(Texture, frames)
+        public FrameAnimation(string path, int frames, AnimatedGameObject animatedGameObject)
+            : base(path, frames, animatedGameObject)
+        {
+
+        }
+
+        public FrameAnimation(string path, int frames)
+            : base(path, frames)
         {
 
         }
@@ -46,7 +51,16 @@ namespace Orus.Sprites.Animations
                 return;
             }
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
-            if (this.Time > (Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length) / animatedObject.AnimationSpeed)
+            var speed = animatedObject.AnimationSpeed;
+            var objectAsAttackObject = animatedObject as AttackableGameObject;
+            if(objectAsAttackObject != null)
+            {
+                if(objectAsAttackObject.AttackAnimation == this && this.IsActive)
+                {
+                    speed = objectAsAttackObject.AttackSpeed;
+                }
+            }
+            if (this.Time > (Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length) / speed)
             {
                 this.Time = 0f;
                 this.FrameIndex++;

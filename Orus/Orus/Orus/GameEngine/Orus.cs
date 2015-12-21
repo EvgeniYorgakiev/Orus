@@ -2,45 +2,46 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.GameObjects;
-using Orus.GameObjects.NPC;
 using Orus.GameObjects.Player;
 using Orus.GameObjects.Player.Characters;
-using Orus.InputHandler;
+using Orus.Texts;
 using Orus.Interfaces;
 using Orus.Levels;
 using Orus.Menu;
-using Orus.Quests;
 using System.Collections.Generic;
-using System.Linq;
-using Orus.GameObjects.Items;
+using Orus.DataManager;
+using System;
 using Orus.Sprites;
-using Orus.GameObjects.InteractiveBackgrounds;
+using Orus.InputHandler;
 
 namespace Orus
 {
+    [Serializable()]
     public sealed class Orus : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Camera camera;
+        private GameMenu gameMenu;
         private Character character;
         private List<Character> allCharacters;
         private List<Level> levels;
         private int currentLevelIndex;
         private static Orus instance = null;
         private static readonly object padlock = new object();
-        private SpriteFont questFont;
-        private SpriteFont nameFont;
+        private SpriteFontSubstitude questFont;
+        private SpriteFontSubstitude nameFont;
         private NewGameSelection newGameSelection;
-        private ICollection<IItem> visibleItems;
-        
 
         public Orus()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.Exiting += Data.Save;
         }
 
+
+        //Singleton pattern
         public static Orus Instance
         {
             get
@@ -55,8 +56,7 @@ namespace Orus
                 }
             }
         }
-
-
+        
         private GraphicsDeviceManager Graphics
         {
             get
@@ -90,6 +90,18 @@ namespace Orus
             set
             {
                 this.camera = value;
+            }
+        }
+
+        public GameMenu GameMenu
+        {
+            get
+            {
+                return this.gameMenu;
+            }
+            set
+            {
+                this.gameMenu = value;
             }
         }
 
@@ -140,7 +152,7 @@ namespace Orus
             }
         }
 
-        public SpriteFont QuestFont
+        public SpriteFontSubstitude QuestFont
         {
             get
             {
@@ -152,7 +164,7 @@ namespace Orus
             }
         }
 
-        public SpriteFont NameFont
+        public SpriteFontSubstitude NameFont
         {
             get
             {
@@ -176,39 +188,43 @@ namespace Orus
             }
         }
 
-        public ICollection<IItem> ItemsOnTheField { get; set; }
-
         protected override void Initialize()
         {
             base.Initialize();
-            this.IsMouseVisible = true;
-            this.Camera = new Camera(GraphicsDevice.Viewport);
-            //this.Camera = new Camera(this);
-            ItemsOnTheField = new List<IItem>();
         }
 
         protected override void LoadContent()
         {
-            this.NameFont = this.Content.Load<SpriteFont>("Texts\\Fonts\\NameFont");
-            this.QuestFont = this.Content.Load<SpriteFont>("Texts\\Fonts\\QuestFont");
+            //Load the content
+            this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
+            this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
+            this.Graphics.PreferredBackBufferHeight = Constant.WindowHeight;
+            this.Graphics.ApplyChanges();
+            this.GameMenu = new GameMenu();
+            GameMenu.Load(this.Content);
+            this.NewGame();
+        }
+
+        public void NewGame()
+        {
+            //Set everything in need for a new game
+            this.IsMouseVisible = true;
+            this.Camera = new Camera(GraphicsDevice.Viewport);
+            this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
+            this.QuestFont = new SpriteFontSubstitude(Constant.QuestFontPath);
             this.Levels = new List<Level>()
             {
-                new Level(1, this.Content),
-                new Level(2, this.Content)
+                new Level1(),
+                new OptionalLevel1(),
+                new Level2()
             };
             this.AllCharacters = new List<Character>()
             {
                 new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content)
             };
             this.CurrentLevelIndex = 0;
-            this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
-            this.Graphics.PreferredBackBufferHeight = Constant.WindowHeight;
-            this.Graphics.ApplyChanges();
-            GameMenu.Load(this.Content);
             this.NewGameSelection = new NewGameSelection();
             this.NewGameSelection.Load();
-            //Character = new Crusader(new Point2D(Constant.FirstCharacterPositionX, Constant.AllCharactersPositionY), Content);
         }
 
         protected override void UnloadContent()
@@ -222,88 +238,65 @@ namespace Orus
             {
                 GameMenu.Update();
             }
-            else if (GameMenu.CharacterSelectionInProgress)
+            else if (GameMenu.CharacterSelectionInProgress) // If we are in the process of selecting a character
             {
                 this.NewGameSelection.Update(gameTime);
                 Input.UpdateCharacterSelectionInput();
                 foreach (var character in AllCharacters)
                 {
-                    character.Animate(gameTime);
+                    character.Update(gameTime);
                 }
             }
-            else
+            else //Else we are playing the game
             {
-                Input.UpdateInput(gameTime);
-                this.Levels[this.CurrentLevelIndex].Update(gameTime, ItemsOnTheField);
-                Character.Animate(gameTime);
-                this.Character.CheckCollisionOfCharacterWithItems(this.ItemsOnTheField);
                 this.Camera.Update(gameTime, this.Character.Position);
+                this.Levels[this.CurrentLevelIndex].Update(gameTime);
+                if (this.Character.Health > 0 || 
+                    (this.Character.DeathAnimation.FrameIndex < this.Character.DeathAnimation.Rectangles.Length &&
+                     this.Character.DeathAnimation.IsActive))
+                {
+                    //If the character is alive and his death animation is playing we need to update it
+                    Input.UpdateInput(gameTime);
+                    this.Character.CheckCollisionOfCharacterWithItems(this.Levels[this.CurrentLevelIndex].ItemsOnTheField);
+                    this.Character.Update(gameTime);
+                }
             }
             base.Update(gameTime);
-
-
-        }
-        
-        public void MoveCharacter(GameTime gameTime, bool moveRight)
-        {
-            bool collides = false;
-            foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
-            {
-                if (this.Character.CollidesForAttack(enemy, moveRight))
-                {
-                    collides = true;
-                    break;
-                }
-            }
-            if ((this.Character.Position.X < 0 && !moveRight) ||
-               (this.Character.Position.X + Constant.SpriteWidth > 
-               this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Width && moveRight))
-            {
-                collides = true;
-            }
-            if (!collides)
-            {
-                this.Character.Move(gameTime, moveRight, collides);
-            }
-
         }
 
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
+            
             if(GameMenu.IsMenuActive)
             {
+                
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 GameMenu.Draw(this.SpriteBatch);
             }
             else
             {
+                //We need to set the the Camera to follow the character during the game
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
+
+                //In all cases we need to draw the level
                 this.Levels[this.CurrentLevelIndex].Draw(this.SpriteBatch);
                 if (GameMenu.CharacterSelectionInProgress)
                 {
+                    //Draw all of the characters that can be picked during character selection
                     foreach (var character in AllCharacters)
                     {
-                        this.SpriteBatch.DrawString(this.NameFont, character.Name,
+                        this.SpriteBatch.DrawString(this.NameFont.Font, character.Name,
                         new Vector2(character.Position.X, character.Position.Y), Color.White);
                                     character.DrawAnimations(this.SpriteBatch);
                     }
+                   
                     this.NewGameSelection.Draw(this.SpriteBatch);
                 }
                 else
                 {
-                    foreach (var element in this.ItemsOnTheField)
-                    {
-                        element.DrawOnTheField(this.SpriteBatch);
-                    }
-
-                    foreach (var element in this.Character.CollectedItems)
-                    {
-                        Point2D beginningOfTheMenu = new Point2D(this.Camera.Center.X+element.ItemPicture.Texture.Width, this.Camera.Center.Y + element.ItemPicture.Texture.Height/2);
-                        element.DrawOnTheGameMenu(this.SpriteBatch, beginningOfTheMenu, gameTime);
-                    }
-
-                    Character.DrawAnimations(this.SpriteBatch);
+                    //Else draw the character
+                    this.Character.DrawAnimations(this.SpriteBatch);
                 }
             }
             spriteBatch.End();

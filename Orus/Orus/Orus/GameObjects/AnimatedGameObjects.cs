@@ -15,7 +15,12 @@ namespace Orus.GameObjects
         private FrameAnimation iddleAnimation;
         private float animationSpeed;
 
-        protected AnimatedGameObject(string name, Point2D position, Rectangle boundingBox) :
+        protected AnimatedGameObject()
+        {
+
+        }
+
+        protected AnimatedGameObject(string name, Point2D position, Rectangle2D boundingBox) :
             base(name, position)
         {
             this.BoundingBox = boundingBox;
@@ -33,6 +38,7 @@ namespace Orus.GameObjects
                 this.iddleAnimation = value;
             }
         }
+
         public float AnimationSpeed
         {
             get
@@ -75,7 +81,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public virtual void Animate(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             this.IddleAnimation.Animate(gameTime, this);
         }

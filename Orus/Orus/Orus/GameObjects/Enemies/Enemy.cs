@@ -1,26 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.GameObjects.Enemies.NormalEnemies;
-using Orus.GameObjects.Items;
 using Orus.Quests;
+using Orus.Sprites;
 
 namespace Orus.GameObjects.Enemies
 {
     public class Enemy : AttackableGameObject
     {
-        protected Enemy(string name, Point2D position, Rectangle boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
-            : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
-                  attackDamage, attackRange, timeUntilDamageSinceAttack)
+        private int experience;
+
+        protected Enemy()
         {
 
         }
 
-        public void Update(GameTime gameTime)
+        protected Enemy(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
+            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float attackSpeed, float timeUntilDamageSinceAttack, int experience)
+            : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
+                  attackDamage, attackRange, attackSpeed, timeUntilDamageSinceAttack)
         {
+            this.Experience = experience;
+        }
+
+        public int Experience
+        {
+            get
+            {
+                return this.experience;
+            }
+            set
+            {
+                this.experience = value;
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            //If both the enemy and the character are alive
             if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0)
             {
+                //If the enemy can attack the character
                 bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
                 if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
                 {
@@ -32,10 +51,11 @@ namespace Orus.GameObjects.Enemies
                 }
                 else
                 {
+                    //Else move toward the character if nothing is in the way
                     bool collides = false;
                     foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
                     {
-                        if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
+                        if (this.CollidesForAttack(enemy, movesRight, this.AttackRange))
                         {
                             collides = true;
                             break;
@@ -44,7 +64,7 @@ namespace Orus.GameObjects.Enemies
                     this.Move(gameTime, movesRight, collides);
                 }
             }
-            this.Animate(gameTime);
+            base.Update(gameTime);
         }
 
         public bool IsVisible()
@@ -58,6 +78,7 @@ namespace Orus.GameObjects.Enemies
         {
             base.Die();
 
+            //Update the quests that require slaying of monsters
             foreach (var level in Orus.Instance.Levels)
             {
                 foreach (var questGiver in level.QuestGivers)
