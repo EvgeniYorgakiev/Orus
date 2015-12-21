@@ -25,6 +25,7 @@ namespace Orus.GameObjects
         private FrameAnimation deathAnimation;
         private int attackDamage;
         private int attackRange;
+        private float attackSpeed;
         private float timeUntilDamageSinceAttack;
         private bool isAttacking = false;
         private bool isUsingAbility = false;
@@ -39,11 +40,12 @@ namespace Orus.GameObjects
 
         protected AttackableGameObject(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
              int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
-             int attackDamage, int attackRange, float timeUntilDamageSinceAttack)
+             int attackDamage, int attackRange, float attackSpeed, float timeUntilDamageSinceAttack)
              : base(name, position, boundingBox)
         {
             this.AttackDamage = attackDamage;
             this.AttackRange = attackRange;
+            this.AttackSpeed = attackSpeed;
             this.TimeUntilDamageSinceAttack = timeUntilDamageSinceAttack;
             this.MaxHealth = health;
             this.Health = health;
@@ -240,6 +242,18 @@ namespace Orus.GameObjects
             set
             {
                 this.attackRange = value;
+            }
+        }
+
+        public float AttackSpeed
+        {
+            get
+            {
+                return this.attackSpeed;
+            }
+            set
+            {
+                this.attackSpeed = value;
             }
         }
 

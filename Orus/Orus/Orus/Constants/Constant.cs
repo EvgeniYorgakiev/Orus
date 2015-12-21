@@ -128,6 +128,7 @@ namespace Orus.Constants
         public const int CrusaderDamageOnLevelUp = 4;
         public const int CrusaderAttackRange = 20;
         public const int CrusaderAttackFrame = 8;
+        public const float CrusaderAttackSpeed = 1;
 
         //Enemies
         public const string ZombieDefaultName = "Zombie";
@@ -137,7 +138,7 @@ namespace Orus.Constants
         public const string ZombieDeathAnimationPath = "Sprites\\Enemies\\Zombie\\Zombie death";
         public const int ZombieIddleFramesNumber = 13;
         public const int ZombieMoveFramesNumber = 11;
-        public const int ZombieAttackFramesNumber = 14;
+        public const int ZombieAttackFramesNumber = 5;
         public const int ZombieDeathFramesNumber = 14;
         public const int ZombieWidth = 50;
         public const float ZombieDefaultMoveSpeed = 0.3f;
@@ -149,7 +150,8 @@ namespace Orus.Constants
         public const int ZombieDefaultIceResistance = 0;
         public const int ZombieDefaultAttackDamage = 30;
         public const int ZombieAttackRange = 10;
-        public const int ZombieAttackFrame = 7;
+        public const int ZombieAttackFrame = 4;
+        public const float ZombieAttackSpeed = 0.3f;
         public const int ZombieExperience = 30;
 
         public const string SkeletonDefaultName = "Skeleton";
@@ -171,7 +173,8 @@ namespace Orus.Constants
         public const int SkeletonDefaultIceResistance = 5;
         public const int SkeletonDefaultAttackDamage = 20;
         public const int SkeletonAttackRange = 10;
-        public const int SkeletonAttackFrame = 5;
+        public const int SkeletonAttackFrame = 4;
+        public const float SkeletonAttackSpeed = 0.25f;
         public const int SkeletonExperience = 55;
 
         public const string SkeletonBossDefaultName = "Skeleton Boss";
@@ -191,10 +194,12 @@ namespace Orus.Constants
         public const int SkeletonBossDefaultLightingResistance = 10;
         public const int SkeletonBossDefaultArcaneResistance = 10;
         public const int SkeletonBossDefaultIceResistance = 10;
-        public const int SkeletonBossDefaultAttackDamage = 40;
+        public const int SkeletonBossDefaultAttackDamage = 80;
         public const int SkeletonBossAttackRange = 10;
         public const int SkeletonBossAttackFrame = 5;
+        public const float SkeletonBossAttackSpeed = 0.15f;
         public const int SkeletonBossExperience = 140;
+        public const float SkeletonBossScale = 1.5f;
 
         //NPCs
 

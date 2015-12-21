@@ -163,10 +163,10 @@ namespace Orus.Levels
                         this.Decor.Add(new Sprite(Constant.CryptPath,
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY)));
 
-                        this.Enemies.Add(new Zombie(new Point2D(1100, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1250, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1300, 300), Orus.Instance.Content));
-                        this.Enemies.Add(new Zombie(new Point2D(1400, 300), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1100, Constant.StartingPlayerYPosition), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1250, Constant.StartingPlayerYPosition), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1300, Constant.StartingPlayerYPosition), Orus.Instance.Content));
+                        this.Enemies.Add(new Zombie(new Point2D(1400, Constant.StartingPlayerYPosition), Orus.Instance.Content));
                         this.RequiredXForEnemySpawn = 600;
 
                         this.QuestGivers = new List<QuestGiver>()
@@ -184,15 +184,18 @@ namespace Orus.Levels
                         this.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("Crypt",
-                            new Point2D(Constant.CryptPositionX, Constant.CryptPositionY),
-                            new Rectangle2D(Constant.CryptPositionX, Constant.CryptPositionY,
+                                new Point2D(Constant.CryptPositionX, Constant.CryptPositionY),
+                                new Rectangle2D(Constant.CryptPositionX, Constant.CryptPositionY,
                                           Constant.CryptWidth, Constant.CryptHeight), 2),
                             new LevelChanger("Level3",
                                 new Point2D(
                                     this.LevelBackground.Texture.Texture.Width - Constant.SpriteWidth, 
                                     Constant.StartingPlayerYPosition),
-                                new Rectangle2D(0, Constant.StartingPlayerYPosition,
-                                    Constant.SpriteWidth, Constant.DefaultHeighForEverything), 1)
+                                new Rectangle2D(
+                                    this.LevelBackground.Texture.Texture.Width - Constant.SpriteWidth,
+                                    Constant.StartingPlayerYPosition,
+                                    Constant.SpriteWidth,
+                                    Constant.DefaultHeighForEverything), 3)
                         };
                         this.QuestGivers[0].IddleAnimation.SpriteEffect = SpriteEffects.FlipHorizontally;
 
@@ -201,7 +204,7 @@ namespace Orus.Levels
                 case 2:
                     {
                         this.LevelBackground = new Sprite(Constant.Level2BackgroundPath, new Point2D(0, 0));
-                        this.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 300), Orus.Instance.Content));
+                        this.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 250), Orus.Instance.Content));
                         this.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("CryptExit",

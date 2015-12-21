@@ -36,10 +36,12 @@ namespace Orus.GameObjects.Player.Characters
                   Constant.CrusaderDefaultArcaneResistance,
                   Constant.CrusaderDefaultIceResistance,
                   Constant.CrusaderDefaultAttackDamage, 
-                  Constant.CrusaderAttackRange, 
+                  Constant.CrusaderAttackRange,
+                  Constant.CrusaderAttackSpeed,
                   Constant.CrusaderAttackFrame *
                   Constant.TimeForFrameInMilliSeconds * 
-                  Constant.CrusaderDeathFramesNumber,
+                  Constant.CrusaderAttackFramesNumber /
+                  Constant.CrusaderAttackSpeed,
                   Constant.CrusaderHealthOnLevelUp,
                   Constant.CrusaderDamageOnLevelUp)
         {

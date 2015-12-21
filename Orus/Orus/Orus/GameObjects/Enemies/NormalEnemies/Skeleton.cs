@@ -33,9 +33,11 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
                   Constant.SkeletonDefaultIceResistance,
                   Constant.SkeletonDefaultAttackDamage,
                   Constant.SkeletonAttackRange,
+                  Constant.SkeletonAttackSpeed,
                   Constant.SkeletonAttackFrame * 
                   Constant.TimeForFrameInMilliSeconds * 
-                  Constant.SkeletonDeathFramesNumber,
+                  Constant.SkeletonAttackFramesNumber /
+                  Constant.SkeletonAttackSpeed,
                   Constant.SkeletonExperience)
         {
             this.IddleAnimation = new FrameAnimation(

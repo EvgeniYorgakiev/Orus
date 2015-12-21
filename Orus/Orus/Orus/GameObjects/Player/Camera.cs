@@ -76,6 +76,13 @@ namespace Orus.GameObjects.Player
                 this.Transform = Matrix.CreateScale(new Vector3(1, 1, 0)) *
                     Matrix.CreateTranslation(new Vector3(-this.Center.X, -this.Center.Y, 0));
             }
+            var levelWidth = Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width;
+            if (this.Center.X + Constant.WindowWidth > levelWidth)
+            {
+                this.Center = new Point2D(levelWidth - Constant.WindowWidth, 0);
+                this.Transform = Matrix.CreateScale(new Vector3(1, 1, 0)) *
+                    Matrix.CreateTranslation(new Vector3(-this.Center.X, -this.Center.Y, 0));
+            }
         }
     }
 }

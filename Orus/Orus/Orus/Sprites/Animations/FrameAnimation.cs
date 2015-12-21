@@ -51,7 +51,16 @@ namespace Orus.Sprites.Animations
                 return;
             }
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
-            if (this.Time > (Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length) / animatedObject.AnimationSpeed)
+            var speed = animatedObject.AnimationSpeed;
+            var objectAsAttackObject = animatedObject as AttackableGameObject;
+            if(objectAsAttackObject != null)
+            {
+                if(objectAsAttackObject.AttackAnimation == this && this.IsActive)
+                {
+                    speed = objectAsAttackObject.AttackSpeed;
+                }
+            }
+            if (this.Time > (Constant.TimeForFrameInMilliSeconds * this.Rectangles.Length) / speed)
             {
                 this.Time = 0f;
                 this.FrameIndex++;

@@ -33,9 +33,11 @@ namespace Orus.GameObjects.Enemies.NormalEnemies
                   Constant.ZombieDefaultIceResistance,
                   Constant.ZombieDefaultAttackDamage, 
                   Constant.ZombieAttackRange,
+                  Constant.ZombieAttackSpeed,
                   Constant.ZombieAttackFrame * 
                   Constant.TimeForFrameInMilliSeconds * 
-                  Constant.ZombieDeathFramesNumber,
+                  Constant.ZombieAttackFramesNumber /
+                  Constant.ZombieAttackSpeed,
                   Constant.ZombieExperience)
         {
             this.IddleAnimation = new FrameAnimation(

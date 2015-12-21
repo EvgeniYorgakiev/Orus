@@ -24,9 +24,10 @@ namespace Orus.GameObjects.Player.Characters
 
         protected Character(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
             int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
-            int attackDamage, int attackRange, float timeUntilDamageSinceAttack, int healthOnLevelup, int damageOnLevelUp)
+            int attackDamage, int attackRange, float attackSpeed,
+            float timeUntilDamageSinceAttack, int healthOnLevelup, int damageOnLevelUp)
             : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
-                  attackDamage, attackRange, timeUntilDamageSinceAttack)
+                  attackDamage, attackRange, attackSpeed, timeUntilDamageSinceAttack)
         {
             this.Experience = 0;
             this.CurrentLevel = 1;
