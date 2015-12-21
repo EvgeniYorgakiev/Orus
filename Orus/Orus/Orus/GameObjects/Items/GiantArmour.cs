@@ -29,6 +29,7 @@ namespace Orus.GameObjects.Items
 
         public static int Counter { get; set; }
 
+        //This draws the item on the collected items' menu when the item is collected by the character.
         public override void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
         {
             if (this.IsCollectedByCharacter)

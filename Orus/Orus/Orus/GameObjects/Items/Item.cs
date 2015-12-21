@@ -17,6 +17,7 @@ namespace Orus.GameObjects.Items
     {
         private Rectangle2D boundingBox;
         private bool isCollectedByCharacter;
+        public const int DistanceBetweenCounterAndPicture = 20;
 
         protected Item()
         {
@@ -39,6 +40,8 @@ namespace Orus.GameObjects.Items
 
         public Text InventoryCounterText { get; set; }
 
+
+        //Draws the item on the game field when an enemy is killed
         public void DrawOnTheField(SpriteBatch spriteBatch)
         {
             if (!this.IsCollectedByCharacter)
@@ -49,14 +52,16 @@ namespace Orus.GameObjects.Items
                 this.ItemPicture.Draw(spriteBatch);
             }
         }
-
+        
+        //Updates the number of collected items.
         public virtual void Update(GameTime gameTime)
         {
             string counter = String.Format("{0}", Stomper.Counter);
-            InventoryCounterText = new Text(counter, false, (int)this.ItemPicture.Position.X - 20, (int)this.ItemPicture.Position.Y - 20, 1, 1, 0, Color.DarkSlateGray, false, Constant.NameFontPath);
+            InventoryCounterText = new Text(counter, false, (int)this.ItemPicture.Position.X - DistanceBetweenCounterAndPicture, (int)this.ItemPicture.Position.Y - DistanceBetweenCounterAndPicture, 1, 1, 0, Color.Brown, false, Constant.NameFontPath);
             InventoryCounterText.Update(gameTime, false);
        }
 
+        //Draw items on the collected items menu.
         public virtual void DrawOnTheGameMenu(SpriteBatch spriteBatch, Point2D cameraPoint)
         {
             this.ItemPicture.Draw(spriteBatch);

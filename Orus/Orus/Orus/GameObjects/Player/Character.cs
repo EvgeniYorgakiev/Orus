@@ -99,6 +99,7 @@ namespace Orus.GameObjects.Player.Characters
             }
         }
 
+        //Checks if character is in contact with any visivle items.
         public void CheckCollisionOfCharacterWithItems(ICollection<IItem> itemCollection)
         {
             foreach (var element in itemCollection)
@@ -125,20 +126,22 @@ namespace Orus.GameObjects.Player.Characters
             return false;
         }
 
+        //Adds item to character's collection of collected items
         public void Collect(IItem item)
         {
             this.CollectedItems.Add(item);
-            item.BoundingBox = new Rectangle(0, 0, 0, 0);
+            item.BoundingBox = new Rectangle2D(0,0,0,0);
 
             IncreaseCollectedItemCounter(item);
         }
 
+        //Increases the counters for collected items and checks whether there are enough collected items to fill up the player's health.
         private void IncreaseCollectedItemCounter(IItem item)
         {
             if (item is Stomper)
             {
                 Stomper.Counter++;
-
+                
                 if (Stomper.Counter == 2)
                 {
                     this.Health = MaxHealth;
