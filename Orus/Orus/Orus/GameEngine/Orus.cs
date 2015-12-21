@@ -267,8 +267,10 @@ namespace Orus
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
+            
             if(GameMenu.IsMenuActive)
             {
+                
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 GameMenu.Draw(this.SpriteBatch);
             }
@@ -288,6 +290,7 @@ namespace Orus
                         new Vector2(character.Position.X, character.Position.Y), Color.White);
                                     character.DrawAnimations(this.SpriteBatch);
                     }
+                   
                     this.NewGameSelection.Draw(this.SpriteBatch);
                 }
                 else

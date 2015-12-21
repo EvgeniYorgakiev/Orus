@@ -48,6 +48,12 @@ namespace Orus.Constants
         public const int QuitButtonWidth = 100;
         public const int QuitButtonHeight = 100;
 
+        //MUSIC ON/OFF BTN
+        public const int MusicButtonPositionX = 400;
+        public const int MusicButtonPositionY = 100;
+        public const int MusicButtonWidth = 190;
+        public const int MusicButtonHeight = 45;
+
         //CREDITS BACK BTN
         public const int BackFromCreditsPositionX = 900;
         public const int BackFromCreditsPositionY = 380;
