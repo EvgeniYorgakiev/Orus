@@ -85,7 +85,9 @@
     <Compile Include="DataManager\Data.cs" />
     <Compile Include="Factories\BattleEngine.cs" />
     <Compile Include="Exceptions\InvalidName.cs" />
+    <Compile Include="Factories\LevelFactory.cs" />
     <Compile Include="GameObjects\ColliderObjects.cs" />
+    <Compile Include="GameObjects\Enemies\Boss\Lich.cs" />
     <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
     <Compile Include="GameObjects\InteractiveBackgrounds\LevelChanger.cs" />
     <Compile Include="GameObjects\Items\GiantArmour.cs" />
@@ -103,7 +105,7 @@
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Quests\SlayQuest.cs" />
     <Compile Include="GameObjects\NPC\QuestGiver.cs" />
-    <Compile Include="InputHandler\Text.cs" />
+    <Compile Include="Texts\Text.cs" />
     <Compile Include="Interfaces\IInteractable.cs" />
     <Compile Include="Levels\NewGameSelection.cs" />
     <Compile Include="Sprites\Animations\FrameAnimation.cs" />

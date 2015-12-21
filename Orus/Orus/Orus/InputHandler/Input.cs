@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Abilities;
-using Orus.DataManager;
 using Orus.GameObjects;
 
 namespace Orus.InputHandler
@@ -30,6 +28,7 @@ namespace Orus.InputHandler
             }
         }
 
+        //Update the input during gameplay
         public static void UpdateInput(GameTime gameTime)
         {
             if (Orus.Instance.Character.AttackAnimation.IsActive || Orus.Instance.Character.Health == 0 || 
@@ -46,11 +45,11 @@ namespace Orus.InputHandler
             }
             else if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
-                Orus.Instance.MoveCharacter(gameTime, true);
+                Orus.Instance.Character.TryToMove(gameTime, true);
             }
             else if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
-                Orus.Instance.MoveCharacter(gameTime, false);
+                Orus.Instance.Character.TryToMove(gameTime, false);
             }
             else
             {
@@ -90,6 +89,7 @@ namespace Orus.InputHandler
             }
         }
 
+        //Update the input during character selection
         public static void UpdateCharacterSelectionInput()
         {
             var mouseState = Mouse.GetState();

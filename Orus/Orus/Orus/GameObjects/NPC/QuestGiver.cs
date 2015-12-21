@@ -4,7 +4,7 @@ using Orus.Interfaces;
 using Orus.Sprites.Animations;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.InputHandler;
+using Orus.Texts;
 using Orus.Sprites;
 
 namespace Orus.GameObjects.NPC

@@ -10,7 +10,6 @@ namespace Orus.GameObjects.Player.Characters
 {
     public class Crusader : Character
     {
-        private int test = 0;
         private DoubleStrike doubleStrike;
 
         public Crusader()

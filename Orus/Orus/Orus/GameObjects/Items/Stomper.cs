@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.InputHandler;
+using Orus.Texts;
 using Orus.Sprites;
 using Orus.Sprites.Animations;
 

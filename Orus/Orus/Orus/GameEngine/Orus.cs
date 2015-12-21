@@ -4,7 +4,7 @@ using Orus.Constants;
 using Orus.GameObjects;
 using Orus.GameObjects.Player;
 using Orus.GameObjects.Player.Characters;
-using Orus.InputHandler;
+using Orus.Texts;
 using Orus.Interfaces;
 using Orus.Levels;
 using Orus.Menu;
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Orus.DataManager;
 using System;
 using Orus.Sprites;
+using Orus.InputHandler;
 
 namespace Orus
 {
@@ -39,6 +40,8 @@ namespace Orus
             this.Exiting += Data.Save;
         }
 
+
+        //Singleton pattern
         public static Orus Instance
         {
             get
@@ -188,11 +191,11 @@ namespace Orus
         protected override void Initialize()
         {
             base.Initialize();
-            //this.Camera = new Camera(this);
         }
 
         protected override void LoadContent()
         {
+            //Load the content
             this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.Graphics.PreferredBackBufferWidth = Constant.WindowWidth;
             this.Graphics.PreferredBackBufferHeight = Constant.WindowHeight;
@@ -204,6 +207,7 @@ namespace Orus
 
         public void NewGame()
         {
+            //Set everything in need for a new game
             this.IsMouseVisible = true;
             this.Camera = new Camera(GraphicsDevice.Viewport);
             this.NameFont = new SpriteFontSubstitude(Constant.NameFontPath);
@@ -234,7 +238,7 @@ namespace Orus
             {
                 GameMenu.Update();
             }
-            else if (GameMenu.CharacterSelectionInProgress)
+            else if (GameMenu.CharacterSelectionInProgress) // If we are in the process of selecting a character
             {
                 this.NewGameSelection.Update(gameTime);
                 Input.UpdateCharacterSelectionInput();
@@ -243,7 +247,7 @@ namespace Orus
                     character.Update(gameTime);
                 }
             }
-            else
+            else //Else we are playing the game
             {
                 this.Camera.Update(gameTime, this.Character.Position);
                 this.Levels[this.CurrentLevelIndex].Update(gameTime);
@@ -251,36 +255,13 @@ namespace Orus
                     (this.Character.DeathAnimation.FrameIndex < this.Character.DeathAnimation.Rectangles.Length &&
                      this.Character.DeathAnimation.IsActive))
                 {
+                    //If the character is alive and his death animation is playing we need to update it
                     Input.UpdateInput(gameTime);
                     this.Character.CheckCollisionOfCharacterWithItems(this.Levels[this.CurrentLevelIndex].ItemsOnTheField);
                     this.Character.Update(gameTime);
                 }
             }
             base.Update(gameTime);
-        }
-        
-        public void MoveCharacter(GameTime gameTime, bool moveRight)
-        {
-            bool collides = false;
-            foreach (var enemy in this.Levels[this.CurrentLevelIndex].Enemies)
-            {
-                if (this.Character.CollidesForAttack(enemy, moveRight))
-                {
-                    collides = true;
-                    break;
-                }
-            }
-            if ((this.Character.Position.X < 0 && !moveRight) ||
-               (this.Character.Position.X + Constant.SpriteWidth > 
-               this.Levels[this.CurrentLevelIndex].LevelBackground.Texture.Texture.Width && moveRight))
-            {
-                collides = true;
-            }
-            if (!collides)
-            {
-                this.Character.Move(gameTime, moveRight, collides);
-            }
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -293,10 +274,14 @@ namespace Orus
             }
             else
             {
+                //We need to set the the Camera to follow the character during the game
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
+
+                //In all cases we need to draw the level
                 this.Levels[this.CurrentLevelIndex].Draw(this.SpriteBatch);
                 if (GameMenu.CharacterSelectionInProgress)
                 {
+                    //Draw all of the characters that can be picked during character selection
                     foreach (var character in AllCharacters)
                     {
                         this.SpriteBatch.DrawString(this.NameFont.Font, character.Name,
@@ -307,26 +292,11 @@ namespace Orus
                 }
                 else
                 {
+                    //Else draw the character
                     this.Character.DrawAnimations(this.SpriteBatch);
                 }
             }
             spriteBatch.End();
-        }
-
-        public void UpdateGameProperties(Orus newGameProperties)
-        {
-            this.Camera = new Camera(Orus.Instance.GraphicsDevice.Viewport);
-            this.Character = newGameProperties.Character;
-            this.CurrentLevelIndex = newGameProperties.CurrentLevelIndex;
-            this.Levels = newGameProperties.Levels;
-            this.NewGameSelection = newGameProperties.NewGameSelection;
-            this.GameMenu = newGameProperties.GameMenu;
-            this.GameMenu.IsMenuActive = false;
-            this.IsMouseVisible = false;
-            this.GameMenu.HasLoaded = true;
-            this.GameMenu.DifferenceInPositionFromLoad = new Point2D(
-                this.Window.ClientBounds.X - newGameProperties.Window.ClientBounds.X,
-                this.Window.ClientBounds.Y - newGameProperties.Window.ClientBounds.Y);
         }
     }
 }

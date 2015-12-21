@@ -54,7 +54,7 @@ namespace Orus.GameObjects
             this.LightingResistance = lightingResistance;
             this.ArcaneResistance = arcaneResistance;
             this.IceResistance = iceResistance;
-            this.Bar = new Sprite("Sprites\\Health\\HealthBarBorder", this.Position);
+            this.Bar = new Sprite("Sprites\\Bars\\Bar", this.Position);
             this.Bar.IsActive = true;
             this.MoveSpeed = moveSpeed;
         }
@@ -533,8 +533,8 @@ namespace Orus.GameObjects
             spriteBatch.Draw(this.Bar.Texture.Texture,
                 new Vector2(this.Bar.Position.X + Constant.HealthBarOffsetX, this.Bar.Position.Y + Constant.HealthBarOffsetY),
                 new Rectangle(0, 12, this.Bar.Texture.Texture.Width, 8), Color.Gray);
-            //The red health
 
+            //The red health
             double healthInPercentage = ((double)this.Health / this.MaxHealth) * 100;
             spriteBatch.Draw(this.Bar.Texture.Texture,
                 new Rectangle((int)(this.Bar.Position.X + Constant.HealthBarOffsetX),

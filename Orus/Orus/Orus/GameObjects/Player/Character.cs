@@ -184,8 +184,37 @@ namespace Orus.GameObjects.Player.Characters
             }
         }
 
+        public void TryToMove(GameTime gameTime, bool moveRight)
+        {
+            //Try to move the character 
+            bool collides = false;
+            //Check if the character collides with an enemy
+            foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+            {
+                if (Orus.Instance.Character.CollidesForAttack(enemy, moveRight))
+                {
+                    collides = true;
+                    break;
+                }
+            }
+            //If the character will leave the bounds of the map
+            if ((this.Position.X < 0 && !moveRight) ||
+               (this.Position.X + Constant.SpriteWidth >
+               Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width && moveRight))
+            {
+                collides = true;
+            }
+            if (!collides)
+            {
+                //If everything was passed we can move the character
+                this.Move(gameTime, moveRight, collides);
+            }
+
+        }
+
         public override void DrawAnimations(SpriteBatch spriteBatch)
         {
+            //Draw the collected items
             foreach (var element in this.CollectedItems)
             {
                 Point2D beginningOfTheMenu = new Point2D(
@@ -193,7 +222,9 @@ namespace Orus.GameObjects.Player.Characters
                     Orus.Instance.Camera.Center.Y + element.ItemPicture.Texture.Texture.Height / 2);
                 element.DrawOnTheGameMenu(spriteBatch, beginningOfTheMenu);
             }
+            //Draw the animations
             base.DrawAnimations(spriteBatch);
+            //Draw the experience bar
             if (!Orus.Instance.GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawExperienceBar(spriteBatch);
@@ -211,7 +242,7 @@ namespace Orus.GameObjects.Player.Characters
 
             //The purple experience
 
-            double experienceInPercentage = ((double)this.Experience / this.Levels[this.CurrentLevel]) * 100;
+            double experienceInPercentage = ((double)this.Experience / this.Levels[this.CurrentLevel - 1]) * 100;
             spriteBatch.Draw(this.Bar.Texture.Texture,
                 new Rectangle(
                 (int)Orus.Instance.Camera.Center.X + (int)(Constant.ExperiencePositionX),

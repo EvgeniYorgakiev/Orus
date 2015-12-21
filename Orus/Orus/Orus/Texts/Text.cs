@@ -1,13 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Orus.Constants;
 using Orus.Exceptions;
-using Orus.GameObjects;
 using Orus.Sprites;
 
-namespace Orus.InputHandler
+namespace Orus.Texts
 {
     public class Text
     {

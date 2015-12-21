@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Orus.InputHandler;
+using Orus.Texts;
 using Orus.Exceptions;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;

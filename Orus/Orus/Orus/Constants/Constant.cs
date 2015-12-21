@@ -151,7 +151,7 @@ namespace Orus.Constants
         public const int ZombieDefaultAttackDamage = 30;
         public const int ZombieAttackRange = 10;
         public const int ZombieAttackFrame = 4;
-        public const float ZombieAttackSpeed = 0.3f;
+        public const float ZombieAttackSpeed = 0.2f;
         public const int ZombieExperience = 30;
 
         public const string SkeletonDefaultName = "Skeleton";
@@ -200,6 +200,30 @@ namespace Orus.Constants
         public const float SkeletonBossAttackSpeed = 0.15f;
         public const int SkeletonBossExperience = 140;
         public const float SkeletonBossScale = 1.5f;
+
+        public const string LichBossDefaultName = "Lich Boss";
+        public const string LichBossIddleAnimationPath = "Sprites\\Enemies\\Lich\\Lich iddle";
+        public const string LichBossMoveAnimationPath = "Sprites\\Enemies\\Lich\\Lich move";
+        public const string LichBossAttackAnimationPath = "Sprites\\Enemies\\Lich\\Lich attack";
+        public const string LichBossDeathAnimationPath = "Sprites\\Enemies\\Lich\\Lich death";
+        public const int LichBossIddleFramesNumber = 4;
+        public const int LichBossMoveFramesNumber = 8;
+        public const int LichBossAttackFramesNumber = 5;
+        public const int LichBossDeathFramesNumber = 10;
+        public const int LichBossWidth = 50;
+        public const float LichBossDefaultMoveSpeed = 1f;
+        public const int LichBossDefaultHealth = 150;
+        public const int LichBossDefaultArmor = 5;
+        public const int LichBossDefaultFireResistance = 5;
+        public const int LichBossDefaultLightingResistance = 5;
+        public const int LichBossDefaultArcaneResistance = 5;
+        public const int LichBossDefaultIceResistance = 5;
+        public const int LichBossDefaultAttackDamage = 15;
+        public const int LichBossAttackRange = 10;
+        public const int LichBossAttackFrame = 5;
+        public const float LichBossAttackSpeed = 1f;
+        public const int LichBossExperience = 140;
+        public const float LichBossScale = 1.25f;
 
         //NPCs
 

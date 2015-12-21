@@ -38,6 +38,7 @@ namespace Orus.GameObjects
                 this.iddleAnimation = value;
             }
         }
+
         public float AnimationSpeed
         {
             get

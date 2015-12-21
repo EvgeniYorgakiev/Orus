@@ -36,8 +36,10 @@ namespace Orus.GameObjects.Enemies
 
         public override void Update(GameTime gameTime)
         {
+            //If both the enemy and the character are alive
             if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0)
             {
+                //If the enemy can attack the character
                 bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
                 if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
                 {
@@ -49,6 +51,7 @@ namespace Orus.GameObjects.Enemies
                 }
                 else
                 {
+                    //Else move toward the character if nothing is in the way
                     bool collides = false;
                     foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
                     {
@@ -75,6 +78,7 @@ namespace Orus.GameObjects.Enemies
         {
             base.Die();
 
+            //Update the quests that require slaying of monsters
             foreach (var level in Orus.Instance.Levels)
             {
                 foreach (var questGiver in level.QuestGivers)
