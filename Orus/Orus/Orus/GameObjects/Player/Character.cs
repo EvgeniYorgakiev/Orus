@@ -47,6 +47,7 @@ namespace Orus.GameObjects.Player.Characters
         public void Collect(IItem item)
         {
             this.CollectedItems.Add(item);
+            item.BoundingBox = new Rectangle(0, 0, 0, 0);
 
             IncreaseCollectedItemCounter(item);
         }
