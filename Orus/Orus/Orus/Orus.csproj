@@ -80,6 +80,7 @@
     <Compile Include="Abilities\AbilityFactory.cs" />
     <Compile Include="Abilities\AttackAbility.cs" />
     <Compile Include="Abilities\DamageType.cs" />
+    <Compile Include="Abilities\Slash.cs" />
     <Compile Include="Abilities\DoubleStrike.cs" />
     <Compile Include="Constants\ConstantLevels.cs" />
     <Compile Include="DataManager\Data.cs" />

@@ -6,7 +6,7 @@ namespace Orus.Interfaces
     interface IMove
     {
         FrameAnimation MoveAnimation { get; set; }
-        void Move(GameTime gameTime, bool directionIsRight, bool collides);
+        void Move(int distance, bool directionIsRight, bool collides);
         float MoveSpeed { get; set; }
     }
 }

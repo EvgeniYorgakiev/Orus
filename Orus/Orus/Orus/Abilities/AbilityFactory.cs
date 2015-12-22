@@ -19,6 +19,17 @@ namespace Orus.Abilities
                         }
                         break;
                     }
+                case 2:
+                    {
+                        if (character is Crusader)
+                        {
+                            if (!(character as Crusader).Slash.IsOnCooldown)
+                            {
+                                (character as Crusader).Slash.Action(character);
+                            }
+                        }
+                        break;
+                    }
             }
         }
     }

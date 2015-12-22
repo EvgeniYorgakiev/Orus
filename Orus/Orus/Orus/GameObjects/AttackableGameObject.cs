@@ -338,6 +338,10 @@ namespace Orus.GameObjects
 
             set
             {
+                if (this.isUsingAbility)
+                {
+                    this.AbilityInUse.Animation.Position = value;
+                }
                 if (this.MoveAnimation != null)
                 {
                     this.MoveAnimation.Position = value;
@@ -397,24 +401,35 @@ namespace Orus.GameObjects
             }
         }
 
-        public void Move(GameTime gameTime, bool directionIsRight, bool collides)
+        public void Move(int distance, bool directionIsRight, bool collides)
         {
             this.MoveAnimation.IsActive = true;
             this.IddleAnimation.IsActive = false;
+            MoveTo(distance, directionIsRight, collides);
+        }
+
+        public void MoveTo(int distance, bool directionIsRight, bool collides, bool flipImagesIfNecessary = true)
+        {
             if (directionIsRight)
             {
-                FlipImages(false);
+                if (flipImagesIfNecessary)
+                {
+                    FlipImages(false);
+                }
                 if (!collides)
                 {
-                    this.Position = new Point2D(this.Position.X + ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
+                    this.Position = new Point2D(this.Position.X + ((distance) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
                 }
             }
             else
             {
-                FlipImages(true);
+                if (flipImagesIfNecessary)
+                {
+                    FlipImages(true);
+                }
                 if (!collides)
                 {
-                    this.Position = new Point2D(this.Position.X - ((gameTime.ElapsedGameTime.Milliseconds) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
+                    this.Position = new Point2D(this.Position.X - ((distance) / Constant.Velocity) * this.MoveSpeed, this.Position.Y);
                 }
             }
         }
@@ -508,6 +523,10 @@ namespace Orus.GameObjects
         public override void DrawAnimations(SpriteBatch spriteBatch)
         {
             base.DrawAnimations(spriteBatch);
+            if (this.isUsingAbility)
+            {
+                this.AbilityInUse.Animation.Draw(spriteBatch);
+            }
             if (this.Health > 0 && !Orus.Instance.GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawHealthBar(spriteBatch);

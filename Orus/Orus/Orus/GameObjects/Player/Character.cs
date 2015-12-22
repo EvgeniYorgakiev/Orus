@@ -207,7 +207,7 @@ namespace Orus.GameObjects.Player.Characters
             if (!collides)
             {
                 //If everything was passed we can move the character
-                this.Move(gameTime, moveRight, collides);
+                this.Move(gameTime.ElapsedGameTime.Milliseconds, moveRight, collides);
             }
 
         }

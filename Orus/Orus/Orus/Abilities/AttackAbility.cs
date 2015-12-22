@@ -10,7 +10,8 @@ namespace Orus.Abilities
         private float timeForAttack;
         private float timeAttacking;
         private bool isAttacking = false;
-        private List<AttackableGameObject> affectedTargets;
+        private bool abilityFinished = false;
+        private HashSet<AttackableGameObject> affectedTargets;
         private const DamageType damageType = DamageType.Physical;
 
         public AttackAbility()
@@ -22,7 +23,7 @@ namespace Orus.Abilities
             : base(damage, cooldown, pathForAnimation, framesForAnimation, damageType)
         {
             this.TimeForAttack = timeForAttack;
-            this.AffectedTargets = new List<AttackableGameObject>();
+            this.AffectedTargets = new HashSet<AttackableGameObject>();
         }
 
         public float TimeForAttack
@@ -61,7 +62,19 @@ namespace Orus.Abilities
             }
         }
 
-        public List<AttackableGameObject> AffectedTargets
+        private bool AbilityFinished
+        {
+            get
+            {
+                return this.abilityFinished;
+            }
+            set
+            {
+                this.abilityFinished = value;
+            }
+        }
+
+        public HashSet<AttackableGameObject> AffectedTargets
         {
             get
             {
@@ -73,7 +86,7 @@ namespace Orus.Abilities
             }
         }
 
-        public abstract void UpdateAffectedTargets(AttackableGameObject thisObject);
+        protected abstract void UpdateAffectedTargets(AttackableGameObject thisObject);
 
         public override void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
         {
@@ -81,12 +94,17 @@ namespace Orus.Abilities
             {
                 if (!this.Animation.IsActive)
                 {
+                    if (!this.AbilityFinished)
+                    {
+                        BattleEngine.DamageResolution(this);
+                        this.AbilityFinished = true;
+                    }
                     objectUsingAbility.IsUsingAbility = false;
                 }
                 this.TimeSinceUse += gameTime.ElapsedGameTime.Milliseconds / 1000;
                 if (this.TimeSinceUse >= this.CooldownTime)
                 {
-                    BattleEngine.DamageResolution(this);
+                    this.AbilityFinished = false;
                     this.IsOnCooldown = false;
                 }
                 this.Animation.Animate(gameTime, objectUsingAbility);

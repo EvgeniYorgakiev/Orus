@@ -61,7 +61,7 @@ namespace Orus.GameObjects.Enemies
                             break;
                         }
                     }
-                    this.Move(gameTime, movesRight, collides);
+                    this.Move(gameTime.ElapsedGameTime.Milliseconds, movesRight, collides);
                 }
             }
             base.Update(gameTime);

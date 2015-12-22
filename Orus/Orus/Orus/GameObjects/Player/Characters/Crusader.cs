@@ -11,6 +11,7 @@ namespace Orus.GameObjects.Player.Characters
     public class Crusader : Character
     {
         private DoubleStrike doubleStrike;
+        private Slash slash;
 
         public Crusader()
         {
@@ -66,6 +67,9 @@ namespace Orus.GameObjects.Player.Characters
             this.DoubleStrike = new DoubleStrike(this.AttackDamage * 2, 
                 Constant.CrusaderDoubleAttackAnimationPath, 
                 Constant.CrusaderDoubleAttackFramesNumber);
+            this.Slash = new Slash((int)(this.AttackDamage * 1.5),
+                Constant.CrusaderDoubleAttackAnimationPath,
+                Constant.CrusaderDoubleAttackFramesNumber);
         }
 
         public DoubleStrike DoubleStrike
@@ -80,33 +84,16 @@ namespace Orus.GameObjects.Player.Characters
             }
         }
 
-        public override Point2D Position
+        public Slash Slash
         {
             get
             {
-                return base.Position;
+                return this.slash;
             }
-
             set
             {
-                if (this.DoubleStrike != null)
-                {
-                    this.DoubleStrike.Animation.Position = value;
-                }
-                base.Position = value;
+                this.slash = value;
             }
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            this.DoubleStrike.Update(gameTime, this);
-        }
-
-        public override void DrawAnimations(SpriteBatch spriteBatch)
-        {
-            base.DrawAnimations(spriteBatch);
-            this.DoubleStrike.Animation.Draw(spriteBatch);
         }
 
         public override void FlipImages(bool isFlipped)

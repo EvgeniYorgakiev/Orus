@@ -22,17 +22,16 @@ namespace Orus
         public static void DamageResolution(AttackAbility attackAbility)
         {
             string resistanceType = DamageTypesAndResistances[attackAbility.DamageType];
-            int resistanceAmount = 0;
 
             foreach (var affectedTarget in attackAbility.AffectedTargets)
             {
-                resistanceAmount = (int)(affectedTarget
+                var resistanceAmount = (double)(affectedTarget
                     .GetType()
                     .GetProperty(resistanceType)
                     .GetValue(affectedTarget, null));
 
                 affectedTarget.Health -= (int)(attackAbility.Damage -
-                    (attackAbility.Damage * (resistanceAmount / 100)));
+                    (attackAbility.Damage * resistanceAmount));
             }
         }
     }

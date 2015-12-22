@@ -79,9 +79,13 @@ namespace Orus.InputHandler
                 }
                 IsSpacePressed = false;
             }
-            if (keyState.IsKeyDown(Keys.Q))
+            if (keyState.IsKeyDown(Keys.Q) && !Orus.Instance.Character.MoveAnimation.IsActive)
             {
                 AbilityFactory.UseAbility(1, Orus.Instance.Character);
+            }
+            else if (keyState.IsKeyDown(Keys.E) && !Orus.Instance.Character.MoveAnimation.IsActive)
+            {
+                AbilityFactory.UseAbility(2, Orus.Instance.Character);
             }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
