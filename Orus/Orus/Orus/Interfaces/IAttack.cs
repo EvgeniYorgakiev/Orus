@@ -1,5 +1,5 @@
 ﻿using Orus.GameObjects;
-using Orus.Sprites.Animations;
+using Orus.GameObjects.Sprites.Animations;
 using System.Collections.Generic;
 
 namespace Orus.Interfaces
@@ -9,6 +9,6 @@ namespace Orus.Interfaces
         int AttackDamage { get; set; }
         int AttackRange { get; set; }
         FrameAnimation AttackAnimation { get; set; }
-        void Attack(List<AttackableGameObject> gameObjects);
+        void Attack(List<AttackingGameObject> gameObjects);
     }
 }

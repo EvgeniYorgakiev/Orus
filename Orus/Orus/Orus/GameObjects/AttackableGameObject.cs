@@ -2,24 +2,24 @@
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.Interfaces;
-using Orus.Sprites;
-using Orus.Sprites.Animations;
+using Orus.GameObjects.Sprites;
+using Orus.GameObjects.Sprites.Animations;
 using System.Collections.Generic;
 using Orus.Abilities;
 using Orus.Core;
 
 namespace Orus.GameObjects
 {
-    public class AttackableGameObject : AnimatedGameObject, IMove, ILife, IAttack, IDeath
+    public class AttackingGameObject : AnimatedGameObject, IMove, ILife, IAttack, IDeath
     {
         private int maxHealth;
         private int health;
         private Sprite healthBar;
         private int armor;
-        private int fireResistance;
-        private int lightingResistance;
-        private int arcaneResistance;
-        private int iceResistance;
+        private double fireResistance;
+        private double lightingResistance;
+        private double arcaneResistance;
+        private double iceResistance;
         private float moveSpeed;
         private FrameAnimation moveAnimation;
         private FrameAnimation attackAnimation;
@@ -31,16 +31,17 @@ namespace Orus.GameObjects
         private bool isAttacking = false;
         private bool isUsingAbility = false;
         private float timeAttacking = 0.0f;
-        private AttackableGameObject objectAttacked;
+        private AttackingGameObject objectAttacked;
         private Ability abilityInUse;
 
-        protected AttackableGameObject()
+        protected AttackingGameObject()
         {
 
         }
 
-        protected AttackableGameObject(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
-             int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
+        protected AttackingGameObject(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
+             int health, int armor, double fireResistance, double lightingResistance, 
+             double arcaneResistance, double iceResistance,
              int attackDamage, int attackRange, float attackSpeed, float timeUntilDamageSinceAttack)
              : base(name, position, boundingBox)
         {
@@ -81,7 +82,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public int FireResistance
+        public double FireResistance
         {
             get
             {
@@ -93,7 +94,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public int LightingResistance
+        public double LightingResistance
         {
             get
             {
@@ -105,7 +106,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public int ArcaneResistance
+        public double ArcaneResistance
         {
             get
             {
@@ -117,7 +118,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public int IceResistance
+        public double IceResistance
         {
             get
             {
@@ -306,7 +307,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public AttackableGameObject ObjectAttacked
+        public AttackingGameObject ObjectAttacked
         {
             get
             {
@@ -359,7 +360,7 @@ namespace Orus.GameObjects
             }
         }
 
-        public void Attack(List<AttackableGameObject> gameObjects)
+        public void Attack(List<AttackingGameObject> gameObjects)
         {
             this.AttackAnimation.IsActive = true;
             this.MoveAnimation.IsActive = false;
@@ -377,9 +378,9 @@ namespace Orus.GameObjects
 
         public bool CollidesForAttack(ICollideable collider, bool isMovingRight, int additionalXOffset = 0)
         {
-            if ((collider as AttackableGameObject) != null)
+            if ((collider as AttackingGameObject) != null)
             {
-                if ((collider as AttackableGameObject).Health == 0)
+                if ((collider as AttackingGameObject).Health == 0)
                 {
                     return false;
                 }

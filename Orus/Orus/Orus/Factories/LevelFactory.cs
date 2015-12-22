@@ -1,7 +1,6 @@
 ﻿namespace Orus.Factories
 {
     using Constants;
-    using Sprites;
     using Levels;
     using Microsoft.Xna.Framework.Content;
     using System.Collections.Generic;
@@ -14,6 +13,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using GameObjects.Enemies.Boss;
     using Core;
+    using GameObjects.Sprites;
 
     public static class LevelFactory
     {
@@ -83,7 +83,7 @@
                 case 2:
                     {
                         level.LevelBackground = new Sprite(Constant.Level2BackgroundPath, new Point2D(0, 0));
-                        level.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 250), OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, Constant.StartingPlayerYPosition - 50), OrusTheGame.Instance.Content));
                         level.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("CryptExit",
@@ -108,7 +108,9 @@
                         level.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(975, 40)));
                         level.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1350, 55)));
 
-                        level.Enemies.Add(new LichBoss(new Point2D(1100, 275), OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new Skeleton(new Point2D(800, Constant.StartingPlayerYPosition), 
+                            OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new LichBoss(new Point2D(1100, Constant.StartingPlayerYPosition - 25), OrusTheGame.Instance.Content));
                         level.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("LevelReturn",

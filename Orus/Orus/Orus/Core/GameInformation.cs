@@ -4,7 +4,7 @@
     using GameObjects.Player.Characters;
     using Levels;
     using Menu;
-    using Sprites;
+    using GameObjects.Sprites;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework.Content;
     using Constants;
@@ -12,6 +12,7 @@
     using Microsoft.Xna.Framework;
     using InputHandler;
     using Microsoft.Xna.Framework.Graphics;
+    using SubstitudeClasses;
 
     public class GameInformation
     {

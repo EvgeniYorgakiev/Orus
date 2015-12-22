@@ -1,4 +1,4 @@
-﻿using Orus.Sprites;
+﻿using Orus.GameObjects.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace Orus.Interfaces
         Sprite Bar { get; set; }
         int Armor { get; set; }
         double ArmorAsPercentage { get;}
-        int FireResistance { get; set; }
-        int LightingResistance { get; set; }
-        int ArcaneResistance { get; set; }
-        int IceResistance { get; set; }
+        double FireResistance { get; set; }
+        double LightingResistance { get; set; }
+        double ArcaneResistance { get; set; }
+        double IceResistance { get; set; }
     }
 }

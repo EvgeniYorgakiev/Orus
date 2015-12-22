@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Orus.GameObjects;
-using Orus.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Orus.GameObjects.Sprites;
 
-namespace Orus.Menu
+namespace Orus.GameObjects.Buttons
 {
-    public class Button
+    public class Button : GameObject
     {
         private Rectangle2D buttonLocation;
         private bool isButtonPressed;

@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.GameObjects;
+using Orus.SubstitudeClasses;
 
-namespace Orus.Sprites
+namespace Orus.GameObjects.Sprites
 {
-    public class Sprite
+    public class Sprite : GameObject
     {
         private Texture2DSubstitude texture;
         private Point2D position = Point2D.Zero();
@@ -56,17 +57,6 @@ namespace Orus.Sprites
             set
             {
                 this.texture = value;
-            }
-        }
-        public Point2D Position
-        {
-            get
-            {
-                return this.position;
-            }
-            set
-            {
-                this.position = value;
             }
         }
         public Color Color

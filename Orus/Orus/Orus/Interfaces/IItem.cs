@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.GameObjects;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 
 namespace Orus.Interfaces
 {

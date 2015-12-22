@@ -1,28 +1,23 @@
-﻿using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Orus.Core;
 using Polenter.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Orus.Menu
+namespace Orus.SubstitudeClasses
 {
-    public class SongSubstitude
+    public class SpriteFontSubstitude
     {
         private string path;
-        public Song song;
+        public SpriteFont font;
         private readonly bool isLoad = false;
 
-        public SongSubstitude()
-
+        public SpriteFontSubstitude()
         {
             this.isLoad = true;
         }
 
-        public SongSubstitude(string path)
+        public SpriteFontSubstitude(string path)
         {
-            this.Song = OrusTheGame.Instance.Content.Load<Song>(path);
+            this.Font = OrusTheGame.Instance.Content.Load<SpriteFont>(path);
             this.Path = path;
         }
 
@@ -36,22 +31,22 @@ namespace Orus.Menu
             {
                 if (this.isLoad)
                 {
-                    this.Song = OrusTheGame.Instance.Content.Load<Song>(value);
+                    this.Font = OrusTheGame.Instance.Content.Load<SpriteFont>(value);
                 }
                 this.path = value;
             }
         }
 
         [ExcludeFromSerialization]
-        public Song Song
+        public SpriteFont Font
         {
             get
             {
-                return this.song;
+                return this.font;
             }
             set
             {
-                this.song = value;
+                this.font = value;
             }
         }
     }

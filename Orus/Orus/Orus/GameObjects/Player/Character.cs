@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Orus.GameObjects.Items;
 using Orus.Interfaces;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 using Orus.GameObjects.Enemies;
 using Orus.Constants;
 using Microsoft.Xna.Framework;
@@ -11,7 +11,7 @@ using Orus.Core;
 
 namespace Orus.GameObjects.Player.Characters
 {
-    public abstract class Character : AttackableGameObject, ICollectItems
+    public abstract class Character : AttackingGameObject, ICollectItems
     {
         private int experience;
         private int currentLevel;
@@ -25,7 +25,7 @@ namespace Orus.GameObjects.Player.Characters
         }
 
         protected Character(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance,
+            int health, int armor, double fireResistance, double lightingResistance, double arcaneResistance, double iceResistance,
             int attackDamage, int attackRange, float attackSpeed,
             float timeUntilDamageSinceAttack, int healthOnLevelup, int damageOnLevelUp)
             : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,

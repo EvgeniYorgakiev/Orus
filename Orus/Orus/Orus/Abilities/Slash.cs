@@ -24,7 +24,7 @@
             this.Animation.IsLoop = true;
         }
 
-        protected override void UpdateAffectedTargets(AttackableGameObject thisObject)
+        protected override void UpdateAffectedTargets(AttackingGameObject thisObject)
         {
             foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {
@@ -36,7 +36,7 @@
             }
         }
 
-        public override void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
+        public override void Update(GameTime gameTime, AttackingGameObject objectUsingAbility)
         {
             base.Update(gameTime, objectUsingAbility);
             var possibleColliders = new List<ICollideable>();
@@ -58,7 +58,7 @@
                 if (objectUsingAbility.CollidesForAttack(collider,
                     !objectUsingAbility.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
                 {
-                    var enemy = collider as AttackableGameObject;
+                    var enemy = collider as AttackingGameObject;
                     if(enemy != null)
                     {
                         this.AffectedTargets.Add(enemy);

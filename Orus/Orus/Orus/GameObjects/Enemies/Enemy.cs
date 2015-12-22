@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.Core;
 using Orus.Quests;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 
 namespace Orus.GameObjects.Enemies
 {
-    public class Enemy : AttackableGameObject
+    public class Enemy : AttackingGameObject
     {
         private int experience;
 
@@ -17,7 +17,9 @@ namespace Orus.GameObjects.Enemies
         }
 
         protected Enemy(string name, Point2D position, Rectangle2D boundingBox, float moveSpeed,
-            int health, int armor, int fireResistance, int lightingResistance, int arcaneResistance, int iceResistance, int attackDamage, int attackRange, float attackSpeed, float timeUntilDamageSinceAttack, int experience)
+            int health, int armor, double fireResistance, double lightingResistance, double arcaneResistance, 
+            double iceResistance, int attackDamage, int attackRange, float attackSpeed, float timeUntilDamageSinceAttack, 
+            int experience)
             : base(name, position, boundingBox, moveSpeed, health, armor, fireResistance, lightingResistance, arcaneResistance, iceResistance,
                   attackDamage, attackRange, attackSpeed, timeUntilDamageSinceAttack)
         {

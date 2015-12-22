@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Orus.Sprites
+namespace Orus.GameObjects.Sprites
 {
     public struct Rectangle2D
     {

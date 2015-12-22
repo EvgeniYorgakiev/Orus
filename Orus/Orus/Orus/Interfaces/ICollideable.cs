@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Orus.GameObjects;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;

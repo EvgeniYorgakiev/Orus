@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Orus.Texts;
+﻿using Microsoft.Xna.Framework;
+using Orus.GameObjects.Texts;
 using Orus.Exceptions;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Microsoft.Xna.Framework.Input;
 using Orus.GameObjects.Player.Characters;
 using Orus.GameObjects;
-using Orus.Menu;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 using Orus.Core;
+using Orus.SubstitudeClasses;
 
 namespace Orus.Levels
 {

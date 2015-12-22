@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Orus.Core;
 using Orus.Exceptions;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
+using Orus.SubstitudeClasses;
 
-namespace Orus.Texts
+namespace Orus.GameObjects.Texts
 {
-    public class Text
+    public class Text : GameObject
     {
         private Rectangle2D textBox;
         private Texture2DSubstitude background;

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Orus.GameObjects;
 using System.Collections.Generic;
-using Orus.Constants;
 
 namespace Orus.Abilities
 {
@@ -13,7 +12,7 @@ namespace Orus.Abilities
         private int damage;
         private bool isAttacking = false;
         private bool abilityFinished = false;
-        private HashSet<AttackableGameObject> affectedTargets;
+        private HashSet<AttackingGameObject> affectedTargets;
         private const DamageType damageType = DamageType.Physical;
 
         public AttackAbility()
@@ -26,7 +25,7 @@ namespace Orus.Abilities
         {
             this.Damage = damage;
             this.TimeForAttack = timeForAttack;
-            this.AffectedTargets = new HashSet<AttackableGameObject>();
+            this.AffectedTargets = new HashSet<AttackingGameObject>();
         }
 
         public int Damage
@@ -90,7 +89,7 @@ namespace Orus.Abilities
             }
         }
 
-        public HashSet<AttackableGameObject> AffectedTargets
+        public HashSet<AttackingGameObject> AffectedTargets
         {
             get
             {
@@ -102,9 +101,9 @@ namespace Orus.Abilities
             }
         }
 
-        protected abstract void UpdateAffectedTargets(AttackableGameObject thisObject);
+        protected abstract void UpdateAffectedTargets(AttackingGameObject thisObject);
 
-        public override void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
+        public override void Update(GameTime gameTime, AttackingGameObject objectUsingAbility)
         {
             base.Update(gameTime, objectUsingAbility);
             if (this.IsOnCooldown)

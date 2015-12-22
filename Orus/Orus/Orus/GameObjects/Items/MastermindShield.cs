@@ -5,8 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Orus.Texts;
-using Orus.Sprites;
+using Orus.GameObjects.Texts;
+using Orus.GameObjects.Sprites;
 using Orus.Constants;
 
 namespace Orus.GameObjects.Items

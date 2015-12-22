@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.GameObjects;
 using Orus.GameObjects.Player.Characters;
 using Orus.Interfaces;
-using Orus.Sprites.Animations;
+using Orus.GameObjects.Sprites.Animations;
 
 namespace Orus.Abilities
 {
@@ -123,7 +123,7 @@ namespace Orus.Abilities
             }
         }
 
-        public virtual void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
+        public virtual void Update(GameTime gameTime, AttackingGameObject objectUsingAbility)
         {
             this.Animation.Position = objectUsingAbility.Position;
         }

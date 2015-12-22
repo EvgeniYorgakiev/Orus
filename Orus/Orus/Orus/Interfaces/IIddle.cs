@@ -1,4 +1,4 @@
-﻿using Orus.Sprites.Animations;
+﻿using Orus.GameObjects.Sprites.Animations;
 
 namespace Orus.Interfaces
 {

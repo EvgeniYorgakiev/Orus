@@ -4,13 +4,13 @@ using Orus.Constants;
 using Orus.Interfaces;
 using System.Collections.Generic;
 using System;
-using Orus.Sprites.Animations;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites.Animations;
+using Orus.GameObjects.Sprites;
 using Orus.Menu;
 
 namespace Orus.GameObjects
 {
-    public abstract class AnimatedGameObject : ColliderObjects, IIddle
+    public abstract class AnimatedGameObject : ColliderObject, IIddle
     {
         private FrameAnimation iddleAnimation;
         private float animationSpeed;

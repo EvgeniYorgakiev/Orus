@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Orus.Levels;
-using Orus.Sprites;
+using Orus.GameObjects.Sprites;
 
 namespace Orus.GameObjects.InteractiveBackgrounds
 {
-    public class LevelChanger : ColliderObjects, IInteractable
+    public class LevelChanger : ColliderObject, IInteractable
     {
         private int newLevelIndex;
 

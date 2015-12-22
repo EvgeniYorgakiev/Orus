@@ -1,12 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Orus.Constants;
-using Orus.GameObjects;
-using Orus.GameObjects.Enemies;
-using Orus.GameObjects.Player.Characters;
-
-namespace Orus.Sprites.Animations
+﻿namespace Orus.GameObjects.Sprites.Animations
 {
+    using Microsoft.Xna.Framework;
+    using Orus.Constants;
+
     public class FrameAnimation : Sprite
     {
         private float time = 0f;
@@ -52,7 +48,7 @@ namespace Orus.Sprites.Animations
             }
             this.Time += gameTime.ElapsedGameTime.Milliseconds;
             var speed = animatedObject.AnimationSpeed;
-            var objectAsAttackObject = animatedObject as AttackableGameObject;
+            var objectAsAttackObject = animatedObject as AttackingGameObject;
             if(objectAsAttackObject != null)
             {
                 if(objectAsAttackObject.AttackAnimation == this && this.IsActive)
@@ -70,9 +66,9 @@ namespace Orus.Sprites.Animations
                     if(!this.IsLoop)
                     {
                         this.IsActive = false;
-                        if ((animatedObject as AttackableGameObject) != null)
+                        if ((animatedObject as AttackingGameObject) != null)
                         {
-                            if ((animatedObject as AttackableGameObject).Health > 0)
+                            if ((animatedObject as AttackingGameObject).Health > 0)
                             {
                                 animatedObject.IddleAnimation.IsActive = true;
                             }

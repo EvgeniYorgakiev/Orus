@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Orus.Interfaces;
-using Orus.Sprites.Animations;
+using Orus.GameObjects.Sprites.Animations;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
-using Orus.Texts;
-using Orus.Sprites;
+using Orus.GameObjects.Texts;
+using Orus.GameObjects.Sprites;
 using Orus.Core;
 
 namespace Orus.GameObjects.NPC

@@ -8,7 +8,7 @@ using Orus.GameObjects.Enemies;
 using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Items;
 using Orus.Interfaces;
-using Orus.Sprites.Animations;
+using Orus.GameObjects.Sprites.Animations;
 using Orus.Core;
 
 namespace Orus

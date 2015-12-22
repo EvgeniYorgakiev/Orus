@@ -90,7 +90,7 @@ namespace Orus.InputHandler
             }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                OrusTheGame.Instance.GameInformation.Character.Attack(OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies.ConvertAll<AttackableGameObject>(enemy => enemy));
+                OrusTheGame.Instance.GameInformation.Character.Attack(OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies.ConvertAll<AttackingGameObject>(enemy => enemy));
             }
         }
 

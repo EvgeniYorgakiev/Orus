@@ -5,7 +5,6 @@
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
     using GameObjects;
-    using Sprites;
     using Constants;
     using GameObjects.NPC;
     using Interfaces;
@@ -13,6 +12,7 @@
     using Microsoft.Xna.Framework;
     using Factories;
     using Core;
+    using GameObjects.Sprites;
 
     public abstract class Level
     {

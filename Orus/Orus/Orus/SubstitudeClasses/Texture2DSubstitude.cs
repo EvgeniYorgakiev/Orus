@@ -2,7 +2,7 @@
 using Orus.Core;
 using Polenter.Serialization;
 
-namespace Orus.Sprites
+namespace Orus.SubstitudeClasses
 {
     public class Texture2DSubstitude
     {

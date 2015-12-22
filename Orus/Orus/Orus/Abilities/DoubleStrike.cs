@@ -25,7 +25,7 @@ namespace Orus.Abilities
             
         }
 
-        protected override void UpdateAffectedTargets(AttackableGameObject thisObject)
+        protected override void UpdateAffectedTargets(AttackingGameObject thisObject)
         {
             foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {

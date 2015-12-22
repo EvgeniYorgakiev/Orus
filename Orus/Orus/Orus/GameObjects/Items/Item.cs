@@ -7,8 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Interfaces;
-using Orus.Sprites;
-using Orus.Texts;
+using Orus.GameObjects.Sprites;
+using Orus.GameObjects.Texts;
 using Orus.Constants;
 
 namespace Orus.GameObjects.Items
