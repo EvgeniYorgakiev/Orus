@@ -1,0 +1,11 @@
+Project name: Orus
+
+Purpose: Our main goal was to create a RPG game using C# and OOP approach. Our game uses the medieval context and represents the main character battling evil creatures.
+
+Team name: Orus
+
+Contributions of each team member.
+
+Daniela Valcheva - game items, appearing and collecting
+
+Technical description: The main character fights the evil creates by left click on the mouse. After the death of an enemy an item appears on the field. The player can collect it by getting in contact with it. When collecting 2 pieces of the same item - the main character's health fills up.

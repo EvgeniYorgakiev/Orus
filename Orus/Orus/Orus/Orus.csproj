@@ -92,7 +92,6 @@
     <Compile Include="GameObjects\Enemies\Boss\SkeletonBoss.cs" />
     <Compile Include="GameObjects\InteractiveBackgrounds\LevelChanger.cs" />
     <Compile Include="GameObjects\Items\GiantArmour.cs" />
-    <Compile Include="GameObjects\Items\InventoryMenu.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\MastermindShield.cs" />
     <Compile Include="GameObjects\Items\Stomper.cs" />

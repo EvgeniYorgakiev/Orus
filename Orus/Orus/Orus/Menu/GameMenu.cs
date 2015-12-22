@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Orus.Constants;
 using Orus.GameObjects;
 using Orus.Sprites;
 using Polenter.Serialization;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Orus.Menu
@@ -15,19 +17,68 @@ namespace Orus.Menu
         private Sprite creditsBackground;
         private Sprite creditsInfo;
         private Sprite optionsMenuBackground;
+        private List<Sprite> musicOnOffButtonImage = new List<Sprite>();
         private bool isMenuActive = true;
         private bool isCreditsActive = false;
         private bool isGameOn = true;
+        private bool isOptionsActive = false;
+        private bool musicOn = true;
         private Button newGameButton;
         private Button loadGameButton;
         private Button creditsButton;
         private Button quitButton;
         private Button backButton;
         private Button optionsButton;
+        private Button musicOnOffButton;
         private bool characterSelectionInProgress = false;
         private bool hasLoaded = false;
         private Point2D differenceInPositionFromLoad;
+        private List<Song> music = new List<Song>();
 
+        public bool MusicOn
+        {
+            get
+            {
+                return musicOn;
+            }
+            set
+            {
+                musicOn = value;
+            }
+        }
+        public bool IsOptionsActive
+        {
+            get
+            {
+                return isOptionsActive;
+            }
+            set
+            {
+                isOptionsActive = value;
+            }
+        }
+        public List<Sprite> MusicOnOffButtonImage
+        {
+            get
+            {
+                return musicOnOffButtonImage;
+            }
+            set
+            {
+                musicOnOffButtonImage = value;
+            }
+        }
+        public List<Song> Music
+        {
+            get
+            {
+                return music;
+            }
+            set
+            {
+                music = value;
+            }
+        }
         public Sprite MainMenuBackground
         {
             get
@@ -162,7 +213,17 @@ namespace Orus.Menu
                 newGameButton = value;
             }
         }
-
+        public Button MusicOnOffButton
+        {
+            get
+            {
+                return musicOnOffButton;
+            }
+            set
+            {
+                musicOnOffButton = value;
+            }
+        }
         public Button LoadGameButton
         {
             get
@@ -229,7 +290,15 @@ namespace Orus.Menu
             this.CreditsBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
             this.CreditsInfo = new Sprite("Sprites\\Background\\CreditsInfo", new Point2D(0, 0));
             this.OptionsMenuBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
+            this.MusicOnOffButtonImage.Add(new Sprite("Sprites\\Buttons\\MusicOnButton", new Point2D(0, 0)));
+            this.MusicOnOffButtonImage.Add(new Sprite("Sprites\\Buttons\\MusicOffButton", new Point2D(0, 0)));
+            this.Music.Add(Content.Load<Song>("Music\\MainMenuMusic"));
+            this.Music.Add(Content.Load<Song>("Music\\Level1Music"));
 
+
+            this.MusicOnOffButton = new Button(
+                new Rectangle2D(Constant.MusicButtonPositionX, Constant.MusicButtonPositionY,
+                                Constant.MusicButtonWidth, Constant.MusicButtonHeight));
             this.NewGameButton = new Button(
                 new Rectangle2D(Constant.NewGameButtonPositionX, Constant.NewGameButtonPositionY,
                                 Constant.NewGameButtonWidth, Constant.NewGameButtonHeight));
@@ -255,6 +324,10 @@ namespace Orus.Menu
             this.CreditsBackground.IsActive = false;
             this.CreditsInfo.IsActive = false;
             this.OptionsMenuBackground.IsActive = false;
+            this.MusicOnOffButtonImage[0].IsActive = false;
+            this.MusicOnOffButtonImage[1].IsActive = false;
+
+            MediaPlayer.Play(Music[0]);
         }
 
         public void Update()
@@ -281,14 +354,32 @@ namespace Orus.Menu
             CheckBackButton(mouseState, mouseCoordinates);
             //Quit BTN
             CheckQuit(mouseState, mouseCoordinates);
+            //Music BTN
+            CheckMusicOnOff(mouseState, mouseCoordinates);
+
+
+            if (MusicOn == false)
+            {
+                MediaPlayer.Stop();
+            }
+            if ((IsMenuActive == false) && (MusicOn == true))
+            {
+                MediaPlayer.Play(Music[1]);
+            }
+
         }
-        
+
         public void Draw(SpriteBatch spriteBatch)
         {
             this.CreditsBackground.Draw(spriteBatch);
             this.MainMenuBackground.Draw(spriteBatch);
             this.OptionsMenuBackground.Draw(spriteBatch);
             this.CreditsInfo.Draw(spriteBatch);
+            foreach (var button in MusicOnOffButtonImage)
+            {
+                button.Draw(spriteBatch);
+            }
+
         }
 
         public void CheckNewGame(MouseState mouseState, Point2D mouseCoordinates)
@@ -354,6 +445,17 @@ namespace Orus.Menu
                 if (this.OptionsButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
                     (mouseState.LeftButton == ButtonState.Released))
                 {
+                    if (MusicOn)
+                    {
+                        MusicOnOffButtonImage[0].IsActive = true;
+                        MusicOnOffButtonImage[1].IsActive = false;
+                    }
+                    else
+                    {
+                        MusicOnOffButtonImage[0].IsActive = false;
+                        MusicOnOffButtonImage[1].IsActive = true;
+                    }
+                    
                     MainMenuBackground.IsActive = false;
                     OptionsMenuBackground.IsActive = true;
                     this.OptionsButton.IsButtonPressed = false;
@@ -400,6 +502,8 @@ namespace Orus.Menu
                 if (this.BackButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
                     (mouseState.LeftButton == ButtonState.Released))
                 {
+                    this.MusicOnOffButtonImage[0].IsActive = false;
+                    this.MusicOnOffButtonImage[1].IsActive = false;
                     this.MainMenuBackground.IsActive = true;
                     this.OptionsMenuBackground.IsActive = false;
                     this.CreditsBackground.IsActive = false;
@@ -430,6 +534,39 @@ namespace Orus.Menu
                 else if (mouseState.LeftButton == ButtonState.Released)
                 {
                     this.QuitButton.IsButtonPressed = false;
+                }
+            }
+        }
+
+        public void CheckMusicOnOff(MouseState mouseState, Point2D mouseCoordinates)
+        {
+            if (this.MusicOnOffButton.ButtonPressed(mouseState, this.OptionsMenuBackground, mouseCoordinates))
+            {
+                this.MusicOnOffButton.IsButtonPressed = true;
+            }
+            if (this.MusicOnOffButton.IsButtonPressed)
+            {
+                if (this.MusicOnOffButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
+                    (mouseState.LeftButton == ButtonState.Released))
+                {
+                    if ((this.MusicOn == true))
+                    {
+                        this.MusicOn = false;
+                        this.MusicOnOffButtonImage[1].IsActive = true;
+                        this.MusicOnOffButtonImage[0].IsActive = false;
+                    }
+                    else if ((this.MusicOn == false))
+                    {
+                        this.MusicOn = true;
+                        MediaPlayer.Play(Music[0]);
+                        this.MusicOnOffButtonImage[1].IsActive = false;
+                        this.MusicOnOffButtonImage[0].IsActive = true;
+                    }
+                    this.MusicOnOffButton.IsButtonPressed = false;
+                }
+                else if (mouseState.LeftButton == ButtonState.Released)
+                {
+                    this.MusicOnOffButton.IsButtonPressed = false;
                 }
             }
         }
