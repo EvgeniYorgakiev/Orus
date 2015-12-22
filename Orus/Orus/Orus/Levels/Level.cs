@@ -12,6 +12,8 @@
     using System.Linq;
     using Microsoft.Xna.Framework;
     using Factories;
+    using Core;
+
     public abstract class Level
     {
         private Sprite levelBackground;
@@ -139,9 +141,9 @@
 
         public static void Load(int index)
         {
-            Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LastCharacterCoordinates = Orus.Instance.Character.Position;
-            Orus.Instance.CurrentLevelIndex = index - 1;
-            Orus.Instance.Character.Position = Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LastCharacterCoordinates;
+            OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].LastCharacterCoordinates = OrusTheGame.Instance.GameInformation.Character.Position;
+            OrusTheGame.Instance.GameInformation.CurrentLevelIndex = index - 1;
+            OrusTheGame.Instance.GameInformation.Character.Position = OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].LastCharacterCoordinates;
         }
 
         //Make it virtual in case we want to to override the Update and add spawning enemies on different levels 

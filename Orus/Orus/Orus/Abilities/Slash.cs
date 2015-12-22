@@ -6,6 +6,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework;
     using Interfaces;
+    using Core;
 
     public class Slash : AttackAbility
     {
@@ -25,7 +26,7 @@
 
         protected override void UpdateAffectedTargets(AttackableGameObject thisObject)
         {
-            foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+            foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {
                 if (thisObject.CollidesForAttack(enemy,
                     !thisObject.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))
@@ -39,11 +40,11 @@
         {
             base.Update(gameTime, objectUsingAbility);
             var possibleColliders = new List<ICollideable>();
-            foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+            foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {
                 possibleColliders.Add(enemy);
             }
-            possibleColliders.Add(Orus.Instance.Character);
+            possibleColliders.Add(OrusTheGame.Instance.GameInformation.Character);
             bool collides = false;
             foreach (var collider in possibleColliders)
             {

@@ -13,6 +13,7 @@
     using GameObjects.InteractiveBackgrounds;
     using Microsoft.Xna.Framework.Graphics;
     using GameObjects.Enemies.Boss;
+    using Core;
 
     public static class LevelFactory
     {
@@ -40,10 +41,10 @@
                         level.Decor.Add(new Sprite(Constant.CryptPath,
                             new Point2D(Constant.CryptPositionX, Constant.CryptPositionY)));
 
-                        level.Enemies.Add(new Zombie(new Point2D(1100, Constant.StartingPlayerYPosition), Orus.Instance.Content));
-                        level.Enemies.Add(new Zombie(new Point2D(1250, Constant.StartingPlayerYPosition), Orus.Instance.Content));
-                        level.Enemies.Add(new Zombie(new Point2D(1300, Constant.StartingPlayerYPosition), Orus.Instance.Content));
-                        level.Enemies.Add(new Zombie(new Point2D(1400, Constant.StartingPlayerYPosition), Orus.Instance.Content));
+                        level.Enemies.Add(new Zombie(new Point2D(1100, Constant.StartingPlayerYPosition), OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new Zombie(new Point2D(1250, Constant.StartingPlayerYPosition), OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new Zombie(new Point2D(1300, Constant.StartingPlayerYPosition), OrusTheGame.Instance.Content));
+                        level.Enemies.Add(new Zombie(new Point2D(1400, Constant.StartingPlayerYPosition), OrusTheGame.Instance.Content));
                         level.RequiredXForEnemySpawn = 600;
 
                         level.QuestGivers = new List<QuestGiver>()
@@ -82,7 +83,7 @@
                 case 2:
                     {
                         level.LevelBackground = new Sprite(Constant.Level2BackgroundPath, new Point2D(0, 0));
-                        level.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 250), Orus.Instance.Content));
+                        level.Enemies.Add(new SkeletonBoss(Constant.SkeletonBossDefaultName, new Point2D(1100, 250), OrusTheGame.Instance.Content));
                         level.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("CryptExit",
@@ -107,7 +108,7 @@
                         level.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(975, 40)));
                         level.Decor.Add(new Sprite(Constant.SmallTreePath, new Point2D(1350, 55)));
 
-                        level.Enemies.Add(new LichBoss(new Point2D(1100, 275), Orus.Instance.Content));
+                        level.Enemies.Add(new LichBoss(new Point2D(1100, 275), OrusTheGame.Instance.Content));
                         level.Interactives = new List<IInteractable>()
                         {
                             new LevelChanger("LevelReturn",

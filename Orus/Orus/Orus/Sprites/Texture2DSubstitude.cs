@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Orus.Core;
 using Polenter.Serialization;
 
 namespace Orus.Sprites
@@ -17,7 +18,7 @@ namespace Orus.Sprites
 
         public Texture2DSubstitude(string path)
         {
-            this.Texture = Orus.Instance.Content.Load<Texture2D>(path);
+            this.Texture = OrusTheGame.Instance.Content.Load<Texture2D>(path);
             this.Path = path;
         }
 
@@ -31,7 +32,7 @@ namespace Orus.Sprites
             {
                 if (this.isLoad)
                 {
-                    this.Texture = Orus.Instance.Content.Load<Texture2D>(value);
+                    this.Texture = OrusTheGame.Instance.Content.Load<Texture2D>(value);
                 }
                 this.path = value;
             }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.Texts;
 using Orus.Sprites;
+using Orus.Core;
 
 namespace Orus.GameObjects.NPC
 {
@@ -164,7 +165,7 @@ namespace Orus.GameObjects.NPC
 
         private void OnFinish()
         {
-            Orus.Instance.Character.AddExperience(this.ExperienceOnFinish);
+            OrusTheGame.Instance.GameInformation.Character.AddExperience(this.ExperienceOnFinish);
         }
 
         public override void DrawAnimations(SpriteBatch spriteBatch)

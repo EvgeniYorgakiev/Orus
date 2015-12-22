@@ -9,6 +9,7 @@ using Orus.GameObjects.Enemies.NormalEnemies;
 using Orus.GameObjects.Items;
 using Orus.Interfaces;
 using Orus.Sprites.Animations;
+using Orus.Core;
 
 namespace Orus
 {
@@ -34,7 +35,7 @@ namespace Orus
                     itemPosition = new Point2D(enemyAnimation.Position.X + 100, enemyAnimation.Position.Y + MovingDistanceStomper);
                 }
 
-                visibleItems.Add(new Stomper("Stomper", itemPosition, Orus.Instance.Content));
+                visibleItems.Add(new Stomper("Stomper", itemPosition, OrusTheGame.Instance.Content));
 
             }
             else if (enemy is Skeleton)
@@ -49,7 +50,7 @@ namespace Orus
                     itemPosition = new Point2D(enemyAnimation.Position.X + 100, enemyAnimation.Position.Y + MovingDistanceArmour);
                 }
 
-                visibleItems.Add(new GiantArmour("GiantArmour", itemPosition, Orus.Instance.Content));
+                visibleItems.Add(new GiantArmour("GiantArmour", itemPosition, OrusTheGame.Instance.Content));
             }
 
         }

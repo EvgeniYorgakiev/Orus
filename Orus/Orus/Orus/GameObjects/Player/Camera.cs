@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
+using Orus.Core;
 
 namespace Orus.GameObjects.Player
 {
@@ -62,7 +63,7 @@ namespace Orus.GameObjects.Player
         public void Update(GameTime gameTime, Point2D characterPosition)
         {
             if((characterPosition.X + Constant.WindowWidth / 2 < 
-                Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width &&
+                OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].LevelBackground.Texture.Texture.Width &&
                 characterPosition.X - Constant.WindowWidth / 2 > 0) || 
                 characterPosition.X > this.Center.X + Constant.WindowWidth)
             {
@@ -76,7 +77,7 @@ namespace Orus.GameObjects.Player
                 this.Transform = Matrix.CreateScale(new Vector3(1, 1, 0)) *
                     Matrix.CreateTranslation(new Vector3(-this.Center.X, -this.Center.Y, 0));
             }
-            var levelWidth = Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width;
+            var levelWidth = OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].LevelBackground.Texture.Texture.Width;
             if (this.Center.X + Constant.WindowWidth > levelWidth)
             {
                 this.Center = new Point2D(levelWidth - Constant.WindowWidth, 0);

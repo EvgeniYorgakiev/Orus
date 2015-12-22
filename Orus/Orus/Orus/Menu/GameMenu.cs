@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Orus.Constants;
+using Orus.Core;
 using Orus.GameObjects;
 using Orus.Sprites;
 using Polenter.Serialization;
@@ -393,7 +394,7 @@ namespace Orus.Menu
                 if (this.NewGameButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
                     (mouseState.LeftButton == ButtonState.Released))
                 {
-                    Orus.Instance.NewGame();
+                    OrusTheGame.Instance.GameInformation.NewGame();
                     this.IsMenuActive = false;
                     this.CharacterSelectionInProgress = true;
                     this.NewGameButton.IsButtonPressed = false;
@@ -528,7 +529,7 @@ namespace Orus.Menu
                 if (this.QuitButton.ButtonLocation.AsRectangle().Contains((int)mouseCoordinates.X, (int)mouseCoordinates.Y) &&
                     (mouseState.LeftButton == ButtonState.Released))
                 {
-                    Orus.Instance.Exit();
+                    OrusTheGame.Instance.Exit();
                     this.QuitButton.IsButtonPressed = false;
                 }
                 else if (mouseState.LeftButton == ButtonState.Released)

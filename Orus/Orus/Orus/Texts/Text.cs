@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Orus.Core;
 using Orus.Exceptions;
 using Orus.Sprites;
 
@@ -200,7 +201,7 @@ namespace Orus.Texts
 
             foreach (string word in wordArray)
             {
-                if (Orus.Instance.NameFont.Font.MeasureString(line + word).Length() > this.TextBox.Width)
+                if (OrusTheGame.Instance.GameInformation.NameFont.Font.MeasureString(line + word).Length() > this.TextBox.Width)
                 {
                     if (!this.IsInputBox || textIsWhole)
                     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
+using Orus.Core;
 using Orus.Quests;
 using Orus.Sprites;
 
@@ -38,10 +39,10 @@ namespace Orus.GameObjects.Enemies
         public override void Update(GameTime gameTime)
         {
             //If both the enemy and the character are alive
-            if (!this.AttackAnimation.IsActive && this.Health > 0 && Orus.Instance.Character.Health > 0)
+            if (!this.AttackAnimation.IsActive && this.Health > 0 && OrusTheGame.Instance.GameInformation.Character.Health > 0)
             {
                 //If the enemy can attack the character
-                bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
+                bool movesRight = this.Position.X < OrusTheGame.Instance.GameInformation.Character.Position.X;
                 if(movesRight && this.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally))
                 {
                     FlipImages(false);
@@ -50,19 +51,19 @@ namespace Orus.GameObjects.Enemies
                 {
                     FlipImages(true);
                 }
-                if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
+                if (this.CollidesForAttack(OrusTheGame.Instance.GameInformation.Character, movesRight, this.AttackRange))
                 {
                     this.AttackAnimation.IsActive = true;
                     this.MoveAnimation.IsActive = false;
                     this.IddleAnimation.IsActive = false;
-                    this.ObjectAttacked = Orus.Instance.Character;
+                    this.ObjectAttacked = OrusTheGame.Instance.GameInformation.Character;
                     this.IsAttacking = true;
                 }
                 else
                 {
                     //Else move toward the character if nothing is in the way
                     bool collides = false;
-                    foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+                    foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
                     {
                         if (this.CollidesForAttack(enemy, movesRight, this.AttackRange))
                         {
@@ -78,7 +79,7 @@ namespace Orus.GameObjects.Enemies
 
         public bool IsVisible()
         {
-            return this.Position.X - Orus.Instance.Camera.Center.X < Constant.WindowWidth;
+            return this.Position.X - OrusTheGame.Instance.GameInformation.Camera.Center.X < Constant.WindowWidth;
         }
 
         public bool JustKilled { get; set; }
@@ -88,7 +89,7 @@ namespace Orus.GameObjects.Enemies
             base.Die();
 
             //Update the quests that require slaying of monsters
-            foreach (var level in Orus.Instance.Levels)
+            foreach (var level in OrusTheGame.Instance.GameInformation.Levels)
             {
                 foreach (var questGiver in level.QuestGivers)
                 {

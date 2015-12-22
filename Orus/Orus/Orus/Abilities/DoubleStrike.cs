@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Orus.GameObjects;
 using Microsoft.Xna.Framework.Graphics;
+using Orus.Core;
 
 namespace Orus.Abilities
 {
@@ -26,7 +27,7 @@ namespace Orus.Abilities
 
         protected override void UpdateAffectedTargets(AttackableGameObject thisObject)
         {
-            foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+            foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {
                 if (thisObject.CollidesForAttack(enemy,
                     !thisObject.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)))

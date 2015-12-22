@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Orus.Core;
 using Polenter.Serialization;
 
 namespace Orus.Sprites
@@ -16,7 +17,7 @@ namespace Orus.Sprites
 
         public SpriteFontSubstitude(string path)
         {
-            this.Font = Orus.Instance.Content.Load<SpriteFont>(path);
+            this.Font = OrusTheGame.Instance.Content.Load<SpriteFont>(path);
             this.Path = path;
         }
 
@@ -30,7 +31,7 @@ namespace Orus.Sprites
             {
                 if (this.isLoad)
                 {
-                    this.Font = Orus.Instance.Content.Load<SpriteFont>(value);
+                    this.Font = OrusTheGame.Instance.Content.Load<SpriteFont>(value);
                 }
                 this.path = value;
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Media;
+using Orus.Core;
 using Polenter.Serialization;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Orus.Menu
 
         public SongSubstitude(string path)
         {
-            this.Song = Orus.Instance.Content.Load<Song>(path);
+            this.Song = OrusTheGame.Instance.Content.Load<Song>(path);
             this.Path = path;
         }
 
@@ -35,7 +36,7 @@ namespace Orus.Menu
             {
                 if (this.isLoad)
                 {
-                    this.Song = Orus.Instance.Content.Load<Song>(value);
+                    this.Song = OrusTheGame.Instance.Content.Load<Song>(value);
                 }
                 this.path = value;
             }

@@ -9,6 +9,7 @@ using Orus.GameObjects.Player.Characters;
 using Orus.GameObjects;
 using Orus.Menu;
 using Orus.Sprites;
+using Orus.Core;
 
 namespace Orus.Levels
 {
@@ -89,7 +90,7 @@ namespace Orus.Levels
                 try
                 {
                     Character character = null;
-                    foreach (var currentCharacter in Orus.Instance.AllCharacters)
+                    foreach (var currentCharacter in OrusTheGame.Instance.GameInformation.AllCharacters)
                     {
                         if(currentCharacter.IddleAnimation.Scale > 1)
                         {
@@ -102,9 +103,9 @@ namespace Orus.Levels
                         character.Name = this.NameField.TextInField;
                         character.IddleAnimation.Scale = 1;
                         character.Position = new Point2D(Constant.StartingPlayerXPosition, Constant.StartingPlayerYPosition);
-                        Orus.Instance.GameMenu.CharacterSelectionInProgress = false;
-                        Orus.Instance.IsMouseVisible = false;
-                        Orus.Instance.Character = character;
+                        OrusTheGame.Instance.GameInformation.GameMenu.CharacterSelectionInProgress = false;
+                        OrusTheGame.Instance.IsMouseVisible = false;
+                        OrusTheGame.Instance.GameInformation.Character = character;
                     }
                 }
                 catch(InvalidName exception)

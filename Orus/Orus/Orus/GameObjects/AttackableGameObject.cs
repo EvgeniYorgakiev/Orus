@@ -6,6 +6,7 @@ using Orus.Sprites;
 using Orus.Sprites.Animations;
 using System.Collections.Generic;
 using Orus.Abilities;
+using Orus.Core;
 
 namespace Orus.GameObjects
 {
@@ -523,7 +524,7 @@ namespace Orus.GameObjects
             {
                 this.AbilityInUse.Animation.Draw(spriteBatch);
             }
-            if (this.Health > 0 && !Orus.Instance.GameMenu.CharacterSelectionInProgress)
+            if (this.Health > 0 && !OrusTheGame.Instance.GameInformation.GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawHealthBar(spriteBatch);
             }

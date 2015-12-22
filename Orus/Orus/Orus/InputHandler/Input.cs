@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Orus.Abilities;
+using Orus.Core;
 using Orus.GameObjects;
 
 namespace Orus.InputHandler
@@ -31,8 +32,8 @@ namespace Orus.InputHandler
         //Update the input during gameplay
         public static void UpdateInput(GameTime gameTime)
         {
-            if (Orus.Instance.Character.AttackAnimation.IsActive || Orus.Instance.Character.Health == 0 || 
-                Orus.Instance.Character.IsUsingAbility)
+            if (OrusTheGame.Instance.GameInformation.Character.AttackAnimation.IsActive || OrusTheGame.Instance.GameInformation.Character.Health == 0 || 
+                OrusTheGame.Instance.GameInformation.Character.IsUsingAbility)
             {
                 return;
             }
@@ -40,20 +41,20 @@ namespace Orus.InputHandler
             var mouseState = Mouse.GetState();
             if (keyState.IsKeyDown(Keys.Escape))
             {
-                Orus.Instance.GameMenu.IsMenuActive = true;
-                Orus.Instance.IsMouseVisible = true;
+                OrusTheGame.Instance.GameInformation.GameMenu.IsMenuActive = true;
+                OrusTheGame.Instance.IsMouseVisible = true;
             }
             else if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
             {
-                Orus.Instance.Character.TryToMove(gameTime, true);
+                OrusTheGame.Instance.GameInformation.Character.TryToMove(gameTime, true);
             }
             else if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
             {
-                Orus.Instance.Character.TryToMove(gameTime, false);
+                OrusTheGame.Instance.GameInformation.Character.TryToMove(gameTime, false);
             }
             else
             {
-                Orus.Instance.Character.StopMovement();
+                OrusTheGame.Instance.GameInformation.Character.StopMovement();
             }
             if (keyState.IsKeyDown(Keys.Space))
             {
@@ -61,17 +62,17 @@ namespace Orus.InputHandler
             }
             if(keyState.IsKeyUp(Keys.Space) && IsSpacePressed)
             {
-                foreach (var questGiver in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].QuestGivers)
+                foreach (var questGiver in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].QuestGivers)
                 {
-                    if (questGiver.Collides(Orus.Instance.Character))
+                    if (questGiver.Collides(OrusTheGame.Instance.GameInformation.Character))
                     {
                         questGiver.Interact();
                         break;
                     }
                 }
-                foreach (var interactiveItem in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Interactives)
+                foreach (var interactiveItem in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Interactives)
                 {
-                    if (interactiveItem.Collides(Orus.Instance.Character))
+                    if (interactiveItem.Collides(OrusTheGame.Instance.GameInformation.Character))
                     {
                         interactiveItem.Interact();
                         break;
@@ -79,17 +80,17 @@ namespace Orus.InputHandler
                 }
                 IsSpacePressed = false;
             }
-            if (keyState.IsKeyDown(Keys.Q) && !Orus.Instance.Character.MoveAnimation.IsActive)
+            if (keyState.IsKeyDown(Keys.Q) && !OrusTheGame.Instance.GameInformation.Character.MoveAnimation.IsActive)
             {
-                AbilityFactory.UseAbility(1, Orus.Instance.Character);
+                AbilityFactory.UseAbility(1, OrusTheGame.Instance.GameInformation.Character);
             }
-            else if (keyState.IsKeyDown(Keys.E) && !Orus.Instance.Character.MoveAnimation.IsActive)
+            else if (keyState.IsKeyDown(Keys.E) && !OrusTheGame.Instance.GameInformation.Character.MoveAnimation.IsActive)
             {
-                AbilityFactory.UseAbility(2, Orus.Instance.Character);
+                AbilityFactory.UseAbility(2, OrusTheGame.Instance.GameInformation.Character);
             }
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                Orus.Instance.Character.Attack(Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies.ConvertAll<AttackableGameObject>(enemy => enemy));
+                OrusTheGame.Instance.GameInformation.Character.Attack(OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies.ConvertAll<AttackableGameObject>(enemy => enemy));
             }
         }
 
@@ -104,7 +105,7 @@ namespace Orus.InputHandler
             if(mouseState.LeftButton == ButtonState.Released && mouseClicked)
             {
                 mouseClicked = false;
-                foreach (var character in Orus.Instance.AllCharacters)
+                foreach (var character in OrusTheGame.Instance.GameInformation.AllCharacters)
                 {
                     Rectangle scaledBoundingBox = new Rectangle(
                         character.BoundingBox.X, character.BoundingBox.Y,

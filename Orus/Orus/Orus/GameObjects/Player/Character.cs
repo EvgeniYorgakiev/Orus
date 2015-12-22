@@ -7,6 +7,7 @@ using Orus.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Orus.Core;
 
 namespace Orus.GameObjects.Player.Characters
 {
@@ -194,9 +195,9 @@ namespace Orus.GameObjects.Player.Characters
             //Try to move the character 
             bool collides = false;
             //Check if the character collides with an enemy
-            foreach (var enemy in Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].Enemies)
+            foreach (var enemy in OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].Enemies)
             {
-                if (Orus.Instance.Character.CollidesForAttack(enemy, moveRight))
+                if (OrusTheGame.Instance.GameInformation.Character.CollidesForAttack(enemy, moveRight))
                 {
                     collides = true;
                     break;
@@ -205,7 +206,7 @@ namespace Orus.GameObjects.Player.Characters
             //If the character will leave the bounds of the map
             if ((this.Position.X < 0 && !moveRight) ||
                (this.Position.X + Constant.SpriteWidth >
-               Orus.Instance.Levels[Orus.Instance.CurrentLevelIndex].LevelBackground.Texture.Texture.Width && moveRight))
+               OrusTheGame.Instance.GameInformation.Levels[OrusTheGame.Instance.GameInformation.CurrentLevelIndex].LevelBackground.Texture.Texture.Width && moveRight))
             {
                 collides = true;
             }
@@ -223,14 +224,14 @@ namespace Orus.GameObjects.Player.Characters
             foreach (var element in this.CollectedItems)
             {
                 Point2D beginningOfTheMenu = new Point2D(
-                    Orus.Instance.Camera.Center.X + element.ItemPicture.Texture.Texture.Width,
-                    Orus.Instance.Camera.Center.Y + element.ItemPicture.Texture.Texture.Height / 2);
+                    OrusTheGame.Instance.GameInformation.Camera.Center.X + element.ItemPicture.Texture.Texture.Width,
+                    OrusTheGame.Instance.GameInformation.Camera.Center.Y + element.ItemPicture.Texture.Texture.Height / 2);
                 element.DrawOnTheGameMenu(spriteBatch, beginningOfTheMenu);
             }
             //Draw the animations
             base.DrawAnimations(spriteBatch);
             //Draw the experience bar
-            if (!Orus.Instance.GameMenu.CharacterSelectionInProgress)
+            if (!OrusTheGame.Instance.GameInformation.GameMenu.CharacterSelectionInProgress)
             {
                 this.DrawExperienceBar(spriteBatch);
             }
@@ -241,8 +242,8 @@ namespace Orus.GameObjects.Player.Characters
             //The gray part 
 
             spriteBatch.Draw(this.Bar.Texture.Texture,
-                new Vector2(Orus.Instance.Camera.Center.X + Constant.ExperiencePositionX,
-                Orus.Instance.Camera.Center.Y + Constant.ExperiencePositionY),
+                new Vector2(OrusTheGame.Instance.GameInformation.Camera.Center.X + Constant.ExperiencePositionX,
+                OrusTheGame.Instance.GameInformation.Camera.Center.Y + Constant.ExperiencePositionY),
                 new Rectangle(0, 12, this.Bar.Texture.Texture.Width, 8), Color.Gray);
 
             //The purple experience
@@ -250,16 +251,16 @@ namespace Orus.GameObjects.Player.Characters
             double experienceInPercentage = ((double)this.Experience / this.Levels[this.CurrentLevel - 1]) * 100;
             spriteBatch.Draw(this.Bar.Texture.Texture,
                 new Rectangle(
-                (int)Orus.Instance.Camera.Center.X + (int)(Constant.ExperiencePositionX),
-                (int)Orus.Instance.Camera.Center.Y + (int)(Constant.ExperiencePositionY),
+                (int)OrusTheGame.Instance.GameInformation.Camera.Center.X + (int)(Constant.ExperiencePositionX),
+                (int)OrusTheGame.Instance.GameInformation.Camera.Center.Y + (int)(Constant.ExperiencePositionY),
                 (int)(this.Bar.Texture.Texture.Width * (experienceInPercentage / 100)), 8),
                  new Rectangle(0, 12, this.Bar.Texture.Texture.Width, 11), Color.Purple);
 
             //The border
 
             spriteBatch.Draw(this.Bar.Texture.Texture,
-               new Vector2(Orus.Instance.Camera.Center.X + Constant.ExperiencePositionX,
-                Orus.Instance.Camera.Center.Y + Constant.ExperiencePositionY),
+               new Vector2(OrusTheGame.Instance.GameInformation.Camera.Center.X + Constant.ExperiencePositionX,
+                OrusTheGame.Instance.GameInformation.Camera.Center.Y + Constant.ExperiencePositionY),
                new Rectangle(0, 0, this.Bar.Texture.Texture.Width, 11), Color.White);
         }
 
