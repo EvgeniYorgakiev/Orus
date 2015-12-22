@@ -33,7 +33,7 @@ namespace Orus.Menu
         private bool characterSelectionInProgress = false;
         private bool hasLoaded = false;
         private Point2D differenceInPositionFromLoad;
-        private List<Song> music = new List<Song>();
+        private List<SongSubstitude> music = new List<SongSubstitude>();
 
         public bool MusicOn
         {
@@ -68,7 +68,7 @@ namespace Orus.Menu
                 musicOnOffButtonImage = value;
             }
         }
-        public List<Song> Music
+        public List<SongSubstitude> Music
         {
             get
             {
@@ -292,8 +292,8 @@ namespace Orus.Menu
             this.OptionsMenuBackground = new Sprite("Sprites\\Background\\CreditsBackground", new Point2D(0, 0));
             this.MusicOnOffButtonImage.Add(new Sprite("Sprites\\Buttons\\MusicOnButton", new Point2D(0, 0)));
             this.MusicOnOffButtonImage.Add(new Sprite("Sprites\\Buttons\\MusicOffButton", new Point2D(0, 0)));
-            this.Music.Add(Content.Load<Song>("Music\\MainMenuMusic"));
-            this.Music.Add(Content.Load<Song>("Music\\Level1Music"));
+            this.Music.Add(new SongSubstitude("Music\\MainMenuMusic"));
+            this.Music.Add(new SongSubstitude("Music\\Level1Music"));
 
 
             this.MusicOnOffButton = new Button(
@@ -327,7 +327,7 @@ namespace Orus.Menu
             this.MusicOnOffButtonImage[0].IsActive = false;
             this.MusicOnOffButtonImage[1].IsActive = false;
 
-            MediaPlayer.Play(Music[0]);
+            MediaPlayer.Play(Music[0].Song);
         }
 
         public void Update()
@@ -364,7 +364,7 @@ namespace Orus.Menu
             }
             if ((IsMenuActive == false) && (MusicOn == true))
             {
-                MediaPlayer.Play(Music[1]);
+                MediaPlayer.Play(Music[1].Song);
             }
 
         }
@@ -558,7 +558,7 @@ namespace Orus.Menu
                     else if ((this.MusicOn == false))
                     {
                         this.MusicOn = true;
-                        MediaPlayer.Play(Music[0]);
+                        MediaPlayer.Play(Music[0].Song);
                         this.MusicOnOffButtonImage[1].IsActive = false;
                         this.MusicOnOffButtonImage[0].IsActive = true;
                     }

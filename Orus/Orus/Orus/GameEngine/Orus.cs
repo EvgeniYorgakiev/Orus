@@ -1,21 +1,19 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Orus.Constants;
-using Orus.GameObjects;
-using Orus.GameObjects.Player;
-using Orus.GameObjects.Player.Characters;
-using Orus.Texts;
-using Orus.Interfaces;
-using Orus.Levels;
-using Orus.Menu;
-using System.Collections.Generic;
-using Orus.DataManager;
-using System;
-using Orus.Sprites;
-using Orus.InputHandler;
-
 namespace Orus
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Constants;
+    using GameObjects;
+    using GameObjects.Player;
+    using GameObjects.Player.Characters;
+    using Levels;
+    using Menu;
+    using System.Collections.Generic;
+    using DataManager;
+    using System;
+    using Sprites;
+    using InputHandler;
+
     [Serializable()]
     public sealed class Orus : Game
     {
@@ -39,7 +37,6 @@ namespace Orus
             Content.RootDirectory = "Content";
             this.Exiting += Data.Save;
         }
-
 
         //Singleton pattern
         public static Orus Instance
@@ -225,11 +222,6 @@ namespace Orus
             this.CurrentLevelIndex = 0;
             this.NewGameSelection = new NewGameSelection();
             this.NewGameSelection.Load();
-        }
-
-        protected override void UnloadContent()
-        {
-
         }
 
         protected override void Update(GameTime gameTime)

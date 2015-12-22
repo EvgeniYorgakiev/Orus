@@ -51,12 +51,13 @@
                             new QuestGiver(Constant.PeasantDefaultName,
                             new Point2D(Constant.QuestGiver1PositionX, Constant.QuestGiver1PositionY),
                             Constant.PeasantIddleAnimationPath, Constant.PeasantIddleFramesNumber,
-                            new SlayQuest(Constant.SkeletonBossDefaultName, 1),
+                            new SlayQuest(Constant.ZombieDefaultName, 1),
                             Constant.QuestGiver1InitialText,
                             Constant.QuestGiver1CompletedText,
                             Constant.QuestGiver1OffsetFromTopForInitial,
                             Constant.QuestGiver1OffsetFromTopForCompleted,
-                            Constant.QuestGiver1HeightForText)
+                            Constant.QuestGiver1HeightForText, 
+                            Constant.QuestGiver1ExperienceOnFinish)
                         };
                         level.Interactives = new List<IInteractable>()
                         {

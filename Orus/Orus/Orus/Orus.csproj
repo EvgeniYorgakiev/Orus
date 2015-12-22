@@ -103,6 +103,7 @@
     <Compile Include="Levels\OptionalLevel1.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Menu\Button.cs" />
+    <Compile Include="Menu\SongSubstitude.cs" />
     <Compile Include="Quests\SlayQuest.cs" />
     <Compile Include="GameObjects\NPC\QuestGiver.cs" />
     <Compile Include="Texts\Text.cs" />

@@ -10,7 +10,6 @@ namespace Orus.Abilities
     public abstract class Ability
     {
         private FrameAnimation animation;
-        private int damage;
         private float cooldownTime;
         private float timeSinceUse;
         private bool isOnCooldown;
@@ -22,9 +21,8 @@ namespace Orus.Abilities
         {
 
         }
-        public Ability(int damage, float cooldown, string pathForAnimation, int animationFrames, DamageType damageType)
+        public Ability(float cooldown, string pathForAnimation, int animationFrames, DamageType damageType)
         {
-            this.Damage = damage;
             this.Animation = new FrameAnimation(
                 pathForAnimation,
                 animationFrames);
@@ -44,19 +42,6 @@ namespace Orus.Abilities
             set
             {
                 this.animation = value;
-            }
-        }
-
-        public int Damage
-        {
-            get
-            {
-                return this.damage;
-            }
-
-            set
-            {
-                this.damage = value;
             }
         }
 
@@ -138,7 +123,10 @@ namespace Orus.Abilities
             }
         }
 
-        public abstract void Update(GameTime gameTime, AttackableGameObject objectUsingAbility);
+        public virtual void Update(GameTime gameTime, AttackableGameObject objectUsingAbility)
+        {
+            this.Animation.Position = objectUsingAbility.Position;
+        }
 
         public virtual void Action(Character character)
         {

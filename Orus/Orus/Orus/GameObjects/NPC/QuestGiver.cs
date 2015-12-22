@@ -17,6 +17,7 @@ namespace Orus.GameObjects.NPC
         private Text completedText;
         private IQuest quest;
         private bool updating;
+        private int experienceOnFinish;
 
         public QuestGiver()
         {
@@ -24,7 +25,7 @@ namespace Orus.GameObjects.NPC
         }
 
         public QuestGiver(string name, Point2D position, string iddleAnimationPath, int framesForIddleAnimation, IQuest quest,
-            string initialText, string completedText, int offsetFromTopForInitial, int offsetFromTopForCompleted, int heightForText) 
+            string initialText, string completedText, int offsetFromTopForInitial, int offsetFromTopForCompleted, int heightForText, int experienceOnFinish) 
             : base(name, position, 
                   new Rectangle2D((int)position.X + Constant.PeasantWidth / 2, (int)position.Y,
                       Constant.PeasantWidth, Constant.DefaultHeighForEverything))
@@ -44,6 +45,7 @@ namespace Orus.GameObjects.NPC
             this.CompletedText = new Text(this.CompletedTextOnly, false, (int)this.Position.X, (int)this.Position.Y - offsetFromTopForCompleted,
                 Constant.QuestGiverTextWidth, heightForText, Constant.QuestGiverTextDelayInMilliseconds,
                 Color.White, false, Constant.QuestFontPath);
+            this.ExperienceOnFinish = experienceOnFinish;
         }
 
         public string InitialTextOnly
@@ -118,12 +120,24 @@ namespace Orus.GameObjects.NPC
             }
         }
 
+        public int ExperienceOnFinish
+        {
+            get
+            {
+                return this.experienceOnFinish;
+            }
+            set
+            {
+                this.experienceOnFinish = value;
+            }
+        }
+
         public void Interact()
         {
             this.Updating = true;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             if (this.Updating)
@@ -138,13 +152,19 @@ namespace Orus.GameObjects.NPC
                 }
                 else
                 {
-                    if (this.CompletedText.TypedText.Length == this.InitialText.ParsedText.Length)
+                    if (this.CompletedText.TypedText.Length == this.CompletedText.ParsedText.Length)
                     {
                         updating = false;
+                        this.OnFinish();
                     }
                     this.CompletedText.Update(gameTime, true);
                 }
             }
+        }
+
+        private void OnFinish()
+        {
+            Orus.Instance.Character.AddExperience(this.ExperienceOnFinish);
         }
 
         public override void DrawAnimations(SpriteBatch spriteBatch)

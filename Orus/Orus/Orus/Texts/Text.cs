@@ -93,7 +93,7 @@ namespace Orus.Texts
             }
         }
 
-        private double TypedTextLength
+        public double TypedTextLength
         {
             get
             {
@@ -192,7 +192,7 @@ namespace Orus.Texts
             }
         }
 
-        private string ParseText(string text, bool textIsWhole = false)
+        public string ParseText(string text, bool textIsWhole = false)
         {
             string line = string.Empty;
             string returnString = string.Empty;

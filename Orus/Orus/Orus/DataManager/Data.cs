@@ -1,6 +1,7 @@
 ﻿using Orus.GameObjects;
 using Orus.GameObjects.Player;
 using Polenter.Serialization;
+using System;
 
 namespace Orus.DataManager
 {
@@ -8,17 +9,20 @@ namespace Orus.DataManager
     {
         public static void Save(object sender = null, object args = null)
         {
-            SharpSerializer serializer = new SharpSerializer();
-            //Decide which properties to ignore
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Content");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Components");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "LaunchParameters");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Services");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "TargetElapsedTime");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "QuestFont");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "NameFont");
-            serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "AllCharacters");
-            serializer.Serialize(Orus.Instance, "save.xml");
+            if(Orus.Instance.Character != null)
+            {
+                SharpSerializer serializer = new SharpSerializer();
+                //Decide which properties to ignore
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Content");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Components");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "LaunchParameters");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "Services");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "TargetElapsedTime");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "QuestFont");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "NameFont");
+                serializer.PropertyProvider.PropertiesToIgnore.Add(typeof(Orus), "AllCharacters");
+                serializer.Serialize(Orus.Instance, "save.xml");
+            }
         }
 
         public static void Load()

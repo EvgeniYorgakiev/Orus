@@ -6,6 +6,7 @@ using Orus.GameObjects.Enemies;
 using Orus.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Orus.GameObjects.Player.Characters
 {
@@ -262,7 +263,7 @@ namespace Orus.GameObjects.Player.Characters
                new Rectangle(0, 0, this.Bar.Texture.Texture.Width, 11), Color.White);
         }
 
-        private void AddExperience(int experience)
+        public void AddExperience(int experience)
         {
             if(this.CurrentLevel < this.Levels.Count)
             {
@@ -280,6 +281,9 @@ namespace Orus.GameObjects.Player.Characters
             this.AttackDamage += this.DamageOnLevelUp;
             this.MaxHealth += this.HealthOnLevelUp;
             this.Health = this.MaxHealth;
+            this.UpdateAbilityDamage();
         }
+
+        protected abstract void UpdateAbilityDamage();
     }
 }

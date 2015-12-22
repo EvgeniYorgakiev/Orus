@@ -243,10 +243,16 @@ namespace Orus.Constants
         public const int QuestGiver1OffsetFromTopForInitial = 50;
         public const int QuestGiver1OffsetFromTopForCompleted = 0;
         public const int QuestGiver1HeightForText = 50;
+        public const int QuestGiver1ExperienceOnFinish = 100;
 
         public const string PeasantDefaultName = "Peasant";
         public const string PeasantIddleAnimationPath = "Sprites\\NPCS\\Peasant\\Peasant iddle";
         public const int PeasantIddleFramesNumber = 4;
         public const int PeasantWidth = 50;
+
+        //Abilities
+
+        public const float DoubleStrikeDamageModifier = 2;
+        public const float SlashStrikeDamageModifier = 1.5f;
     }
 }

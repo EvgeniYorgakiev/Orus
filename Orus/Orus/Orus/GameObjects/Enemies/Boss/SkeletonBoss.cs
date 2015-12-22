@@ -23,7 +23,8 @@ namespace Orus.GameObjects.Enemies.Boss
         public  SkeletonBoss(string name, Point2D position, ContentManager Content)
             : base(name, position,
                   new Rectangle2D((int)position.X + Constant. SkeletonBossWidth / 2, (int)position.Y,
-                      Constant.SkeletonBossWidth, Constant.DefaultHeighForEverything), 
+                      (int)(Constant.SkeletonBossWidth * Constant.SkeletonBossScale),
+                      (int)(Constant.DefaultHeighForEverything * Constant.SkeletonBossScale)), 
                   Constant.SkeletonBossDefaultMoveSpeed,
                   Constant.SkeletonBossDefaultHealth,
                   Constant.SkeletonBossDefaultArmor, 

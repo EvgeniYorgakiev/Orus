@@ -338,10 +338,6 @@ namespace Orus.GameObjects
 
             set
             {
-                if (this.isUsingAbility)
-                {
-                    this.AbilityInUse.Animation.Position = value;
-                }
                 if (this.MoveAnimation != null)
                 {
                     this.MoveAnimation.Position = value;

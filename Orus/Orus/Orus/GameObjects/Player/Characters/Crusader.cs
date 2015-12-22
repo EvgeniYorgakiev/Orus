@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Orus.Abilities;
@@ -64,10 +65,10 @@ namespace Orus.GameObjects.Player.Characters
                  Constant.CrusaderDeathFramesNumber,
                  this);
             this.DeathAnimation.IsLoop = false;
-            this.DoubleStrike = new DoubleStrike(this.AttackDamage * 2, 
+            this.DoubleStrike = new DoubleStrike((int)(this.AttackDamage * Constant.DoubleStrikeDamageModifier), 
                 Constant.CrusaderDoubleAttackAnimationPath, 
                 Constant.CrusaderDoubleAttackFramesNumber);
-            this.Slash = new Slash((int)(this.AttackDamage * 1.5),
+            this.Slash = new Slash((int)(this.AttackDamage * Constant.SlashStrikeDamageModifier),
                 Constant.CrusaderDoubleAttackAnimationPath,
                 Constant.CrusaderDoubleAttackFramesNumber);
         }
@@ -116,6 +117,12 @@ namespace Orus.GameObjects.Player.Characters
         {
             base.Die();
             this.DoubleStrike.Animation.IsActive = false;
+        }
+
+        protected override void UpdateAbilityDamage()
+        {
+            this.DoubleStrike.Damage = (int)(this.AttackDamage * Constant.DoubleStrikeDamageModifier);
+            this.Slash.Damage = (int)(this.AttackDamage * Constant.SlashStrikeDamageModifier);
         }
     }
 }

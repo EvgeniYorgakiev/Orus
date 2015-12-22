@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Orus.Constants;
 using Orus.Quests;
 using Orus.Sprites;
@@ -41,6 +42,14 @@ namespace Orus.GameObjects.Enemies
             {
                 //If the enemy can attack the character
                 bool movesRight = this.Position.X < Orus.Instance.Character.Position.X;
+                if(movesRight && this.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally))
+                {
+                    FlipImages(false);
+                }
+                else if(!movesRight && !this.IddleAnimation.SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally))
+                {
+                    FlipImages(true);
+                }
                 if (this.CollidesForAttack(Orus.Instance.Character, movesRight, this.AttackRange))
                 {
                     this.AttackAnimation.IsActive = true;
